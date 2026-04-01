@@ -62,7 +62,7 @@ body {
     flex-direction: column;
     align-items: center;
     /* Movemos todo hacia arriba para que pise el turquesa */
-    margin-top: -6.6cm; 
+    margin-top: -249.44px; 
 }
 
 .login-card, .register-card {
@@ -77,7 +77,7 @@ body {
 
 .login-card h1, 
 .register-card h1 {
-    margin-bottom: 0.5cm;
+    margin-bottom: 18.89px;
     font-family: 'Montserrat', sans-serif;
     color: #333;
     font-weight: 300;
@@ -101,7 +101,7 @@ body {
     border-radius: 25px;
     border: none;
     cursor: pointer;
-    margin-top: 0.3cm;
+    margin-top: 11.33px;
 }
 
 .bottom-text {
