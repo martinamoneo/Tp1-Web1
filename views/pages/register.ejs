@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="/styles.css">
+
+<%- include('../partials/header') %>
+
+<main class="register-container">
+    <div class="top-banner"></div>
+
+    <div class="register-wrapper">
+        
+        <section class="register-card">
+            <h1>¡Registrate!</h1>
+            
+            <form action="/register" method="POST" class="register-form">
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="Tu mail" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" id="password" name="password" placeholder="Tu nueva contraseña" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repite tu contraseña" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Crear cuenta</button>
+            </form>
+        </section> <p class="bottom-text">
+            ¿Ya tienes cuenta? <a href="/login">Inicia sesión</a>
+        </p>
+
+    </div>
+</main>
+
+<%- include('../partials/footer') %>

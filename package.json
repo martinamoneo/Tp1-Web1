@@ -1,0 +1,26 @@
+{
+  "name": "tp1-web1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinamoneo/Tp1-Web1.git"
+  },
+  "author": "martina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martinamoneo/Tp1-Web1/issues"
+  },
+  "homepage": "https://github.com/martinamoneo/Tp1-Web1#readme",
+  "dependencies": {
+    "ejs": "^5.0.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

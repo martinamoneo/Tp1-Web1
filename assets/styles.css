@@ -1,0 +1,156 @@
+/* El fondo general de la página es el gris clarito */
+body {
+    background-color: #f0f0f0; 
+    font-family: 'Montserrat', sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 'vh' significa Viewport Height (altura de la pantalla) */
+    margin: 0;
+}
+
+/*HEADER*/
+.main-header {
+    background-color: #f8f8f8; /* El gris clarito de fondo */
+    padding: 20px 0 0 0; /* Un poco de espacio arriba */
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 15px 20px;
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 28px; /* Ajusta según veas necesario */
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+}
+
+/* La parte gordita (Mi) */
+.logo-bold {
+    color: #1abc9c; /* El verde agua */
+    font-weight: 800; /* Extra Bold */
+}
+
+/* La parte finita (Ecommerce) */
+.logo-light {
+    color: #1abc9c;
+    font-weight: 300; /* Light */
+}
+ 
+/*INICIA SESION Y REGISTRO*/
+.login-container, .register-container {
+    flex: 1; /* Esto hace que esta sección crezca y empuje al footer al fondo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* Para que el banner turquesa se posicione bien */
+}
+
+/* El bloque turquesa de arriba */
+.top-banner {
+    background-color: #1abc9c;
+    height: 300px; /* Ajusta la altura según veas */
+    width: 100%;
+}
+
+/* El contenedor que envuelve la tarjeta blanca */
+.login-wrapper, .register-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Movemos todo hacia arriba para que pise el turquesa */
+    margin-top: -6.6cm; 
+}
+
+.login-card, .register-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+}
+
+.login-card h1, 
+.register-card h1 {
+    margin-bottom: 0.5cm;
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+    font-weight: 300;
+    text-align: left;
+}
+
+.login-form input,
+.register-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 25px; /* Bordes redondeados como en la imagen */
+}
+
+.btn-submit {
+    background-color: #4a4a4a;
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.3cm;
+}
+
+.bottom-text {
+    color: #666; /* Un gris para todo el texto de abajo */
+    margin-top: 20px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.bottom-text a {
+    color: inherit; /* 'inherit' significa que use el mismo color que el texto de al lado */
+    text-decoration: underline; /*  */
+}
+
+/* FOOTER */
+.main-footer {
+    background-color: #eeeeee; /* Gris clarito del fondo */
+    padding: 15px 0;
+    border-top: 1px solid #ccc; /* La línea finita de arriba */
+    color: #888; /* Color de texto gris suave */
+    font-size: 14px;
+    width: 100%;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Separa las 3 secciones */
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Redes y Apps */
+.footer-social a, .app-link {
+    color: #888;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 20px;
+}
+
+.footer-apps {
+    display: flex;
+    gap: 20px;
+}
+
+.app-link {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre el icono y el texto */
+    font-size: 14px;
+}
