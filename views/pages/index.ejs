@@ -1,12 +1,62 @@
 <%- include('../partials/header') %>
 
-<main style="text-align: center; padding: 50px;">
-    <h1>Bienvenido a MiEcommerce</h1>
-    <p>Para empezar a comprar, por favor creá tu cuenta.</p>
-    
-    <a href="/register" style="display: inline-block; background-color: #1abc9c; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none;">
-        Ir a Registrarme
-    </a>
+<main>
+    <section class="home-container">
+    <nav class="categories-nav">
+    <ul class="categories-list">
+        <li><i class="fas fa-whiskey-glass"></i><span>Mates</span></li>
+        <li><i class="fas fa-beer"></i><span>Vasos</span></li>
+        <li><i class="fas fa-key"></i><span>Llaveros</span></li>
+        <li><i class="fas fa-crop-simple"></i><span>Soportes</span></li>
+        <li><i class="fas fa-trophy"></i><span>Premios</span></li>
+        <li><i class="fas fa-snowman"></i><span>Munecos</span></li>
+        <li><i class="fa-regular fa-lightbulb"></i><span>Lamparas</span></li>
+        <li class="last-item"><i class="fas fa-gift"></i><span>Otros</span></li>
+    </ul>
+</nav>
+
+    <!--  <section class="offers-banner">
+        <div class="banner-card disney"> </div>
+        <div class="banner-card hbo"> </div>
+    </section>
+
+    <section class="products-section">
+        <h2>Te puede interesar</h2>
+        <div class="products-grid">
+            <article class="product-card">
+                <img src="/img/whiskey.jpg" alt="Producto">
+                <div class="product-info">
+                    <p class="name">Whiskey Jack Daniels...</p>
+                    <p class="price">$19.900</p>
+                </div>
+            </article>
+            </div>
+    </section>-->
+</section>
+
+<section class="banner-section">
+    <div class="banner-container">
+        
+        <article class="banner-card1">
+            <div class="banner-content">
+                <div class="banner-text">
+                    <h3>50% OFF en Combo Plus</h3>
+                    <p>Canjeando 50.000 puntos MiEcommerce.</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="banner-card2">
+            <div class="banner-content">
+                <div class="banner-text">
+                    <h3>50% OFF en HBO Max</h3>
+                    <p>Canjeando 50.000 puntos MiEcommerce.</p>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</section>
 </main>
 
 <%- include('../partials/footer') %>

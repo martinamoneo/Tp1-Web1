@@ -39,6 +39,100 @@ body {
     color: #1abc9c;
     font-weight: 300; /* Light */
 }
+
+/* Contenedor principal del header */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+/* buscador */
+.header-search {
+    flex: 1; /* Esto hace que el buscador ocupe todo el espacio central */
+    position: relative;
+    max-width: 600px; /* Para que no sea infinitamente largo */
+}
+
+.header-search input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+}
+
+.header-search button {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+}
+
+/* carrito y perfil */
+.header-user-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.cart-container {
+    position: relative;
+    font-size: 22px;
+    color: #4a4d4e;
+}
+
+/* La burbujita roja del carrito */
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: #ff0000;
+    color: white;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+/* Píldora de perfil (Gris oscuro) */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #4a4d4e;
+    color: white;
+    padding: 6px 6px 6px 6px; /* Menos padding a la izquierda para la foto */
+    border-radius: 25px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.user-profile:hover {
+    background-color: #f0f0f0; /* Un gris un poco más oscuro al pasar el mouse */
+    color: #4a4d4e; 
+}
+
+.user-profile a {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.user-profile:hover a { 
+    color: #4a4d4e;
+}
+
+.user-profile img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
  
 /*INICIA SESION Y REGISTRO*/
 .login-container, .register-container {

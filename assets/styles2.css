@@ -1,0 +1,118 @@
+body {
+    background-color: #f0f0f0; 
+    font-family: 'Montserrat', sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 'vh' significa Viewport Height (altura de la pantalla) */
+    margin: 0;
+}
+
+/*HOME*/
+/*primera seccion*/
+.categories-nav {
+    display: flex;
+    justify-content: center; /* Centra la barra en la pantalla */
+    margin: 40px 0; /* Espacio arriba y abajo */
+}
+
+.categories-list {
+    background-color: #333; /* El color gris oscuro/negro */
+    display: flex;
+    list-style: none;
+    padding: 20px;
+    border-radius: 20px; /* Bordes redondeados de la barra completa */
+    width: 90%;
+    max-width: 1100px;
+}
+
+.categories-list li {
+    flex: 1; /* Todos ocupan el mismo ancho */
+    display: flex;
+    flex-direction: column; /* Icono arriba, texto abajo */
+    align-items: center;
+    color: white;
+    gap: 8px;
+    border-right: 1px solid rgba(255, 255, 255, 0.3); /* La línea separadora */
+    cursor: pointer;
+}
+
+/* Quitamos la línea al último elemento para que no quede sobrando */
+.categories-list li:last-child {
+    border-right: none;
+}
+
+.categories-list li i {
+    font-size: 24px; /* Tamaño del icono */
+}
+
+.categories-list li span {
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.categories-list li:hover {
+    color: #1abc9c; /* Cambia a turquesa cuando pasas el mouse */
+    transition: 0.3s;
+}
+
+/*segunda seccion*/
+.banner-section {
+    background-color: #1abc9c; /* El turquesa de fondo */
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.banner-container {
+    width: 90%;
+    max-width: 1100px;
+    display: flex;
+    gap: 20px; /* Espacio entre las dos tarjetas */
+}
+
+.banner-card {
+    flex: 1;
+    height: 220px;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: flex-end; /* Empuja el texto hacia abajo */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    color: white;
+    gap: 15px;
+}
+
+.banner-logo {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-logo img {
+    width: 100%;
+}
+
+.banner-text h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.banner-text p {
+    font-size: 14px;
+    opacity: 0.9;
+}
