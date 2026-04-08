@@ -114,7 +114,8 @@ body {
 
 .user-profile:hover {
     background-color: #f0f0f0; /* Un gris un poco más oscuro al pasar el mouse */
-    color: #4a4d4e; 
+    color: #4a4d4e;
+    transition: 0.3s; 
 }
 
 .user-profile a {
@@ -125,6 +126,7 @@ body {
 
 .user-profile:hover a { 
     color: #4a4d4e;
+    transition: 0.3s;
 }
 
 .user-profile img {

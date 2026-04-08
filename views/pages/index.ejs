@@ -40,8 +40,8 @@
         <article class="banner-card1">
             <div class="banner-content">
                 <div class="banner-text">
-                    <h3>50% OFF en Combo Plus</h3>
-                    <p>Canjeando 50.000 puntos MiEcommerce.</p>
+                    <h3>Novedades</h3>
+                    <p>descripcion</p>
                 </div>
             </div>
         </article>
@@ -49,13 +49,25 @@
         <article class="banner-card2">
             <div class="banner-content">
                 <div class="banner-text">
-                    <h3>50% OFF en HBO Max</h3>
-                    <p>Canjeando 50.000 puntos MiEcommerce.</p>
+                    <h3>Proximos ingresos</h3>
+                    <p>descripcion</p>
                 </div>
             </div>
         </article>
 
     </div>
+</section>
+
+<section class="products-section">
+
+    <h2>Mira nuestros productos!</h2>
+
+    <div class="products-grid">
+        <% listaProductos.forEach(producto => { %>
+            <%- include('../partials/productCard', { producto: producto }) %>
+        <% }); %>
+    </div>
+
 </section>
 </main>
 

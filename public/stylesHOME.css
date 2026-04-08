@@ -8,8 +8,7 @@ body {
     margin: 0;
 }
 
-/*HOME*/
-/*primera seccion*/
+/*CATEGORIAS*/
 .categories-nav {
     display: flex;
     justify-content: center; /* Centra la barra en la pantalla */
@@ -56,7 +55,7 @@ body {
     transition: 0.3s;
 }
 
-/*segunda seccion*/
+/*NOVEDADES E INGRESOS*/
 .banner-section {
     background-color: #1abc9c; /* El turquesa de fondo */
     padding: 40px 0;
@@ -71,7 +70,8 @@ body {
     gap: 20px; /* Espacio entre las dos tarjetas */
 }
 
-.banner-card {
+.banner-card1 ,
+.banner-card2 {
     flex: 1;
     height: 220px;
     border-radius: 15px;
@@ -79,8 +79,22 @@ body {
     position: relative;
     display: flex;
     align-items: flex-end; /* Empuja el texto hacia abajo */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    cursor: pointer;
+    /* Configuración para que la imagen ocupe todo el fondo */
+    background-size: cover;      /* Cubre todo sin estirarse */
+    background-position: center; /* Centra la foto */
+    background-repeat: no-repeat;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Una sombrita para que resalte */
+}
+
+.banner-card1{
+    background-image: linear-gradient(to top, rgba(0,0,0,0.8), transparent), 
+                      url('/img/novedades.jpeg');
+
+}
+
+.banner-card2 {
+    background-image: linear-gradient(to top, rgba(0,0,0,0.8), transparent), 
+                      url('/img/ingresos.jpeg');
 }
 
 .banner-content {
@@ -108,11 +122,63 @@ body {
 }
 
 .banner-text h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
+    font-size: 17px;
+    margin-bottom: -5px;
+    font-weight: 600;
 }
 
 .banner-text p {
-    font-size: 14px;
-    opacity: 0.9;
+    font-size: 13px;
+    font-weight: 300;
+     margin-bottom: -5px;
+}
+
+/*PRODUCTOS*/
+.products-section h2{
+    text-align: left;
+    margin: 30px 0px 10px 60px;
+    font-weight: 600; 
+    font-size: 25px;
+    color:#1abc9c;
+
+}
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+    gap: 20px 30px;
+    padding: 20px 60px 20px 60px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+    max-width: 270px
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Efecto de que "flota" al pasar el mouse */
+}
+
+.product-image {
+    display: flex;         /* Activamos Flexbox */
+    justify-content: center; /* Centramos horizontalmente */
+    align-items: center;     /* Centramos verticalmente (opcional) */
+    height: 180px;         /* Dale una altura fija para que todas queden iguales */
+    overflow: hidden;      /* Por seguridad */
+    padding: 10px;
+}
+
+.product-image img {
+    /* Ya no necesitamos width: 100% porque Flexbox la acomoda */
+    max-height: 100%;      /* Que no se pase de la altura del contenedor */
+    max-width: 100%;       /* Que no se pase del ancho del contenedor */
+    object-fit: contain;   /* Mantiene la proporción sin deformar */
+}
+
+.product-info {
+    padding: 15px;
+    border-top: 1px solid #eee;
 }
