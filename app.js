@@ -13,14 +13,14 @@ app.use(express.static(path.join(__dirname, 'public')));// Esto hace que tu carp
 // HOME
 app.get('/', (req, res) => {
     const productos = [
-        { nombre: 'Producto', precio: 19900, imagen: 'pinterest.jpg' },
-        { nombre: 'Producto', precio: 19900, imagen: 'pinterest.jpg' },
-        { nombre: 'Producto', precio: 19900, imagen: 'pinterest.jpg' },
-        { nombre: 'Producto', precio: 19900, imagen: 'pinterest.jpg' },
-        { nombre: 'Producto', precio: 19900, imagen: 'pinterest.jpg' },
-        { nombre: 'Producto', precio: 19900, imagen: 'pinterest.jpg' },
-        { nombre: 'Producto', precio: 19900, imagen: 'pinterest.jpg' },
-        { nombre: 'Producto', precio: 19900, imagen: 'pinterest.jpg' }
+       { 
+        nombre: 'Producto', 
+        precio: 19900, 
+        imagenes: ['pinterest.jpg', 'pinterest.jpg', 'pinterest.jpg'],
+        descripcion: 'Descripción del producto.',
+        puntos: 19900
+    },
+        
     ];
         
     res.render('pages/index', { 
