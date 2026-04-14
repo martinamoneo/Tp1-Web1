@@ -39,7 +39,13 @@ app.get('/login', (req, res) => {
     res.render('pages/login' , { esInicio: false });
 });
 
+// CART
+app.get('/cart', (req, res) => {
+    res.render('pages/cart', { esInicio: false });
+});
+
 // Iniciamos el servidor
 app.listen(3000, 
 	()=> console.log("Server is Ready! 🫡")
 )
+

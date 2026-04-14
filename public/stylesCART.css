@@ -1,0 +1,184 @@
+.cart-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.cart-wrapper {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cart-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #333;
+}
+
+/* CARRITO VACÍO */
+.cart-vacio {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 60px 0;
+    color: #aaa;
+    font-size: 18px;
+}
+
+.cart-vacio i {
+    font-size: 60px;
+    color: #ddd;
+}
+
+/* ITEMS */
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cart-item {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 10px;
+    background: #f8f8f8;
+    padding: 5px;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-info h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.cart-item-info p {
+    color: #1abc9c;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.cart-item-cantidad {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+}
+
+.cart-item-cantidad button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.2s;
+}
+
+.cart-item-cantidad button:hover {
+    transform: scale(1.2);
+}
+
+.cart-item-cantidad span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    min-width: 25px;
+    text-align: center;
+}
+
+.cart-item-subtotal {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #333;
+    font-size: 15px;
+    min-width: 120px;
+    text-align: right;
+}
+
+/* FOOTER DEL CARRITO */
+.cart-footer {
+    background: white;
+    border-radius: 15px;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    margin-top: 10px;
+}
+
+.cart-total {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.cart-total span:first-child {
+    font-size: 14px;
+    color: #888;
+}
+
+.cart-total span:last-child {
+    font-size: 24px;
+    font-weight: 800;
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cart-acciones {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-volver {
+    color: #666;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    padding: 12px 20px;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+
+.btn-volver:hover {
+    background: #f0f0f0;
+}
+
+.btn-pagar {
+    background-color: #1abc9c;
+    color: white;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 25px;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+
+.btn-pagar:hover {
+    background-color: #17a589;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(26,188,156,0.4);
+}

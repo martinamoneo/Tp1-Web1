@@ -1,0 +1,90 @@
+<%- include('../partials/header') %>
+
+<main class="cart-container">
+    <div class="cart-wrapper">
+
+        <h1 class="cart-title">Tu Carrito</h1>
+
+        <div id="cart-vacio" class="cart-vacio" style="display:none;">
+            <i class="fas fa-shopping-cart"></i>
+            <p>Tu carrito está vacío</p>
+            <a href="/" class="btn-volver">Volver al listado</a>
+        </div>
+
+        <div id="cart-contenido">
+            <div id="cart-items" class="cart-items"></div>
+
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total-puntos">0 PUNTOS</span>
+                </div>
+                <div class="cart-acciones">
+                    <a href="/" class="btn-volver">Volver al listado</a>
+                    <a href="/pagar" class="btn-pagar">Ir a Pagar</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<script>
+    // Cargamos el carrito desde localStorage
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function renderCarrito() {
+        const contenedor = document.getElementById('cart-items');
+        const cartVacio = document.getElementById('cart-vacio');
+        const cartContenido = document.getElementById('cart-contenido');
+
+        if (carrito.length === 0) {
+            cartVacio.style.display = 'flex';
+            cartContenido.style.display = 'none';
+            return;
+        }
+
+        cartVacio.style.display = 'none';
+        cartContenido.style.display = 'block';
+
+        contenedor.innerHTML = '';
+        let total = 0;
+
+        carrito.forEach((item, index) => {
+            total += item.puntos * item.cantidad;
+            contenedor.innerHTML += `
+                <div class="cart-item">
+                    <img src="/img/${item.imagen}" alt="${item.nombre}">
+                    <div class="cart-item-info">
+                        <h4>${item.nombre}</h4>
+                        <p>${item.puntos} PUNTOS</p>
+                    </div>
+                    <div class="cart-item-cantidad">
+                        <button onclick="cambiarCantidad(${index}, -1)">➖</button>
+                        <span>${item.cantidad}</span>
+                        <button onclick="cambiarCantidad(${index}, 1)">➕</button>
+                    </div>
+                    <p class="cart-item-subtotal">${item.puntos * item.cantidad} PUNTOS</p>
+                </div>
+            `;
+        });
+
+        document.getElementById('cart-total-puntos').textContent = total + ' PUNTOS';
+    }
+
+    function cambiarCantidad(index, valor) {
+        carrito[index].cantidad += valor;
+        if (carrito[index].cantidad <= 0) {
+            carrito.splice(index, 1);
+        }
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        renderCarrito();
+    }
+
+    renderCarrito();
+</script>
+
+<%- include('../partials/footer') %>
+
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/stylesCART.css">

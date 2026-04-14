@@ -238,6 +238,43 @@ body {
 /* SLIDER */
 .panel-izquierda {
     flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.panel-galeria {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.panel-thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.thumbnail {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.thumbnail:hover {
+    opacity: 1;
+    border-color: #aaa;
+}
+
+.thumbnail.activo {
+    opacity: 1;
+    border-color: #1abc9c;
 }
 
 .slider-container {

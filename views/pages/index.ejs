@@ -76,19 +76,27 @@
 
         <button class="panel-close" onclick="cerrarPanel()">✕</button>
 
-        <div class="panel-izquierda">
-            <div class="slider-container">
-                <button class="slider-btn izquierda" onclick="cambiarFoto(-1)">&#8249;</button>
-                <img id="panelImagen" src="" alt="" class="panel-img-principal">
-                <button class="slider-btn derecha" onclick="cambiarFoto(1)">&#8250;</button>
-            </div>
-            <div id="slider-dots" class="slider-dots"></div>
-        </div>
+       <div class="panel-izquierda">
+        <div class="panel-galeria">
+        
+        <!-- Miniaturas -->
+        <div id="panel-thumbnails" class="panel-thumbnails"></div>
+
+        <!-- Imagen principal con flechas -->
+        <div class="slider-container">
+            <button class="slider-btn izquierda" onclick="cambiarFoto(-1)">&#8249;</button>
+            <img id="panelImagen" src="" alt="" class="panel-img-principal">
+            <button class="slider-btn derecha" onclick="cambiarFoto(1)">&#8250;</button>
+       </div>
+
+    </div>
+    <div id="slider-dots" class="slider-dots"></div>
+</div>
 
         <div class="panel-derecha">
             <h2 id="panelNombre"></h2>
             <p class="panel-puntos"><span id="panelPuntos"></span> PUNTOS</p>
-            <button class="btn-carrito">Agregar al Carrito</button>
+            <button class="btn-carrito" onclick="agregarAlCarrito()">Agregar al Carrito</button>
             <p id="panelDescripcion" class="panel-descripcion"></p>
         </div>
 
@@ -114,6 +122,7 @@
 
         actualizarFoto();
         generarDots();
+        generarThumbnails();
 
         const panel = document.getElementById('panelProducto');
         panel.classList.add('activo');
@@ -146,18 +155,77 @@
         dots.forEach((dot, i) => {
             dot.classList.toggle('activo', i === indiceActual);
         });
+
+        // Actualizar thumbnails
+        document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+        thumb.classList.toggle('activo', i === indiceActual);
+    });
     }
 
+    function generarThumbnails() {
+    const contenedor = document.getElementById('panel-thumbnails');
+    contenedor.innerHTML = '';
+    imagenesActuales.forEach((img, i) => {
+        const thumb = document.createElement('img');
+        thumb.src = '/img/' + img;
+        thumb.classList.add('thumbnail');
+        if (i === 0) thumb.classList.add('activo');
+        thumb.onclick = () => { indiceActual = i; actualizarFoto(); };
+        contenedor.appendChild(thumb);
+    });
+}
+
     function generarDots() {
-        const contenedor = document.getElementById('slider-dots');
-        contenedor.innerHTML = '';
-        imagenesActuales.forEach((_, i) => {
-            const dot = document.createElement('span');
-            dot.classList.add('dot');
-            if (i === 0) dot.classList.add('activo');
-            dot.onclick = () => { indiceActual = i; actualizarFoto(); };
-            contenedor.appendChild(dot);
+    const contenedor = document.getElementById('slider-dots');
+    contenedor.innerHTML = '';
+    imagenesActuales.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('activo');
+        dot.onclick = () => { indiceActual = i; actualizarFoto(); };
+        contenedor.appendChild(dot);
+    });
+}
+    function agregarAlCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    
+    const nombre = document.getElementById('panelNombre').textContent;
+    const puntos = parseInt(document.getElementById('panelPuntos').textContent);
+
+    const existe = carrito.find(item => item.nombre === nombre);
+    if (existe) {
+        existe.cantidad += 1;
+    } else {
+        carrito.push({
+            nombre: nombre,
+            puntos: puntos,
+            imagen: imagenesActuales[0],
+            cantidad: 1
         });
     }
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarBadge();
+
+    // Feedback visual
+    const btn = document.querySelector('.btn-carrito');
+    btn.textContent = '✓ Agregado!';
+    btn.style.backgroundColor = '#1abc9c';
+    setTimeout(() => {
+        btn.textContent = 'Agregar al Carrito';
+        btn.style.backgroundColor = '';
+    }, 1500);
+}
+
+function actualizarBadge() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+    const badge = document.querySelector('.cart-badge');
+    if (badge) badge.textContent = total;
+}
+
+// Al cargar la página actualizamos el badge
+actualizarBadge();
+
 </script>
 <%- include('../partials/footer') %>
