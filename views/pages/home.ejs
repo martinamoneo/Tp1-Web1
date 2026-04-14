@@ -1,0 +1,91 @@
+<%- include('../partials/header') %>
+
+<main>
+    <section class="home-container">
+    <nav class="categories-nav">
+    <ul class="categories-list">
+        <li><i class="fas fa-whiskey-glass"></i><span>Mates</span></li>
+        <li><i class="fas fa-beer"></i><span>Vasos</span></li>
+        <li><i class="fas fa-key"></i><span>Llaveros</span></li>
+        <li><i class="fas fa-crop-simple"></i><span>Soportes</span></li>
+        <li><i class="fas fa-trophy"></i><span>Premios</span></li>
+        <li><i class="fas fa-snowman"></i><span>Munecos</span></li>
+        <li><i class="fa-regular fa-lightbulb"></i><span>Lamparas</span></li>
+        <li class="last-item"><i class="fas fa-gift"></i><span>Otros</span></li>
+    </ul>
+    </nav>
+    </section>
+
+<section class="banner-section">
+    <div class="banner-container">
+        
+        <article class="banner-card1">
+            <div class="banner-content">
+                <div class="banner-text">
+                    <h3>Novedades</h3>
+                    <p>descripcion</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="banner-card2">
+            <div class="banner-content">
+                <div class="banner-text">
+                    <h3>Proximos ingresos</h3>
+                    <p>descripcion</p>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<section class="products-section">
+
+    <h2>Mira nuestros productos!</h2>
+
+    <div class="products-grid">
+        <% listaProductos.forEach(producto => { %>
+            <%- include('../partials/productCard', { producto: producto }) %>
+        <% }); %>
+    </div>
+
+</section>
+
+<!-- PANEL DESPLEGABLE -->
+<div id="panelProducto" class="panel-producto"> <!-- el id es para el js y la class para el css -->
+    <div class="panel-contenido">
+        <button class="panel-close" onclick="cerrarPanel()">✕</button>
+
+        <div class="panel-izquierda">
+            <div class="panel-galeria">
+        
+                <div id="miniatura-producto" class="miniatura-producto"></div>
+
+                <div class="slider-main-content">
+            
+                    <div class="slider-container">
+                        <button class="slider-btn izquierda" onclick="cambiarFoto(-1)">&#8249;</button>
+                        <img id="panelImagen" src="" alt="" class="panel-img-principal">
+                        <button class="slider-btn derecha" onclick="cambiarFoto(1)">&#8250;</button>
+                    </div>
+
+                    <div id="slider-dots" class="slider-dots"></div>
+
+                </div> 
+            </div>
+        </div>
+
+        <div class="panel-derecha">
+            <h2 id="panelNombre"></h2>
+            <p class="panel-puntos"> 
+                <span id="panelPuntos"></span> <span class="puntos-label">Puntos</span> </p>
+            <button class="btn-carrito" onclick="agregarAlCarrito()">Agregar al Carrito</button>
+            <p id="panelDescripcion" class="panel-descripcion"></p>
+        </div>
+
+    </div>
+</div>
+</main>
+
+<script src="/js/productDetail.js"></script> <%- include('../partials/footer') %>

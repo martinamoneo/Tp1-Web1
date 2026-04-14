@@ -236,6 +236,7 @@ body {
 }
 
 /* SLIDER */
+/* izquierda */
 .panel-izquierda {
     flex: 1.2;
     display: flex;
@@ -246,17 +247,17 @@ body {
 .panel-galeria {
     display: flex;
     flex-direction: row;
-    gap: 12px;
+    gap: 40px;
     align-items: flex-start;
 }
 
-.panel-thumbnails {
+.miniatura-producto {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.thumbnail {
+.miniaturaProducto {
     width: 65px;
     height: 65px;
     object-fit: cover;
@@ -267,12 +268,12 @@ body {
     transition: 0.3s;
 }
 
-.thumbnail:hover {
+.miniaturaProducto:hover {
     opacity: 1;
     border-color: #aaa;
 }
 
-.thumbnail.activo {
+.miniaturaProducto.activo {
     opacity: 1;
     border-color: #1abc9c;
 }
@@ -322,8 +323,8 @@ body {
     box-shadow: 0 4px 15px rgba(26,188,156,0.4);
 }
 
-.slider-btn.izquierda { left: 12px; }
-.slider-btn.derecha   { right: 12px; }
+.slider-btn.izquierda { left: -50px; }
+.slider-btn.derecha   { right: -50px; }
 
 .slider-dots {
     display: flex;
@@ -368,24 +369,22 @@ body {
 }
 
 .panel-puntos {
-    font-size: 32px;
-    font-weight: 800;
-    color: #222;
     display: flex;
-    align-items: baseline;
-    gap: 8px;
+    align-items: baseline; /* Esto alinea el número y el texto por la base */
+    gap: 5px;             /* Espacio entre el número y la palabra */
 }
 
-.panel-puntos span {
-    color: #222;
+#panelPuntos {
+    font-size: 30px;      /* Número grande */
+    font-weight: 800;     /* Bien gordito */
+    color: #1abc9c;       /* Tu color verde agua */
 }
 
-.panel-puntos::after {
-    content: 'PUNTOS';
-    font-size: 14px;
-    font-weight: 600;
-    color: #1abc9c;
-    letter-spacing: 1px;
+.puntos-label {
+    font-size: 16px;      /* Texto más chico */
+    font-weight: 300;     /* Más finito (Light) */
+    color:#222;          /* Un gris para que no compita con el número */
+    text-transform: uppercase; /* Opcional: queda lindo en mayúsculas */
 }
 
 .btn-carrito {

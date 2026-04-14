@@ -1,3 +1,5 @@
+/* CSS DE HEADER, LOGIN, REGISTER Y FOOTER */
+
 /* El fondo general de la página es el gris clarito */
 body {
     background-color: #f0f0f0; 
@@ -84,7 +86,7 @@ body {
     gap: 25px;
 }
 
-.cart-container {
+.header-cart {
     position: relative;
     font-size: 22px;
     color: #4a4d4e;
