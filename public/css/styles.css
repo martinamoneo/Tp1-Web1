@@ -1,257 +1,217 @@
-/* CSS DE HEADER, LOGIN, REGISTER Y FOOTER */
+/* ==================== GLOBAL ==================== */
+* {
+    box-sizing: border-box;
+}
 
-/* El fondo general de la página es el gris clarito */
 body {
     background-color: #f0f0f0; 
     font-family: 'Montserrat', sans-serif;
-
+    margin: 0;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* 'vh' significa Viewport Height (altura de la pantalla) */
-    margin: 0;
 }
 
-/*HEADER*/
+/* ==================== HEADER RESPONSIVE ==================== */
 .main-header {
     background-color: #f8f8f8;
-    padding: 20px 0 0 0;
     position: sticky;
     top: 0;
     z-index: 100;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .header-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px 15px 20px;
-}
-
-.logo {
-    text-decoration: none;
-    font-size: 28px; /* Ajusta según veas necesario */
-    font-family: 'Montserrat', sans-serif;
-    display: inline-block;
-}
-
-/* La parte gordita (Mi) */
-.logo-bold {
-    color: #1abc9c; /* El verde agua */
-    font-weight: 800; /* Extra Bold */
-}
-
-/* La parte finita (Ecommerce) */
-.logo-light {
-    color: #1abc9c;
-    font-weight: 300; /* Light */
-}
-
-/* Contenedor principal del header */
-.header-container {
+    padding: 0 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-/* buscador */
+.logo {
+    font-size: 26px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.logo-bold { color: #1abc9c; font-weight: 800; }
+.logo-light { color: #1abc9c; font-weight: 300; }
+
 .header-search {
-    flex: 1; /* Esto hace que el buscador ocupe todo el espacio central */
+    flex: 1;
+    max-width: 500px;
     position: relative;
-    max-width: 600px; /* Para que no sea infinitamente largo */
 }
 
 .header-search input {
     width: 100%;
-    padding: 10px 40px 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    outline: none;
+    padding: 12px 20px 12px 45px;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    font-size: 16px;
 }
 
 .header-search button {
     position: absolute;
-    right: 15px;
+    left: 18px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
     color: #888;
-    cursor: pointer;
+    font-size: 18px;
 }
 
-/* carrito y perfil */
 .header-user-actions {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 20px;
 }
 
 .header-cart {
     position: relative;
-    font-size: 22px;
-    color: #4a4d4e;
+    font-size: 24px;
+    color: #333;
 }
 
-/* La burbujita roja del carrito */
 .cart-badge {
     position: absolute;
-    top: -8px;
-    right: -10px;
-    background-color: #ff0000;
+    top: -6px;
+    right: -8px;
+    background: #e74c3c;
     color: white;
     font-size: 11px;
-    padding: 2px 6px;
+    padding: 1px 6px;
     border-radius: 50%;
-    font-weight: bold;
-}
-
-/* Píldora de perfil (Gris oscuro) */
-.user-profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #4a4d4e;
-    color: white;
-    padding: 6px 6px 6px 6px; /* Menos padding a la izquierda para la foto */
-    border-radius: 25px;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.user-profile:hover {
-    background-color: #f0f0f0; /* Un gris un poco más oscuro al pasar el mouse */
-    color: #4a4d4e;
-    transition: 0.3s; 
-}
-
-.user-profile a {
-    color: #f0f0f0;
-    text-decoration: none;
-    font-size: 15px;
-}
-
-.user-profile:hover a { 
-    color: #4a4d4e;
-    transition: 0.3s;
-}
-
-.user-profile img {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    object-fit: cover;
-}
- 
-/*INICIA SESION Y REGISTRO*/
-.login-container, .register-container {
-    flex: 1; /* Esto hace que esta sección crezca y empuje al footer al fondo */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative; /* Para que el banner turquesa se posicione bien */
-}
-
-/* El bloque turquesa de arriba */
-.top-banner {
-    background-color: #1abc9c;
-    height: 300px; /* Ajusta la altura según veas */
-    width: 100%;
-}
-
-/* El contenedor que envuelve la tarjeta blanca */
-.login-wrapper, .register-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Movemos todo hacia arriba para que pise el turquesa */
-    margin-top: -249.44px; 
-}
-
-.login-card, .register-card {
-    background-color: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 300px;
+    min-width: 18px;
     text-align: center;
 }
 
-.login-card h1, 
-.register-card h1 {
-    margin-bottom: 18.89px;
-    font-family: 'Montserrat', sans-serif;
-    color: #333;
-    font-weight: 300;
-    text-align: left;
-}
-
-.login-form input,
-.register-form input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 25px; /* Bordes redondeados como en la imagen */
-}
-
-.btn-submit {
-    background-color: #4a4a4a;
+.user-profile {
+    background-color: #2c3e50;
     color: white;
-    width: 100%;
-    padding: 12px;
-    border-radius: 25px;
-    border: none;
-    cursor: pointer;
-    margin-top: 11.33px;
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 15px;
 }
 
-.bottom-text {
-    color: #666; /* Un gris para todo el texto de abajo */
-    margin-top: 20px;
-    font-size: 14px;
-    font-family: 'Montserrat', sans-serif;
+.user-profile a {
+    color: white;
+    text-decoration: none;
 }
 
-.bottom-text a {
-    color: inherit; /* 'inherit' significa que use el mismo color que el texto de al lado */
-    text-decoration: underline; /*  */
-}
-
-/* FOOTER */
+/* ==================== FOOTER ==================== */
 .main-footer {
-    background-color: #eeeeee; /* Gris clarito del fondo */
-    padding: 15px 0;
-    border-top: 1px solid #ccc; /* La línea finita de arriba */
-    color: #888; /* Color de texto gris suave */
+    background-color: #eeeeee;
+    padding: 20px 0;
+    margin-top: auto;
+    color: #666;
     font-size: 14px;
-    width: 100%;
 }
 
 .footer-container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 15px;
     display: flex;
-    justify-content: space-between; /* Separa las 3 secciones */
+    justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-/* Redes y Apps */
-.footer-social a, .app-link {
-    color: #888;
+/* ==================== RESPONSIVE GLOBAL ==================== */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .header-search {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* ==================== 404 PAGE ==================== */
+.error-page {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background-color: #f0f0f0;
+    min-height: calc(100vh - 140px);
+}
+
+.error-container {
+    text-align: center;
+    max-width: 500px;
+}
+
+.error-code {
+    font-size: 120px;
+    font-weight: 800;
+    color: #1abc9c;
+    margin: 0 0 10px 0;
+    line-height: 1;
+}
+
+.error-title {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.error-message {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px;
+    line-height: 1.5;
+}
+
+.error-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.error-actions a {
+    padding: 14px 28px;
+    border-radius: 30px;
     text-decoration: none;
-    margin: 0 10px;
-    font-size: 20px;
+    font-weight: 600;
+    transition: all 0.3s;
 }
 
-.footer-apps {
-    display: flex;
-    gap: 20px;
+.btn-volver {
+    background-color: #1abc9c;
+    color: white;
 }
 
-.app-link {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Espacio entre el icono y el texto */
-    font-size: 14px;
+.btn-volver:hover {
+    background-color: #16a085;
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #34495e;
 }

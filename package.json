@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/martinamoneo/Tp1-Web1#readme",
   "dependencies": {
+    "dotenv": "^17.4.2",
     "ejs": "^5.0.1",
     "express": "^5.2.1"
   },

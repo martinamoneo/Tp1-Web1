@@ -2,90 +2,146 @@
 
 <main>
     <section class="home-container">
-    <nav class="categories-nav">
-    <ul class="categories-list">
-        <li><i class="fas fa-whiskey-glass"></i><span>Mates</span></li>
-        <li><i class="fas fa-beer"></i><span>Vasos</span></li>
-        <li><i class="fas fa-key"></i><span>Llaveros</span></li>
-        <li><i class="fas fa-crop-simple"></i><span>Soportes</span></li>
-        <li><i class="fas fa-trophy"></i><span>Premios</span></li>
-        <li><i class="fas fa-snowman"></i><span>Munecos</span></li>
-        <li><i class="fa-regular fa-lightbulb"></i><span>Lamparas</span></li>
-        <li class="last-item"><i class="fas fa-gift"></i><span>Otros</span></li>
-    </ul>
-    </nav>
+        <nav class="categories-nav">
+            <ul class="categories-list">
+                <li><i class="fas fa-whiskey-glass"></i><span>Mates</span></li>
+                <li><i class="fas fa-beer"></i><span>Vasos</span></li>
+                <li><i class="fas fa-key"></i><span>Llaveros</span></li>
+                <li><i class="fas fa-crop-simple"></i><span>Soportes</span></li>
+                <li><i class="fas fa-trophy"></i><span>Premios</span></li>
+                <li><i class="fas fa-snowman"></i><span>Munecos</span></li>
+                <li><i class="fa-regular fa-lightbulb"></i><span>Lamparas</span></li>
+                <li class="last-item"><i class="fas fa-gift"></i><span>Otros</span></li>
+            </ul>
+        </nav>
     </section>
 
-<section class="banner-section">
-    <div class="banner-container">
-        
-        <article class="banner-card1">
-            <div class="banner-content">
-                <div class="banner-text">
-                    <h3>Novedades</h3>
-                    <p>descripcion</p>
+    <section class="banner-section">
+        <div class="banner-container">
+            <article class="banner-card banner-card1" onclick="abrirPanelDesdeBanner('novedades')">
+                <div class="banner-content">
+                    <div class="banner-text">
+                        <h3>Novedades</h3>
+                        <p>Descubre lo último que llegó</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="banner-card banner-card2" onclick="abrirPanelDesdeBanner('proximos')">
+                <div class="banner-content">
+                    <div class="banner-text">
+                        <h3>Próximos Ingresos</h3>
+                        <p>Lo que pronto estará disponible</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="products-section">
+        <h2>Mira nuestros productos!</h2>
+        <div class="products-grid">
+            <% listaProductos.forEach(producto => { %>
+                <%- include('../partials/productCard', { producto: producto }) %>
+            <% }); %>
+        </div>
+    </section>
+
+    <!-- PRODUCTOS SUGERIDOS -->
+    <section class="sugeridos-section">
+        <h2>Productos Sugeridos</h2>
+        <div class="sugeridos-carrusel">
+            <button class="sugeridos-btn izquierda" onclick="moverSugeridos(-1)">&#8249;</button>
+            <div class="sugerido-card" id="sugeridoCard">
+                <div class="sugerido-imagen">
+                    <img id="sugeridoImg" src="" alt="">
+                </div>
+                <div class="sugerido-info">
+                    <h3 id="sugeridoNombre"></h3>
+                    <p class="sugerido-puntos"><span id="sugeridoPuntos"></span> PUNTOS</p>
+                    <p id="sugeridoDescripcion" class="sugerido-descripcion"></p>
                 </div>
             </div>
-        </article>
+            <button class="sugeridos-btn derecha" onclick="moverSugeridos(1)">&#8250;</button>
+        </div>
+        <div class="sugeridos-dots" id="sugeridosDots"></div>
+    </section>
 
-        <article class="banner-card2">
-            <div class="banner-content">
-                <div class="banner-text">
-                    <h3>Proximos ingresos</h3>
-                    <p>descripcion</p>
-                </div>
-            </div>
-        </article>
-
-    </div>
-</section>
-
-<section class="products-section">
-
-    <h2>Mira nuestros productos!</h2>
-
-    <div class="products-grid">
-        <% listaProductos.forEach(producto => { %>
-            <%- include('../partials/productCard', { producto: producto }) %>
-        <% }); %>
-    </div>
-
-</section>
+</main>
 
 <!-- PANEL DESPLEGABLE -->
-<div id="panelProducto" class="panel-producto"> <!-- el id es para el js y la class para el css -->
+<div id="panelProducto" class="panel-producto">
     <div class="panel-contenido">
         <button class="panel-close" onclick="cerrarPanel()">✕</button>
 
         <div class="panel-izquierda">
             <div class="panel-galeria">
-        
-                <div id="miniatura-producto" class="miniatura-producto"></div>
-
-                <div class="slider-main-content">
-            
-                    <div class="slider-container">
-                        <button class="slider-btn izquierda" onclick="cambiarFoto(-1)">&#8249;</button>
-                        <img id="panelImagen" src="" alt="" class="panel-img-principal">
-                        <button class="slider-btn derecha" onclick="cambiarFoto(1)">&#8250;</button>
-                    </div>
-
-                    <div id="slider-dots" class="slider-dots"></div>
-
-                </div> 
+                <div id="panel-thumbnails" class="panel-thumbnails"></div>
+                <div class="slider-container">
+                    <button class="slider-btn izquierda" onclick="cambiarFoto(-1)">&#8249;</button>
+                    <img id="panelImagen" src="" alt="" class="panel-img-principal">
+                    <button class="slider-btn derecha" onclick="cambiarFoto(1)">&#8250;</button>
+                </div>
             </div>
         </div>
 
         <div class="panel-derecha">
             <h2 id="panelNombre"></h2>
-            <p class="panel-puntos"> 
-                <span id="panelPuntos"></span> <span class="puntos-label">Puntos</span> </p>
+            <p class="panel-puntos">
+                <span id="panelPuntos"></span> <span class="puntos-label">Puntos</span>
+            </p>
             <button class="btn-carrito" onclick="agregarAlCarrito()">Agregar al Carrito</button>
             <p id="panelDescripcion" class="panel-descripcion"></p>
         </div>
-
     </div>
 </div>
-</main>
 
-<script src="/js/productDetail.js"></script> <%- include('../partials/footer') %>
+<script>
+    window.listaProductosGlobal = <%- JSON.stringify(listaProductos) %>;
+</script>
+<script src="/js/home.js"></script>
+<script src="/js/productDetail.js"></script>
+
+<script>
+    const productosSugeridos = <%- JSON.stringify(productosSugeridos) %>;
+    let indiceSugerido = 0;
+
+    function mostrarSugerido(indice) {
+        const p = productosSugeridos[indice];
+        const img = document.getElementById('sugeridoImg');
+        const card = document.getElementById('sugeridoCard');
+
+        card.style.opacity = '0';
+        setTimeout(() => {
+            img.src = '/img/' + p.imagen;
+            document.getElementById('sugeridoNombre').textContent = p.nombre;
+            document.getElementById('sugeridoPuntos').textContent = p.puntos;
+            document.getElementById('sugeridoDescripcion').textContent = p.descripcion;
+            card.style.opacity = '1';
+        }, 150);
+
+        document.querySelectorAll('.sugerido-dot').forEach((dot, i) => {
+            dot.classList.toggle('activo', i === indice);
+        });
+    }
+
+    function moverSugeridos(direccion) {
+        indiceSugerido += direccion;
+        if (indiceSugerido < 0) indiceSugerido = productosSugeridos.length - 1;
+        if (indiceSugerido >= productosSugeridos.length) indiceSugerido = 0;
+        mostrarSugerido(indiceSugerido);
+    }
+
+    const dotsSugeridos = document.getElementById('sugeridosDots');
+    productosSugeridos.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.classList.add('sugerido-dot');
+        if (i === 0) dot.classList.add('activo');
+        dot.onclick = () => { indiceSugerido = i; mostrarSugerido(i); };
+        dotsSugeridos.appendChild(dot);
+    });
+
+    mostrarSugerido(0);
+</script>
+
+<%- include('../partials/footer') %>
