@@ -31,7 +31,9 @@
         <div class="header-user-actions">
             <a href="/cart" class="header-cart">
                 <i class="fas fa-shopping-cart"></i>
-                <span class="cart-badge" id="cart-badge">0</span>
+                <span class="cart-badge" id="cart-badge">
+                    <%= typeof cartItemCount !== 'undefined' ? cartItemCount : 0 %>
+                </span>
             </a>
 
             <div class="user-profile">

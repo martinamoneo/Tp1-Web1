@@ -1,71 +1,54 @@
 const express = require('express');
 const path = require('path');
-
 const app = express();
+const mainRoutes = require('./routes/mainRoutes');
+const session = require('express-session');
 
+// configura el motor de plantillas ejs
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//
+app.use(session({
+    secret: 'mi-secreto-super-seguro', // frase para encriptar la sesión
+    resave: false,
+    saveUninitialized: true
+}));
+
+// Middleware para asegurar que req.session.cart siempre exista
+app.use((req, res, next) => {
+    if (!req.session.cart) {
+        req.session.cart = [];
+    }
+    next();
+});
+
+// Cantidad total de ítems en carrito (para el badge del header)
+app.use((req, res, next) => {
+    const cart = req.session.cart || [];
+    res.locals.cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+    next();
+});
+
+// si dotenv no está instalado, no rompe el servidor.
 try {
     require('dotenv').config();
 } catch (err) {
     console.log("⚠️  dotenv no está instalado.");
 }
 
-// HOME
-app.get('/', (req, res) => {
-    const productos = [
-        { id: 1, nombre: 'Producto 1', puntos: 15000, imagenes: ['lampara.jpeg', 'lampara2.jpeg'], descripcion: 'Lámpara moderna de diseño minimalista.', esNovedad: true },
-        { id: 2, nombre: 'Producto 2', puntos: 29000, imagenes: ['llaveros.jpeg'], descripcion: 'Llaveros personalizados de alta calidad.' },
-        { id: 3, nombre: 'Producto 3', puntos: 1500, imagenes: ['mate.jpeg'], descripcion: 'Mate tradicional con detalles únicos.' },
-        { id: 4, nombre: 'Producto 4', puntos: 22500, imagenes: ['pastillero.jpeg'], descripcion: 'Pastillero práctico y elegante.' },
-        { id: 5, nombre: 'Producto 5', puntos: 4500, imagenes: ['premio.jpeg'], descripcion: 'Trofeo personalizado para eventos.' },
-        { id: 6, nombre: 'Producto 6', puntos: 60900, imagenes: ['vasoRiver.jpeg', 'vaso2.jpeg'], descripcion: 'Vaso oficial de River Plate edición especial.', esProximo: true }
-    ];
-
-    const productosSugeridos = [
-        { nombre: 'Sugerido 1', puntos: 12000, imagen: 'lampara.jpeg', descripcion: 'Descripción del producto sugerido 1.' },
-        { nombre: 'Sugerido 2', puntos: 8500, imagen: 'llaveros.jpeg', descripcion: 'Descripción del producto sugerido 2.' },
-        { nombre: 'Sugerido 3', puntos: 19000, imagen: 'mate.jpeg', descripcion: 'Descripción del producto sugerido 3.' },
-    ];
-
-    res.render('pages/home', { 
-        esInicio: true,
-        esCarrito: false,
-        listaProductos: productos,
-        productosSugeridos: productosSugeridos
-    });
-});
-
-// REGISTER
-app.get('/register', (req, res) => {
-    res.render('pages/register', { esInicio: false, esCarrito: false });
-});
-
-// LOGIN
-app.get('/login', (req, res) => {
-    res.render('pages/login', { esInicio: false, esCarrito: false });
-});
-
-// CART
-app.get('/cart', (req, res) => {
-    res.render('pages/cart', { esInicio: false, esCarrito: true });
-});
-
-// CHECKOUT
-app.get('/checkout', (req, res) => {
-    res.render('pages/checkout', { esInicio: false, esCarrito: false });
-});
+app.use(mainRoutes);
 
 // 404
 app.use((req, res) => {
     res.status(404).render('pages/404', { esInicio: false, esCarrito: false });
 });
 
+// usa un puerto asignado por la web si no usa el 3000
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

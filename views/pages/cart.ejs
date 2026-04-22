@@ -1,32 +1,42 @@
 <%- include('../partials/header') %>
 
 <main class="cart-container">
-    <div class="cart-wrapper">
+    <h1 class="cart-title">Tu Carrito</h1>
 
-        <h1 class="cart-title">Tu Carrito</h1>
-
-        <div id="cart-vacio" class="cart-vacio" style="display:none;">
-            <i class="fas fa-shopping-cart"></i>
+    <% if (carrito.length === 0) { %>
+        <div class="cart-vacio">
             <p>Tu carrito está vacío</p>
             <a href="/" class="btn-volver">Volver al listado</a>
         </div>
-
+    <% } else { %>
         <div id="cart-contenido">
-            <div id="cart-items" class="cart-items"></div>
-
+            <% carrito.forEach(item => { %>
+                <div class="cart-item">
+                    <img src="/img/<%= item.imagenes[0] %>" alt="<%= item.nombre %>">
+                    <div class="cart-item-info">
+                        <h4><%= item.nombre %></h4>
+                        <p><%= item.puntos %> PUNTOS</p>
+                    </div>
+                    <div class="cart-item-cantidad">
+                        <form action="/cart/update" method="POST">
+                            <input type="hidden" name="productId" value="<%= item.id %>">
+                            <button type="submit" name="action" value="decrease">➖</button>
+                            <span><%= item.cantidad %></span>
+                            <button type="submit" name="action" value="increase">➕</button>
+                        </form>
+                    </div>
+                </div>
+            <% }) %>
+            
             <div class="cart-footer">
-                <div class="cart-total">
-                    <span>Total:</span>
-                    <span id="cart-total-puntos">0 PUNTOS</span>
-                </div>
-                <div class="cart-acciones">
-                    <a href="/" class="btn-volver">Volver al listado</a>
-                    <a href="/checkout" class="btn-pagar">Ir a Pagar</a>
-                </div>
+                <p>Total: <%= total %> PUNTOS</p>
+                <form action="/cart/clear" method="POST">
+                    <button type="submit">Vaciar carrito</button>
+                </form>
             </div>
         </div>
-
-    </div>
+    <% } %>
 </main>
 
-<script src="/js/cart.js"></script> <%- include('../partials/footer') %>
+<%- include('../partials/footer') %>
+

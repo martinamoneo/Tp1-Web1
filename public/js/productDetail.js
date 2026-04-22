@@ -1,11 +1,13 @@
 let imagenesActuales = [];
 let indiceActual = 0;
+let productoIdPanel = null;
 
-function abrirPanel(nombre, puntos, imagenes, descripcion) {
+function abrirPanel(productId, nombre, puntos, imagenes, descripcion) {
     if (typeof imagenes === 'string') {
         imagenes = JSON.parse(imagenes.replace(/&quot;/g, '"'));
     }
 
+    productoIdPanel = productId;
     imagenesActuales = imagenes;
     indiceActual = 0;
 
@@ -58,7 +60,10 @@ function generarMiniaturas() {
         miniatura.src = '/img/' + img;
         miniatura.classList.add('thumbnail');
         if (i === 0) miniatura.classList.add('activo');
-        miniatura.onclick = () => { indiceActual = i; actualizarFoto(); };
+        miniatura.onclick = () => {
+            indiceActual = i;
+            actualizarFoto();
+        };
         contenedor.appendChild(miniatura);
     });
 }
@@ -71,45 +76,27 @@ function generarDots() {
         const dot = document.createElement('span');
         dot.classList.add('dot');
         if (i === 0) dot.classList.add('activo');
-        dot.onclick = () => { indiceActual = i; actualizarFoto(); };
+        dot.onclick = () => {
+            indiceActual = i;
+            actualizarFoto();
+        };
         contenedor.appendChild(dot);
     });
 }
 
 function agregarAlCarrito() {
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    const nombre = document.getElementById('panelNombre').textContent;
-    const puntos = parseInt(document.getElementById('panelPuntos').textContent);
+    if (productoIdPanel == null) return;
 
-    const existe = carrito.find(item => item.nombre === nombre);
-    if (existe) {
-        existe.cantidad += 1;
-    } else {
-        carrito.push({
-            nombre: nombre,
-            puntos: puntos,
-            imagen: imagenesActuales[0],
-            cantidad: 1
-        });
-    }
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/cart/add';
 
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-    actualizarBadge();
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'productId';
+    input.value = String(productoIdPanel);
 
-    const btn = document.querySelector('.btn-carrito');
-    btn.textContent = '✓ Agregado!';
-    btn.style.backgroundColor = '#1abc9c';
-    setTimeout(() => {
-        btn.textContent = 'Agregar al Carrito';
-        btn.style.backgroundColor = '';
-    }, 1500);
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
 }
-
-function actualizarBadge() {
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    const total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-    const badge = document.querySelector('.cart-badge');
-    if (badge) badge.textContent = total;
-}
-
-actualizarBadge();

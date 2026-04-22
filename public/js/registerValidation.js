@@ -9,16 +9,18 @@ form.addEventListener('submit', (e) => {
     const nombre = document.getElementById('nombre').value.trim();
     const apellido = document.getElementById('apellido').value.trim();
     const email = document.getElementById('email').value.trim();
-    const pass = document.getElementById('password').value.trim();
-    const sitioNombre = "MiEcommerce"; // Reemplazá por el nombre real de tu web
+    const password = document.getElementById('password').value.trim();
+    const sitioNombre = "MiEcommerce"; 
 
     // Función auxiliar para mostrar errores
     const showError = (id, msg) => {
         const errorElement = document.getElementById(`error-${id}`);
-        if (errorElement) {
-            errorElement.textContent = msg;
-        }
-        hayErrores = true; // <--- Cambiamos esto
+        const inputElement = document.getElementById(id);
+
+        if (errorElement) { errorElement.textContent = msg;}
+        if (inputElement) inputElement.classList.add('invalid');
+        
+        hayErrores = true;
     };
     
     // Limpiar errores previos
@@ -31,19 +33,20 @@ form.addEventListener('submit', (e) => {
     // 2. Validar Email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) showError('email', 'Email inválido');
-    if (nombre.toLowerCase() === email.toLowerCase()) showError('nombre', 'El nombre no puede ser igual al email');
+    
 
     // 3. Validar Contraseña (Complejidad)
-    const hasLetter = /[a-zA-Z]/.test(pass);
-    const hasNumber = /[0-9]/.test(pass);
-    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(pass);
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
     const forbidden = ["password", "1234", "qwerty", sitioNombre.toLowerCase()];
-
-    if (pass.length < 8) {
+    if (nombre.toLowerCase() === password.toLowerCase()) showError('password', 'La contraseña no puede ser igual al nombre');
+    
+    if (password.length < 8) {
         showError('password', 'Mínimo 8 caracteres');
     } else if (!hasLetter || !hasNumber || !hasSpecial) {
         showError('password', 'Debe incluir letra, número y carácter especial');
-    } else if (forbidden.some(word => pass.toLowerCase().includes(word))) {
+    } else if (forbidden.some(word => password.toLowerCase().includes(word))) {
         showError('password', 'La contraseña contiene palabras prohibidas');
     }
 
@@ -55,12 +58,17 @@ form.addEventListener('submit', (e) => {
 });
 
 togglePassword.addEventListener('click', function () {
-    // Obtenemos el tipo actual
     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    
-    // Cambiamos el atributo
     passwordInput.setAttribute('type', type);
-    
-    // Opcional: Cambiar el emoji del ojo
-    this.textContent = type === 'password' ? '👁️' : '🙈';
+
+    const icon = this.querySelector('i');
+    if (icon) {
+        if (type === 'password') {
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    }
 });

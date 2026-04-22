@@ -95,10 +95,14 @@
     </div>
 </main>
 
+<script src="/js/productDetail.js"></script>
 <script>
 const productosSugeridosData = JSON.parse('<%- JSON.stringify(productosSugeridos) %>');
 </script>
-<script src="/js/home.js"></script>
-<script src="/js/productDetail.js"></script>
+
+<script>
+    window.listaProductosGlobal = ('<%- JSON.stringify(listaProductos) %>');
+</script>
+<script src="/js/home.js"></script> 
 
 <%- include('../partials/footer') %>
