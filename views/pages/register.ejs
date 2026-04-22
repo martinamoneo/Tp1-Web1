@@ -10,26 +10,39 @@
         <section class="register-card">
             <h1>¡Registrate!</h1>
             
-            <form action="/register" method="POST" class="register-form">
+            <form action="/register" method="POST" class="register-form" id="registerForm" novalidate>
+                <div class="form-group">   
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                    <small class="error-msg" id="error-nombre"></small>
+                </div>
+                <div class="form-group">   
+                    <input type="text" id="apellido" name="apellido" placeholder="Tu apellido" required>
+                    <small class="error-msg" id="error-apellido"></small>
+                </div>
                 <div class="form-group">
                     <input type="email" id="email" name="email" placeholder="Tu mail" required>
+                    <small class="error-msg" id="error-email"></small>
                 </div>
 
-                <div class="form-group">
-                    <input type="password" id="password" name="password" placeholder="Tu nueva contraseña" required>
+                <div class="form-group password-container">
+                    <input type="password" id="password" name="password" placeholder="Tu nueva contraseña">
+                    <button type="button" id="togglePassword" class="btn-eye">
+                        👁️
+                    </button>
+                    <small class="error-msg" id="error-password"></small>
                 </div>
 
-                <div class="form-group">
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repite tu contraseña" required>
-                </div>
-
+            
                 <button type="submit" class="btn-submit">Crear cuenta</button>
             </form>
-        </section> <p class="bottom-text">
+        </section> 
+        
+        <p class="bottom-text">
             ¿Ya tienes cuenta? <a href="/login">Inicia sesión</a>
         </p>
 
     </div>
+    <script src="/js/registerValidation.js"></script>
 </main>
 
-<%- include('../partials/footer') %>
+(<%- include('../partials/footer') %>
