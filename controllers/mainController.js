@@ -49,7 +49,7 @@ const controller = {
     addToCart: (req, res) => {
         const productId = req.body.productId;
         if (productId == null || productId === '') {
-            return res.redirect('/');
+            return res.json({ success: false });
         }
         const cart = req.session.cart;
         const itemIndex = cart.findIndex((item) => item.productId == productId);
@@ -58,7 +58,7 @@ const controller = {
         } else {
             cart.push({ productId: parseInt(productId, 10), quantity: 1 });
         }
-        res.redirect('/cart');
+        res.json({ success: true });
     },
     updateCart: (req, res) => {
         const { productId, action } = req.body;

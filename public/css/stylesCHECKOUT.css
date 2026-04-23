@@ -1,0 +1,50 @@
+:root {
+    --color-fondo: #f0f0f0;
+    --color-turquesa: #1abc9c;
+    --turquesa-oscuro: #16a085;
+    --color-blanco: #f8f8f8;
+    --color-rojo: #e74c3c;
+    --color-gris: #4a4d4e;
+}
+body {
+    background-color: var(--color-fondo); 
+    font-family: 'Montserrat', sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 'vh' significa Viewport Height (altura de la pantalla) */
+    margin: 0;
+}
+
+.checkout-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.checkout-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.checkout-actions a {
+    padding: 10px 25px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.btn-volver, .btn-carrito {
+    background: var(--color-turquesa);
+    color: var(--color-blanco);
+}
+
+.btn-volver:hover, .btn-carrito:hover {
+    background: var(--turquesa-oscuro);
+    color: var(--color-blanco);
+}

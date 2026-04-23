@@ -1,42 +1,54 @@
 <%- include('../partials/header') %>
 
 <main class="cart-container">
-    <h1 class="cart-title">Tu Carrito</h1>
+    <div class="cart-wrapper">
+        <h1 class="cart-title">Tu Carrito</h1>
 
-    <% if (carrito.length === 0) { %>
-        <div class="cart-vacio">
-            <p>Tu carrito está vacío</p>
-            <a href="/" class="btn-volver">Volver al listado</a>
-        </div>
-    <% } else { %>
-        <div id="cart-contenido">
-            <% carrito.forEach(item => { %>
-                <div class="cart-item">
-                    <img src="/img/<%= item.imagenes[0] %>" alt="<%= item.nombre %>">
-                    <div class="cart-item-info">
-                        <h4><%= item.nombre %></h4>
-                        <p><%= item.puntos %> PUNTOS</p>
-                    </div>
-                    <div class="cart-item-cantidad">
-                        <form action="/cart/update" method="POST">
-                            <input type="hidden" name="productId" value="<%= item.id %>">
-                            <button type="submit" name="action" value="decrease">➖</button>
-                            <span><%= item.cantidad %></span>
-                            <button type="submit" name="action" value="increase">➕</button>
-                        </form>
-                    </div>
-                </div>
-            <% }) %>
-            
-            <div class="cart-footer">
-                <p>Total: <%= total %> PUNTOS</p>
+        <% if (carrito.length === 0) { %>
+            <div class="cart-vacio">
+                <p>No hay productos por aquí...</p>
+                <a href="/" class="btn-gris">Volver al inicio</a>
+            </div>
+        <% } else { %>
+            <div class="cart-header-actions">
+                <a href="/" class="btn-volverInicio">← Volver al inicio</a>
                 <form action="/cart/clear" method="POST">
-                    <button type="submit">Vaciar carrito</button>
+                    <button type="submit" class="btn-vaciar">Vaciar carrito</button>
                 </form>
             </div>
-        </div>
-    <% } %>
+
+            <div class="cart-items">
+                <% carrito.forEach(item => { %>
+                    <div class="cart-item">
+                        <div class="item-img-box">
+                            <img src="/img/<%= item.imagenes[0] %>" alt="<%= item.nombre %>">
+                        </div>
+                        <div class="item-main-info">
+                            <h4><%= item.nombre %></h4>
+                            <p><%= item.puntos %> puntos</p>
+                        </div>
+                        <div class="item-controls">
+                            <form action="/cart/update" method="POST" class="form-qty">
+                                <input type="hidden" name="productId" value="<%= item.id %>">
+                                <button type="submit" name="action" value="decrease" class="btn-qty">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <span class="qty-num"><%= item.cantidad %></span>
+                                <button type="submit" name="action" value="increase" class="btn-qty">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            
+            <div class="cart-total-bar">
+                <p class="total-text">Total: <%= total %> puntos</p>
+                <a href="/checkout" class="btn-pagar">Pagar</a>
+            </div>
+        <% } %>
+    </div>
 </main>
 
 <%- include('../partials/footer') %>
-

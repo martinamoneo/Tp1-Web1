@@ -87,16 +87,31 @@ function generarDots() {
 function agregarAlCarrito() {
     if (productoIdPanel == null) return;
 
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = '/cart/add';
+    const btn = document.querySelector('.btn-carrito');
+    const textoOriginal = btn.textContent;
 
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'productId';
-    input.value = String(productoIdPanel);
-
-    form.appendChild(input);
-    document.body.appendChild(form);
-    form.submit();
+    fetch('/cart/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'productId=' + encodeURIComponent(productoIdPanel)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            btn.textContent = '✓ Agregado';
+            btn.disabled = true;
+            
+            // Actualizar el contador del carrito en el header
+            const badge = document.getElementById('cart-badge');
+            if (badge) {
+                const cantidadActual = parseInt(badge.textContent) || 0;
+                badge.textContent = cantidadActual + 1;
+            }
+            
+            setTimeout(() => {
+                btn.textContent = textoOriginal;
+                btn.disabled = false;
+            }, 1000);
+        }
+    });
 }

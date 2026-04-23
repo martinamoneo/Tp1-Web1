@@ -1,7 +1,14 @@
-/* CSS DE HEADER, LOGIN, REGISTER Y FOOTER */
+/* CSS DE HEADER, LOGIN, REGISTER, 404, RESPONSIVE Y FOOTER */
+:root {
+    --color-fondo: #f0f0f0;
+    --color-turquesa: #1abc9c;
+    --color-blanco: #f8f8f8;
+    --color-rojo: #e74c3c;
+    --color-gris: #4a4d4e;
+}
 
 body {
-    background-color: #f0f0f0; 
+    background-color: var(--color-fondo); 
     font-family: 'Montserrat', sans-serif;
 
     display: flex;
@@ -12,7 +19,7 @@ body {
 
 /*HEADER*/
 .main-header {
-    background-color: #f8f8f8;
+    background-color:var(--color-blanco);
     padding: 20px 0 0 0;
     position: sticky;
     top: 0;
@@ -40,7 +47,7 @@ body {
 
 /* La parte finita (Ecommerce) */
 .logo-light {
-    color: #1abc9c;
+    color: var(--color-turquesa);
     font-weight: 300; /* Light */
 }
 
@@ -96,8 +103,8 @@ body {
     position: absolute;
     top: -8px;
     right: -10px;
-    background-color: #ff0000;
-    color: white;
+    background-color: var(--color-rojo);
+    color: var(--color-blanco);
     font-size: 11px;
     padding: 2px 6px;
     border-radius: 50%;
@@ -109,27 +116,27 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    background-color: #4a4d4e;
-    color: white;
+    background-color: var(--color-gris);
+    color: purple;
     padding: 6px 6px 6px 6px; /* Menos padding a la izquierda para la foto */
     border-radius: 25px;
     font-family: 'Montserrat', sans-serif;
 }
 
 .user-profile:hover {
-    background-color: #f0f0f0; /* Un gris un poco más oscuro al pasar el mouse */
-    color: #4a4d4e;
+    background-color: var(--color-fondo); /* Un gris un poco más oscuro al pasar el mouse */
+    color: var(--color-turquesa);
     transition: 0.3s; 
 }
 
 .user-profile a {
-    color: #f0f0f0;
+    color: var(--color-fondo);
     text-decoration: none;
     font-size: 15px;
 }
 
 .user-profile:hover a { 
-    color: #4a4d4e;
+    color: var(--color-turquesa);
     transition: 0.3s;
 }
 
@@ -151,7 +158,7 @@ body {
 
 /* El bloque turquesa de arriba */
 .top-banner {
-    background-color: #1abc9c;
+    background-color: var(--color-turquesa);
     height: 300px; /* Ajusta la altura según veas */
     width: 100%;
 }
@@ -166,7 +173,7 @@ body {
 }
 
 .login-card, .register-card {
-    background-color: white;
+    background-color: var(--color-fondo);
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
@@ -197,13 +204,13 @@ body {
 .login-form input:focus,
 .register-form input:focus {
     outline: none;
-    border-color: #1abc9c;
+    border-color: var(--color-turquesa);
     box-shadow: 0 0 0 2px rgba(26, 188, 156, 0.25);
 }
 
 /* Si el campo tiene error, el foco sigue en rojo */
 .form-group input.invalid:focus {
-    border-color: #e74c3c;
+    border-color: var(--color-rojo);
     box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
 }
 
@@ -244,12 +251,12 @@ body {
     min-height: 16px;   /* reserva espacio aunque no haya error */
     margin: 0;
     font-size: 11px;
-    color: #e74c3c;
+    color: var(--color-rojo);
     text-align: center;
 }
 
 .form-group input.invalid {
-    border: 1px solid #e74c3c;
+    border: 1px solid var(--color-rojo);
 }
 
 /*ver contraseña*/
@@ -305,7 +312,7 @@ body {
     color: #555;
 }
 
-/* ==================== FOOTER ==================== */
+/* ------------ FOOTER ------------ */
 .main-footer {
     background-color: #eeeeee;
     padding: 20px 0;
@@ -325,7 +332,7 @@ body {
     gap: 15px;
 }
 
-/* ==================== RESPONSIVE GLOBAL ==================== */
+/* ------------ RESPONSIVE ------------ */
 @media (max-width: 768px) {
     .header-container {
         flex-direction: column;
@@ -345,7 +352,7 @@ body {
     }
 }
 
-/* ==================== 404 PAGE ==================== */
+/* ------------ 404 ------------ */
 .error-page {
     flex: 1;
     display: flex;
