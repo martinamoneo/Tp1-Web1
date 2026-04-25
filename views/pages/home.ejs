@@ -38,6 +38,38 @@
         </div>
     </section>
 
+    <section class="products-section lo-mas-pedido-section" style="padding-bottom: 10px;">
+        <h2>Lo más pedido</h2>
+        <div class="carousel-wrapper">
+            <button class="sugeridos-btn izquierda carousel-btn" onclick="scrollCarousel(-1, 'loMasPedidoTrack')">
+                <i class="fa-solid fa-angle-left"></i>
+            </button>
+            <div class="carousel-grid" id="loMasPedidoTrack">
+                <% 
+                    const productosMasPedidos = [...listaProductos].slice(0, 10);
+                    productosMasPedidos.forEach(producto => { 
+                %>
+                    <%- include('../partials/productCard', { producto: producto }) %>
+                <% }); %>
+            </div>
+            <button class="sugeridos-btn derecha carousel-btn" onclick="scrollCarousel(1, 'loMasPedidoTrack')">
+                <i class="fa-solid fa-angle-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="products-section" style="padding-bottom: 10px;">
+        <h2>Te puede interesar</h2>
+        <div class="products-grid">
+            <% 
+                const productosInteres = [...listaProductos].sort(() => 0.5 - Math.random()).slice(0, 5);
+                productosInteres.forEach(producto => { 
+            %>
+                <%- include('../partials/productCard', { producto: producto }) %>
+            <% }); %>
+        </div>
+    </section>
+
     <section class="products-section">
         <h2>Mira nuestros productos!</h2>
         <div class="products-grid">
@@ -54,7 +86,7 @@
             <button class="sugeridos-btn izquierda" onclick="moverSugeridos(-1)">&#8249;</button>
             <div class="sugerido-card" id="sugeridoCard">
                 <div class="sugerido-imagen">
-                    <img id="sugeridoImg" src="" alt="">
+                    <img id="sugeridoImg" src="" alt="" onerror="this.onerror=null; this.src='/img/no-image.png'">
                 </div>
                 <div class="sugerido-info">
                     <h3 id="sugeridoNombre"></h3>
@@ -76,9 +108,13 @@
             <div class="panel-galeria">
                 <div id="panel-thumbnails" class="panel-thumbnails"></div>
                 <div class="slider-container">
-                    <button class="slider-btn izquierda" onclick="cambiarFoto(-1)">&#8249;</button>
-                    <img id="panelImagen" src="" alt="" class="panel-img-principal">
-                    <button class="slider-btn derecha" onclick="cambiarFoto(1)">&#8250;</button>
+                    <button class="slider-btn izquierda" onclick="cambiarFoto(-1)">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                    <img id="panelImagen" src="" alt="" class="panel-img-principal" onerror="this.onerror=null; this.src='/img/no-image.png'">
+                    <button class="slider-btn derecha" onclick="cambiarFoto(1)">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
                 </div>
             </div>
         </div>

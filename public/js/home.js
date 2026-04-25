@@ -60,3 +60,13 @@ function abrirPanelDesdeBanner(tipo) {
     });
 
     mostrarSugerido(0);
+
+/* CARRUSEL HORIZONTAL */
+function scrollCarousel(direction, trackId) {
+    const track = document.getElementById(trackId);
+    if (!track) return;
+    
+    // Desplaza exactamente el 100% del contenedor visible para avanzar una "página" entera (5 tarjetas)
+    const scrollAmount = 253; 
+    track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+}

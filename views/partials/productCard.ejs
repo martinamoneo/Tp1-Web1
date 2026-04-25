@@ -2,11 +2,11 @@
     <%= producto.id %>,
     '<%= producto.nombre.replace(/'/g, "\\'") %>',
     '<%= producto.puntos %>',
-    '<%- JSON.stringify(producto.imagenes).replace(/"/g, "&quot;") %>',
+    '<%- JSON.stringify(producto.imagenes).split(String.fromCharCode(34)).join("&quot;") %>',
     '<%= producto.descripcion.replace(/'/g, "\\'") %>'
 )">
     <div class="product-image">
-        <img src="/img/<%= producto.imagenes[0] %>" alt="<%= producto.nombre %>">
+        <img src="/img/<%= producto.imagenes[0] %>" alt="<%= producto.nombre %>" onerror="this.onerror=null; this.src='/img/no-image.png'">
     </div>
     <div class="product-info">
         <h4 class="product-name"><%= producto.nombre %></h4>
