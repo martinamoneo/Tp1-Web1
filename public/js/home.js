@@ -15,7 +15,8 @@ function abrirPanelDesdeBanner(tipo) {
             producto.nombre,
             producto.puntos,
             producto.imagenes,
-            producto.descripcion
+            producto.descripcion,
+            producto.stock
         );
     }
 }

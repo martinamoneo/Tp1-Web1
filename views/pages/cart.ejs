@@ -3,7 +3,12 @@
 <main class="cart-container">
     <div class="cart-wrapper">
         <h1 class="cart-title">Tu Carrito</h1>
-
+        <% if (mensaje) { %>
+            <div class="cart-mensaje-error">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+        <%= mensaje %>
+            </div>
+        <% } %>
         <% if (carrito.length === 0) { %>
             <div class="cart-vacio">
                 <p>No hay productos por aquí...</p>

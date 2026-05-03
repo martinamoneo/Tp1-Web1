@@ -1,8 +1,9 @@
 let imagenesActuales = [];
 let indiceActual = 0;
 let productoIdPanel = null;
+let sugeridosActuales = [];
 
-function abrirPanel(productId, nombre, puntos, imagenes, descripcion) {
+function abrirPanel(productId, nombre, puntos, imagenes, descripcion, stock) {
     if (typeof imagenes === 'string') {
         imagenes = JSON.parse(imagenes.replace(/&quot;/g, '"'));
     }
@@ -15,9 +16,25 @@ function abrirPanel(productId, nombre, puntos, imagenes, descripcion) {
     document.getElementById('panelPuntos').textContent = puntos;
     document.getElementById('panelDescripcion').textContent = descripcion;
 
+    // Manejar stock
+    const btn = document.getElementById('btnAgregarCarrito');
+    if (btn){
+    if (stock === 0) {
+        btn.textContent = 'Sin stock';
+        btn.disabled = true;
+        btn.style.backgroundColor = '#aaa';
+        btn.style.cursor = 'not-allowed';
+    } else {
+        btn.textContent = 'Agregar al Carrito';
+        btn.disabled = false;
+        btn.style.backgroundColor = '';
+        btn.style.cursor = '';
+    }}
+
     actualizarFoto();
     generarDots();
     generarMiniaturas();
+    generarSugeridos(productId);
 
     const panel = document.getElementById('panelProducto');
     panel.classList.add('activo');
@@ -87,7 +104,7 @@ function generarDots() {
 function agregarAlCarrito() {
     if (productoIdPanel == null) return;
 
-    const btn = document.querySelector('.btn-carrito');
+    const btn = document.getElementById('btnAgregarCarrito');
     const textoOriginal = btn.textContent;
 
     fetch('/cart/add', {
@@ -100,18 +117,63 @@ function agregarAlCarrito() {
         if (data.success) {
             btn.textContent = '✓ Agregado';
             btn.disabled = true;
-            
-            // Actualizar el contador del carrito en el header
+            btn.style.backgroundColor = '#1abc9c';
+
             const badge = document.getElementById('cart-badge');
             if (badge) {
                 const cantidadActual = parseInt(badge.textContent) || 0;
                 badge.textContent = cantidadActual + 1;
             }
-            
+
             setTimeout(() => {
                 btn.textContent = textoOriginal;
                 btn.disabled = false;
+                btn.style.backgroundColor = '';
             }, 1000);
+
+        } else {
+            // Sin stock suficiente
+            btn.textContent = '¡Sin stock suficiente!';
+            btn.disabled = true;
+            btn.style.backgroundColor = '#e74c3c';
+
+            setTimeout(() => {
+                btn.textContent = textoOriginal;
+                btn.disabled = false;
+                btn.style.backgroundColor = '';
+            }, 1500);
         }
+    });
+}
+
+function generarSugeridos(productoActualId) {
+    const contenedor = document.getElementById('panelSugeridosGrid');
+    if (!contenedor) return;
+
+    let todos = window.listaProductosGlobal || [];
+    if (typeof todos === 'string') {
+        try { todos = JSON.parse(todos); } catch(e) { return; }
+    }
+
+    // Solo regeneramos si cambió el producto principal
+    const yaGenerados = sugeridosActuales.some(p => p.id == productoActualId);
+    if (!yaGenerados) {
+        sugeridosActuales = todos
+            .filter(p => p.id != productoActualId)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 4);
+    }
+
+    contenedor.innerHTML = '';
+    sugeridosActuales.forEach(p => {
+        const card = document.createElement('div');
+        card.classList.add('panel-sugerido-card');
+        card.innerHTML = `
+            <img src="/img/${p.imagenes[0]}" alt="${p.nombre}" onerror="this.onerror=null;this.src='/img/no-image.png'">
+            <p class="panel-sugerido-nombre">${p.nombre}</p>
+            <p class="panel-sugerido-puntos">${p.puntos} PUNTOS</p>
+        `;
+        card.onclick = () => abrirPanel(p.id, p.nombre, p.puntos, p.imagenes, p.descripcion, p.stock);
+        contenedor.appendChild(card);
     });
 }

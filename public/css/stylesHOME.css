@@ -267,11 +267,14 @@ body {
     max-width: 1100px;
     width: 100%;
     border-radius: 20px;
-    padding: 30px 35px;
+    padding: 30px 35px 0 35px;
     position: relative;
     box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
     display: flex;
-    gap: 40px;
+    flex-direction: column;
+    gap: 0;
+    overflow-y: auto;
+    max-height: 90vh;
 }
 
 /* Botón Cerrar (X) - Mejor posicionado y visible */
@@ -768,4 +771,182 @@ body {
         flex: 0 0 100%;
         /* 1 card */
     }
+}
+
+/* TE PUEDE INTERESAR DENTRO DEL PANEL */
+.panel-sugeridos {
+    border-top: 1px solid #eee;
+    padding: 25px 35px 30px 35px;
+    width: 100%;
+}
+
+.panel-sugeridos-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 20px 0;
+}
+
+.panel-sugeridos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.panel-sugerido-card {
+    background: #f8f8f8;
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.panel-sugerido-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.panel-sugerido-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.panel-sugerido-nombre {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panel-sugerido-puntos {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #1abc9c;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .panel-sugeridos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .panel-sugeridos {
+        padding: 20px;
+    }
+}
+
+/* Agregar al final del archivo */
+.panel-info-row {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    padding-bottom: 30px;
+}
+
+@media (max-width: 900px) {
+    .panel-info-row {
+        flex-direction: column;
+    }
+}
+
+/* TE PUEDE INTERESAR DENTRO DEL PANEL */
+.panel-sugeridos {
+    border-top: 1px solid #eee;
+    padding: 25px 0 30px 0;
+    width: 100%;
+}
+
+.panel-sugeridos-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 20px 0;
+}
+
+.panel-sugeridos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.panel-sugerido-card {
+    background: #f8f8f8;
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.panel-sugerido-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.panel-sugerido-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.panel-sugerido-nombre {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panel-sugerido-puntos {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #1abc9c;
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .panel-sugeridos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .panel-sugeridos {
+        padding: 20px 0;
+    }
+}
+
+/* SIN STOCK */
+.product-card.sin-stock {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.product-image {
+    position: relative;
+}
+
+.badge-sin-stock {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
 }

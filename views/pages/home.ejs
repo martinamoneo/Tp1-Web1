@@ -99,46 +99,58 @@
         <div class="sugeridos-dots" id="sugeridosDots"></div>
     </section>
 
-    <!-- PANEL DESPLEGABLE -->
-    <div id="panelProducto" class="panel-producto">
+</main>
+
+<!-- PANEL DESPLEGABLE (fuera del main para evitar conflictos) -->
+<div id="panelProducto" class="panel-producto">
     <div class="panel-contenido">
+
         <button class="panel-close" onclick="cerrarPanel()">✕</button>
 
-        <div class="panel-izquierda">
-            <div class="panel-galeria">
-                <div id="panel-thumbnails" class="panel-thumbnails"></div>
-                <div class="slider-container">
-                    <button class="slider-btn izquierda" onclick="cambiarFoto(-1)">
-                        <i class="fa-solid fa-angle-left"></i>
-                    </button>
-                    <img id="panelImagen" src="" alt="" class="panel-img-principal" onerror="this.onerror=null; this.src='/img/no-image.png'">
-                    <button class="slider-btn derecha" onclick="cambiarFoto(1)">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </button>
+        <div class="panel-info-row">
+            <div class="panel-izquierda">
+                <div class="panel-galeria">
+                    <div id="panel-thumbnails" class="panel-thumbnails"></div>
+                    <div class="slider-container">
+                        <button class="slider-btn izquierda" onclick="cambiarFoto(-1)">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </button>
+                        <img id="panelImagen" src="" alt="" class="panel-img-principal" onerror="this.onerror=null; this.src='/img/no-image.png'">
+                        <button class="slider-btn derecha" onclick="cambiarFoto(1)">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </button>
+                    </div>
                 </div>
+            </div>
+
+            <div class="panel-derecha">
+                <h2 id="panelNombre"></h2>
+                <p class="panel-puntos">
+                    <span id="panelPuntos"></span> <span class="puntos-label">Puntos</span>
+                </p>
+                <button class="btn-carrito" id="btnAgregarCarrito" onclick="agregarAlCarrito()">
+                    Agregar al Carrito
+                </button>
+                <p id="panelDescripcion" class="panel-descripcion"></p>
             </div>
         </div>
 
-        <div class="panel-derecha">
-            <h2 id="panelNombre"></h2>
-            <p class="panel-puntos">
-                <span id="panelPuntos"></span> <span class="puntos-label">Puntos</span>
-            </p>
-            <button class="btn-carrito" onclick="agregarAlCarrito()">Agregar al Carrito</button>
-            <p id="panelDescripcion" class="panel-descripcion"></p>
+        <!-- TE PUEDE INTERESAR DENTRO DEL PANEL -->
+        <div class="panel-sugeridos">
+            <h3 class="panel-sugeridos-titulo">Te puede interesar</h3>
+            <div class="panel-sugeridos-grid" id="panelSugeridosGrid"></div>
         </div>
-    </div>
-    </div>
-</main>
 
-<script src="/js/productDetail.js"></script>
-<script>
-const productosSugeridosData = JSON.parse('<%- JSON.stringify(productosSugeridos) %>');
-</script>
+    </div>
+</div>
 
 <script>
     window.listaProductosGlobal = ('<%- JSON.stringify(listaProductos) %>');
 </script>
+<script>
+const productosSugeridosData = JSON.parse('<%- JSON.stringify(productosSugeridos) %>');
+</script>
+<script src="/js/productDetail.js"></script>
 <script src="/js/home.js"></script> 
 
 <%- include('../partials/footer') %>

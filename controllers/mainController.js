@@ -35,29 +35,47 @@ const controller = {
             .filter(Boolean);
 
         const totalPuntos = carritoCompleto.reduce(
-            (acc, p) => acc + p.puntos * p.cantidad,
-            0
+            (acc, p) => acc + p.puntos * p.cantidad, 0
         );
+
+        const mensaje = req.session.cartMessage || null;
+        req.session.cartMessage = null;
 
         res.render('pages/cart', {
             esInicio: false,
             esCarrito: true,
             carrito: carritoCompleto,
-            total: totalPuntos
+            total: totalPuntos,
+            mensaje: mensaje
         });
     },
     addToCart: (req, res) => {
         const productId = req.body.productId;
         if (productId == null || productId === '') {
-            return res.json({ success: false });
+            return res.json({ success: false, message: 'ID inválido' });
         }
+
+        const allProducts = productModel.findAll();
+        const producto = allProducts.find(p => p.id == productId);
+
+        if (!producto) {
+            return res.json({ success: false, message: 'Producto no encontrado' });
+        }
+
         const cart = req.session.cart;
         const itemIndex = cart.findIndex((item) => item.productId == productId);
+        const cantidadEnCarrito = itemIndex !== -1 ? cart[itemIndex].quantity : 0;
+
+        if (cantidadEnCarrito >= producto.stock) {
+            return res.json({ success: false, message: 'Stock insuficiente' });
+        }
+
         if (itemIndex !== -1) {
             cart[itemIndex].quantity += 1;
         } else {
             cart.push({ productId: parseInt(productId, 10), quantity: 1 });
         }
+
         res.json({ success: true });
     },
     updateCart: (req, res) => {
@@ -67,12 +85,21 @@ const controller = {
         if (idx === -1) return res.redirect('/cart');
 
         if (action === 'increase') {
-            cart[idx].quantity += 1;
+            const allProducts = productModel.findAll();
+            const producto = allProducts.find(p => p.id == productId);
+
+            if (producto && cart[idx].quantity < producto.stock) {
+                cart[idx].quantity += 1;
+                req.session.cartMessage = null;
+            } else {
+                req.session.cartMessage = 'No hay más stock disponible para este producto.';
+            }
         } else if (action === 'decrease') {
             cart[idx].quantity -= 1;
             if (cart[idx].quantity <= 0) {
                 cart.splice(idx, 1);
             }
+            req.session.cartMessage = null;
         }
         res.redirect('/cart');
     },
