@@ -12,5 +12,7 @@ router.post('/cart/update', mainController.updateCart);
 router.post('/cart/clear', mainController.clearCart);
 router.get('/checkout', mainController.checkout);
 router.get('/product/:id', mainController.productDetail);
+router.get('/categories/:categoryName', mainController.category);
+router.get('/500', mainController.error500);
 
 module.exports = router;

@@ -4,9 +4,14 @@ const app = express();
 const mainRoutes = require('./routes/mainRoutes');
 const session = require('express-session');
 
+const expressLayouts = require('express-ejs-layouts');
+
 // configura el motor de plantillas ejs
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(expressLayouts);
+app.set('layout', 'layouts/main');
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -45,6 +50,12 @@ app.use(mainRoutes);
 // 404
 app.use((req, res) => {
     res.status(404).render('pages/404', { esInicio: false, esCarrito: false });
+});
+
+// 500
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).render('pages/500', { esInicio: false, esCarrito: false });
 });
 
 // usa un puerto asignado por la web si no usa el 3000

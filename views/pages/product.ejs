@@ -1,4 +1,4 @@
-<%- include('../partials/header') %>
+
 <main class="product-page">
     <div class="product-container">
         <!-- VOLVER -->
@@ -80,7 +80,7 @@
         <div class="product-sugeridos">
             <h2>También te puede interesar</h2>
             <% if (productosSugeridos && productosSugeridos.length > 0) { %>
-                <div class="sugeridos-grid">
+                <div class="sugeridos-grid <%= productosSugeridos.length < 3 ? 'pocos-productos' : '' %>">
                     <% productosSugeridos.forEach(sug => { %>
                         <div class="sug-card" onclick="window.location.href='/product/<%= sug.id %>'">
                             <div class="sug-img-box">
@@ -104,5 +104,4 @@
 <script>
     window.stockActual = parseInt('<%= producto.stock %>', 10);
 </script>
-<script src="/js/productPage.js"></script>
-<%- include('../partials/footer') %>
+<script src="/js/productPage.js"></script>

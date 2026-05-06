@@ -1,15 +1,17 @@
-const productModel = require('../models/productModel');
+const productsService = require('../services/productsService');
+const cartService = require('../services/cartService');
+const normalizeId = require('../utils/normalizeId');
 
 const controller = {
     home: (req, res) => {
-        const productos = productModel.findAll();
+        const productos = productsService.getAllProducts();
         res.render('pages/home', {
             esInicio: true,
             listaProductos: productos
         });
     },
     register: (req, res) => {
-        res.render('pages/register', { esInicio: false });
+        res.render('pages/register', { esInicio: false, layout: false });
     },
     registerProcess: (req, res) => {
         const { nombre, apellido, email, password } = req.body;
@@ -17,114 +19,90 @@ const controller = {
         res.redirect('/login');
     },
     login: (req, res) => {
-        res.render('pages/login', { esInicio: false });
+        res.render('pages/login', { esInicio: false, layout: false });
     },
     cart: (req, res) => {
-        const cartSession = req.session.cart;
-        const allProducts = productModel.findAll();
-
-        const carritoCompleto = cartSession
-            .map((item) => {
-                const productData = allProducts.find((p) => p.id == item.productId);
-                if (!productData) return null;
-                return { ...productData, cantidad: item.quantity };
-            })
-            .filter(Boolean);
-
-        const totalPuntos = carritoCompleto.reduce(
-            (acc, p) => acc + p.puntos * p.cantidad, 0
-        );
-
+        const cartDetails = cartService.getCartDetails(req.session);
+        
         const mensaje = req.session.cartMessage || null;
         req.session.cartMessage = null;
 
         res.render('pages/cart', {
-            esInicio: false,
-            carrito: carritoCompleto,
-            total: totalPuntos,
+            esInicio: true,
+            carrito: cartDetails.carritoCompleto,
+            total: cartDetails.totalPuntos,
             mensaje: mensaje
         });
     },
     addToCart: (req, res) => {
-        const productId = req.body.productId;
-        if (productId == null || productId === '') {
-            return res.json({ success: false, message: 'ID inválido' });
+        const productId = normalizeId(req.body.productId);
+        if (!productId) {
+            return res.status(400).json({ success: false, message: 'ID no numérico o inválido' });
         }
 
-        const allProducts = productModel.findAll();
-        const producto = allProducts.find(p => p.id == productId);
+        const cantidadEnviada = parseInt(req.body.cantidad) || 1;
 
-        if (!producto) {
-            return res.json({ success: false, message: 'Producto no encontrado' });
+        const result = cartService.addProduct(req.session, productId, cantidadEnviada);
+        if (!result.success && result.message === 'Producto no encontrado') {
+            return res.status(404).json(result);
         }
-
-        const cart = req.session.cart;
-        const itemIndex = cart.findIndex((item) => item.productId == productId);
-        const cantidadEnCarrito = itemIndex !== -1 ? cart[itemIndex].quantity : 0;
-
-        if (cantidadEnCarrito >= producto.stock) {
-            return res.json({ success: false, message: 'Stock insuficiente' });
-        }
-
-        if (itemIndex !== -1) {
-            cart[itemIndex].quantity += 1;
-        } else {
-            cart.push({ productId: parseInt(productId, 10), quantity: 1 });
-        }
-
-        res.json({ success: true });
+        res.json(result);
     },
     updateCart: (req, res) => {
-        const { productId, action } = req.body;
-        const cart = req.session.cart;
-        const idx = cart.findIndex((item) => item.productId == productId);
-        if (idx === -1) return res.redirect('/cart');
-
-        if (action === 'increase') {
-            const allProducts = productModel.findAll();
-            const producto = allProducts.find(p => p.id == productId);
-
-            if (producto && cart[idx].quantity < producto.stock) {
-                cart[idx].quantity += 1;
-                req.session.cartMessage = null;
-            } else {
-                req.session.cartMessage = 'No hay más stock disponible para este producto.';
-            }
-        } else if (action === 'decrease') {
-            cart[idx].quantity -= 1;
-            if (cart[idx].quantity <= 0) {
-                cart.splice(idx, 1);
-            }
-            req.session.cartMessage = null;
+        const productId = normalizeId(req.body.productId);
+        if (!productId) {
+            return res.status(400).render('pages/400', { esInicio: false, esCarrito: false });
         }
+
+        const { action } = req.body;
+        cartService.updateProductQuantity(req.session, productId, action);
+        
         res.redirect('/cart');
     },
     clearCart: (req, res) => {
-        req.session.cart = [];
+        cartService.clearCart(req.session);
         res.redirect('/cart');
     },
     checkout: (req, res) => {
         res.render('pages/checkout', { esInicio: true });
     },
     productDetail: (req, res) => {
-        const productId = req.params.id;
-        const allProducts = productModel.findAll();
-        const producto = allProducts.find(p => p.id == productId);
-
-        if (!producto) {
-            return res.status(404).send('Producto no encontrado');
+        const productId = normalizeId(req.params.id);
+        if (!productId) {
+            return res.status(400).render('pages/400', { esInicio: false, esCarrito: false });
         }
 
-        const sugeridos = allProducts
-            .filter(p => p.id != productId && p.categoria === producto.categoria)
-            .sort(() => 0.5 - Math.random())
-            .slice(0, 4);
+        const producto = productsService.getProductById(productId);
+
+        if (!producto) {
+            return res.status(404).render('pages/404', { esInicio: false, esCarrito: false });
+        }
+
+        const sugeridos = productsService.getSuggestedProducts(productId, producto.categoria);
 
         res.render('pages/product', { 
             esInicio: true,
             producto: producto,
             productosSugeridos: sugeridos
         });
+    },
+    category: (req, res) => {
+        const categoryName = req.params.categoryName.toLowerCase();
+        
+        const productosFiltrados = productsService.getProductsByCategoryName(categoryName);
+
+        if (!productosFiltrados) {
+            return res.status(404).render('pages/404', { esInicio: false, esCarrito: false });
+        }
+
+        res.render('pages/categories', {
+            esInicio: true,
+            categoriaNombre: categoryName,
+            productos: productosFiltrados
+        });
+    },
+    error500: (req, res) => {
+        res.status(500).render('pages/500', { esInicio: false, esCarrito: false });
     }
 };
 
