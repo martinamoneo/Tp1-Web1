@@ -1,0 +1,294 @@
+/* Estilos de la página de Producto Individual */
+
+.product-page {
+    background-color: var(--color-fondo, #f0f0f0);
+}
+
+.product-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Breadcrumbs (Volver) */
+.product-breadcrumb {
+    margin-bottom: 40px;
+}
+
+.product-breadcrumb a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.product-breadcrumb a:hover {
+    color: var(--color-turquesa, #1abc9c);
+}
+
+/* Main Section: Galería e Información */
+.product-main {
+    display: flex;
+    gap: 60px;
+    margin-bottom: 80px;
+}
+
+/* Galería de imágenes */
+.product-gallery {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    max-width: 50%;
+}
+
+.gallery-thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 90px;
+}
+
+.thumb-img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all 0.3s;
+    background: #e0e0e0;
+}
+
+.thumb-img:hover,
+.thumb-img.activo {
+    opacity: 1;
+    box-shadow: 0 0 0 2px #ccc;
+}
+
+.gallery-main-img {
+    flex: 1;
+    height: 500px;
+    background: #e0e0e0;
+    overflow: hidden;
+}
+
+.gallery-main-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Información del Producto a la derecha */
+.detail-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+.detail-category {
+    color: #999;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0 0 15px 0;
+    font-weight: 500;
+}
+
+.detail-title {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #222;
+    margin: 0 0 25px 0;
+    line-height: 1.2;
+}
+
+.detail-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222;
+    margin: 0 0 30px 0;
+}
+
+.detail-stock-info {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.detail-stock-info .in-stock {
+    color: var(--color-turquesa, #1abc9c);
+    font-weight: 600;
+}
+
+.detail-stock-info .out-of-stock {
+    color: var(--color-rojo, #e74c3c);
+    font-weight: 600;
+}
+
+.detail-divisor {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 0 0 30px 0;
+    width: 100%;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+/* La clase .cantidad-selector y .btn-carrito 
+   ya están estilizadas en stylesHOME.css y stylesCART.css, 
+   pero si necesitamos ajustes específicos los agregamos aquí: */
+   
+.detail-actions .btn-carrito {
+    padding: 15px 30px;
+    font-size: 1rem;
+    min-width: 250px;
+}
+
+
+/* Middle Section: Descripción */
+.product-details-tabs {
+    margin-bottom: 80px;
+}
+
+.tabs-header {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 50px;
+}
+
+.tab-title {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #888;
+    padding-bottom: 15px;
+    position: relative;
+}
+
+.tab-title.activo {
+    color: #222;
+}
+
+.tab-title.activo::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #222;
+}
+
+.tabs-content {
+    color: #555;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    max-width: 800px;
+}
+
+
+/* Sugeridos (You may also like) */
+.product-sugeridos {
+    margin-top: 60px;
+}
+
+.product-sugeridos h2 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #222;
+    margin-bottom: 40px;
+}
+
+.sugeridos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.sug-card {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.sug-card:hover {
+    transform: translateY(-8px);
+}
+
+.sug-img-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #e0e0e0;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.sug-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.sug-card:hover .sug-img-box img {
+    transform: scale(1.05);
+}
+
+.sug-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #222;
+    margin: 0 0 8px 0;
+}
+
+.sug-price {
+    color: #666;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.sugeridos-vacio {
+    color: #777;
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .product-main {
+        flex-direction: column;
+    }
+    .product-gallery {
+        max-width: 100%;
+        flex-direction: column-reverse;
+    }
+    .gallery-thumbnails {
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+        gap: 10px;
+    }
+    .thumb-img {
+        width: 70px;
+        height: 70px;
+    }
+    .sugeridos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .detail-title {
+        font-size: 2rem;
+    }
+    .detail-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .detail-actions .btn-carrito {
+        width: 100%;
+    }
+}

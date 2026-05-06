@@ -1,48 +1,48 @@
     const productos = [
         { id: 1, nombre: 'Producto 1', puntos: 15000, imagenes: ['lampara.jpeg', 'lampara2.jpeg'], 
-            descripcion: 'Lámpara moderna de diseño minimalista.', esNovedad: true, stock: 5 },
+            descripcion: 'Lámpara moderna de diseño minimalista.', esNovedad: true, stock: 5, categoria: 'COLECCIÓN LAMPARAS' },
 
         { id: 2, nombre: 'Producto 2', puntos: 29000, imagenes: ['llaveros.jpeg'], 
-            descripcion: 'Llaveros personalizados de alta calidad.', stock: 10 },
+            descripcion: 'Llaveros personalizados de alta calidad.', stock: 10, categoria: 'COLECCION LLAVEROS' },
 
         { id: 3, nombre: 'Producto 3', puntos: 1500, imagenes: ['mate.jpeg'], 
-            descripcion: 'Mate tradicional con detalles únicos.', stock: 10},
+            descripcion: 'Mate tradicional con detalles únicos.', stock: 10, categoria: 'COLECCION MATES'},
 
         { id: 4, nombre: 'Producto 4', puntos: 22500, imagenes: ['pastillero.jpeg'], 
-            descripcion: 'Pastillero práctico y elegante.', stock: 0 },
+            descripcion: 'Pastillero práctico y elegante.', stock: 0, categoria: 'COLECCION OTROS' },
 
         { id: 5, nombre: 'Producto 5', puntos: 4500, imagenes: ['premio.jpeg'], 
-            descripcion: 'Trofeo personalizado para eventos.', stock: 5 },
+            descripcion: 'Trofeo personalizado para eventos.', stock: 5, categoria: 'COLECCION TROFEOS'},
 
         { id: 6, nombre: 'Producto 6', puntos: 60900, imagenes: ['vasoRiver.jpeg', 'vaso2.jpeg'], 
-            descripcion: 'Vaso oficial de River Plate edición especial.', esProximo: true , stock: 0},
+            descripcion: 'Vaso oficial de River Plate edición especial.', esProximo: true , stock: 0, categoria: 'COLECCION VASOS' },
 
         { id: 7, nombre: 'Producto 7', puntos: 60900, imagenes: ['producto.jpg'], 
-            descripcion: 'Vaso oficial de River Plate edición especial.' , stock: 0},
+            descripcion: 'Vaso oficial de River Plate edición especial.' , stock: 0, categoria: 'COLECCION VASOS'},
 
         { id: 8, nombre: 'Producto 8', puntos: 60900, imagenes: ['producto.jpg'], 
-            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 3},
+            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 3, categoria: 'COLECCION VASOS'},
 
         { id: 9, nombre: 'Producto 9', puntos: 60900, imagenes: ['producto.jpg'], 
-            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 4},
+            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 4, categoria: 'COLECCION VASOS'},
 
         { id: 10, nombre: 'Producto 10', puntos: 60900, imagenes: ['producto.jpg'], 
-            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 5},
+            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 5, categoria: 'COLECCION VASOS'},
 
         { id: 11, nombre: 'Producto 11', puntos: 60900, imagenes: ['producto.jpg'], 
-            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 0},
+            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 0, categoria: 'COLECCION VASOS'},
 
         { id: 12, nombre: 'Producto 12', puntos: 60900, imagenes: ['producto.jpg'], 
-            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 5},
+            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 5, categoria: 'COLECCION VASOS'},
 
         { id: 13, nombre: 'Producto 13', puntos: 60900, imagenes: ['producto.jpg'], 
-            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 0},
+            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 0, categoria: 'COLECCION VASOS'},
 
         { id: 14, nombre: 'Producto 14', puntos: 60900, imagenes: ['producto.jpg'], 
-            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 5},
+            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 5, categoria: 'COLECCION VASOS'},
 
         { id: 15, nombre: 'Producto 15', puntos: 60900, imagenes: ['producto.jpg'], 
-            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 5}
+            descripcion: 'Vaso oficial de River Plate edición especial.', stock: 5, categoria: 'COLECCION VASOS'}
     ];
 
     const productosSugeridos = [

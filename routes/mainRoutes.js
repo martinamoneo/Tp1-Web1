@@ -11,5 +11,6 @@ router.post('/cart/add', mainController.addToCart);
 router.post('/cart/update', mainController.updateCart);
 router.post('/cart/clear', mainController.clearCart);
 router.get('/checkout', mainController.checkout);
+router.get('/product/:id', mainController.productDetail);
 
 module.exports = router;

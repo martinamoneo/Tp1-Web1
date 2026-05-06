@@ -1,0 +1,95 @@
+<%- include('../partials/header') %>
+<main class="product-page">
+    <div class="product-container">
+        <!-- VOLVER -->
+        <div class="product-breadcrumb">
+            <a href="/">&larr; Volver al inicio</a>
+        </div>
+
+        <!-- MAIN PRODUCT SECTION -->
+        <div class="product-main">
+            <!-- GALERIA IZQUIERDA -->
+            <div class="product-gallery">
+                <div class="gallery-thumbnails" id="productThumbnails">
+                    <% if (producto.imagenes && producto.imagenes.length > 0) { %>
+                        <% producto.imagenes.forEach((img, i) => { %>
+                            <img src="/img/<%= img %>" alt="Thumbnail" class="thumb-img <%= i === 0 ? 'activo' : '' %>" onclick="cambiarImagenProducto('<%= img %>', this)">
+                        <% }) %>
+                    <% } %>
+                </div>
+                <div class="gallery-main-img">
+                    <img src="/img/<%= producto.imagenes && producto.imagenes.length > 0 ? producto.imagenes[0] : 'no-image.png' %>" id="imagenPrincipalProducto" alt="<%= producto.nombre %>" onerror="this.onerror=null; this.src='/img/no-image.png'">
+                </div>
+            </div>
+
+            <!-- INFO DERECHA -->
+            <div class="detail-info">
+                <p class="detail-category"><%= producto.categoria || 'Sin categoría' %></p>
+                <h1 class="detail-title"><%= producto.nombre %></h1>
+                <p class="detail-price"><%= producto.puntos %> PUNTOS</p>
+                
+                <div class="detail-stock-info">
+                    <span>Disponibilidad: </span>
+                    <span class="<%= producto.stock > 0 ? 'in-stock' : 'out-of-stock' %>">
+                        <%= producto.stock > 0 ? producto.stock + ' en stock' : 'Sin stock' %>
+                    </span>
+                </div>
+                
+                <hr class="detail-divisor">
+
+                <div class="detail-actions">
+                    <div class="cantidad-selector">
+                        <button class="btn-cantidad" onclick="cambiarCantidadProducto(-1)" <%= producto.stock === 0 ? 'disabled' : '' %>>
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
+                        <input type="text" id="productoCantidad" value="<%= producto.stock > 0 ? 1 : 0 %>" readonly>
+                        <button class="btn-cantidad" onclick="cambiarCantidadProducto(1)" <%= producto.stock === 0 ? 'disabled' : '' %>>
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                    <button class="btn-carrito" id="btnAgregarProducto" onclick="agregarAlCarritoProducto('<%= producto.id %>')" <%= producto.stock === 0 ? 'disabled' : '' %>>
+                        <%= producto.stock > 0 ? 'AGREGAR AL CARRITO' : 'SIN STOCK' %>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MIDDLE SECTION (DESCRIPTION) -->
+        <div class="product-details-tabs">
+            <div class="tabs-header">
+                <span class="tab-title activo">Descripción</span>
+            </div>
+            <div class="tabs-content">
+                <div class="tab-pane-left">
+                    <p><%= producto.descripcion %></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUGGESTED PRODUCTS -->
+        <div class="product-sugeridos">
+            <h2>También te puede interesar</h2>
+            <% if (productosSugeridos && productosSugeridos.length > 0) { %>
+                <div class="sugeridos-grid">
+                    <% productosSugeridos.forEach(sug => { %>
+                        <div class="sug-card" onclick="window.location.href='/product/<%= sug.id %>'">
+                            <div class="sug-img-box">
+                                <img src="/img/<%= sug.imagenes && sug.imagenes.length > 0 ? sug.imagenes[0] : 'no-image.png' %>" alt="<%= sug.nombre %>" onerror="this.onerror=null; this.src='/img/no-image.png'">
+                            </div>
+                            <p class="sug-title"><%= sug.nombre %></p>
+                            <p class="sug-price"><%= sug.puntos %> PUNTOS</p>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <p class="sugeridos-vacio">No hay otros productos para mostrar en este momento.</p>
+            <% } %>
+        </div>
+    </div>
+</main>
+
+<script>
+    window.stockActual = parseInt('<%= producto.stock %>', 10);
+</script>
+<script src="/js/productPage.js"></script>
+<%- include('../partials/footer') %>

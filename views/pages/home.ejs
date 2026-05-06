@@ -1,6 +1,7 @@
 <%- include('../partials/header') %>
 
 <main>
+    <!-- categorias -->
     <section class="home-container">
         <nav class="categories-nav">
             <ul class="categories-list">
@@ -15,7 +16,7 @@
             </ul>
         </nav>
     </section>
-
+    <!-- novedades e ingresos -->
     <section class="banner-section">
         <div class="banner-container">
             <article class="banner-card banner-card1" onclick="abrirPanelDesdeBanner('novedades')">
@@ -37,7 +38,7 @@
             </article>
         </div>
     </section>
-
+    <!-- lo mas pedido -->
     <section class="products-section lo-mas-pedido-section" style="padding-bottom: 10px;">
         <h2>Lo más pedido</h2>
         <div class="carousel-wrapper">
@@ -57,7 +58,7 @@
             </button>
         </div>
     </section>
-
+    <!-- te puede interesar -->
     <section class="products-section" style="padding-bottom: 10px;">
         <h2>Te puede interesar</h2>
         <div class="products-grid">
@@ -69,7 +70,7 @@
             <% }); %>
         </div>
     </section>
-
+    <!-- productos -->
     <section class="products-section">
         <h2>Mira nuestros productos!</h2>
         <div class="products-grid">
@@ -77,26 +78,6 @@
                 <%- include('../partials/productCard', { producto: producto }) %>
             <% }); %>
         </div>
-    </section>
-
-    <!-- PRODUCTOS SUGERIDOS -->
-    <section class="sugeridos-section">
-        <h2>Productos Sugeridos</h2>
-        <div class="sugeridos-carrusel">
-            <button class="sugeridos-btn izquierda" onclick="moverSugeridos(-1)">&#8249;</button>
-            <div class="sugerido-card" id="sugeridoCard">
-                <div class="sugerido-imagen">
-                    <img id="sugeridoImg" src="" alt="" onerror="this.onerror=null; this.src='/img/no-image.png'">
-                </div>
-                <div class="sugerido-info">
-                    <h3 id="sugeridoNombre"></h3>
-                    <p class="sugerido-puntos"><span id="sugeridoPuntos"></span> PUNTOS</p>
-                    <p id="sugeridoDescripcion" class="sugerido-descripcion"></p>
-                </div>
-            </div>
-            <button class="sugeridos-btn derecha" onclick="moverSugeridos(1)">&#8250;</button>
-        </div>
-        <div class="sugeridos-dots" id="sugeridosDots"></div>
     </section>
 
 </main>
@@ -110,37 +91,36 @@
         <div class="panel-info-row">
             <div class="panel-izquierda">
                 <div class="panel-galeria">
-                    <div id="panel-thumbnails" class="panel-thumbnails"></div>
                     <div class="slider-container">
-                        <button class="slider-btn izquierda" onclick="cambiarFoto(-1)">
-                            <i class="fa-solid fa-angle-left"></i>
-                        </button>
                         <img id="panelImagen" src="" alt="" class="panel-img-principal" onerror="this.onerror=null; this.src='/img/no-image.png'">
-                        <button class="slider-btn derecha" onclick="cambiarFoto(1)">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </button>
                     </div>
                 </div>
             </div>
 
             <div class="panel-derecha">
+                <p id="panelCategoria" class="panel-categoria"></p>
                 <h2 id="panelNombre"></h2>
-                <p class="panel-puntos">
-                    <span id="panelPuntos"></span> <span class="puntos-label">Puntos</span>
-                </p>
-                <button class="btn-carrito" id="btnAgregarCarrito" onclick="agregarAlCarrito()">
-                    Agregar al Carrito
-                </button>
+                <p id="panelPuntos" class="panel-puntos"></p>
                 <p id="panelDescripcion" class="panel-descripcion"></p>
+                <hr class="panel-divisor">
+                <a id="panelDetalleLink" href="#" class="panel-detalle-link">Ver detalles completos y ficha técnica &rarr;</a>
+                
+                <div class="panel-acciones">
+                    <div class="cantidad-selector">
+                        <button class="btn-cantidad" onclick="cambiarCantidadPanel(-1)">
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
+                        <input type="text" id="panelCantidad" value="1" readonly>
+                        <button class="btn-cantidad" onclick="cambiarCantidadPanel(1)">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                    <button class="btn-carrito" id="btnAgregarCarrito" onclick="agregarAlCarrito()">
+                        AGREGAR AL CARRITO
+                    </button>
+                </div>
             </div>
         </div>
-
-        <!-- TE PUEDE INTERESAR DENTRO DEL PANEL -->
-        <div class="panel-sugeridos">
-            <h3 class="panel-sugeridos-titulo">Te puede interesar</h3>
-            <div class="panel-sugeridos-grid" id="panelSugeridosGrid"></div>
-        </div>
-
     </div>
 </div>
 

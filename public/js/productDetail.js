@@ -3,7 +3,7 @@ let indiceActual = 0;
 let productoIdPanel = null;
 let sugeridosActuales = [];
 
-function abrirPanel(productId, nombre, puntos, imagenes, descripcion, stock) {
+function abrirPanel(productId, nombre, puntos, imagenes, descripcion, stock, categoria) {
     if (typeof imagenes === 'string') {
         imagenes = JSON.parse(imagenes.replace(/&quot;/g, '"'));
     }
@@ -12,9 +12,18 @@ function abrirPanel(productId, nombre, puntos, imagenes, descripcion, stock) {
     imagenesActuales = imagenes;
     indiceActual = 0;
 
+    const catElem = document.getElementById('panelCategoria');
+    if(catElem) catElem.textContent = categoria || '';
+    
     document.getElementById('panelNombre').textContent = nombre;
-    document.getElementById('panelPuntos').textContent = puntos;
+    document.getElementById('panelPuntos').textContent = puntos + ' PUNTOS';
     document.getElementById('panelDescripcion').textContent = descripcion;
+
+    const linkElem = document.getElementById('panelDetalleLink');
+    if(linkElem) linkElem.href = '/product/' + productId;
+
+    const inputCant = document.getElementById('panelCantidad');
+    if(inputCant) inputCant.value = 1;
 
     // Manejar stock
     const btn = document.getElementById('btnAgregarCarrito');
@@ -101,16 +110,28 @@ function generarDots() {
     });
 }
 
+function cambiarCantidadPanel(delta) {
+    const input = document.getElementById('panelCantidad');
+    if (!input) return;
+    let val = parseInt(input.value) || 1;
+    val += delta;
+    if (val < 1) val = 1;
+    input.value = val;
+}
+
 function agregarAlCarrito() {
     if (productoIdPanel == null) return;
 
     const btn = document.getElementById('btnAgregarCarrito');
     const textoOriginal = btn.textContent;
+    
+    const inputCant = document.getElementById('panelCantidad');
+    const cantidad = inputCant ? parseInt(inputCant.value) || 1 : 1;
 
     fetch('/cart/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'productId=' + encodeURIComponent(productoIdPanel)
+        body: 'productId=' + encodeURIComponent(productoIdPanel) + '&cantidad=' + encodeURIComponent(cantidad)
     })
     .then(res => res.json())
     .then(data => {
@@ -122,7 +143,7 @@ function agregarAlCarrito() {
             const badge = document.getElementById('cart-badge');
             if (badge) {
                 const cantidadActual = parseInt(badge.textContent) || 0;
-                badge.textContent = cantidadActual + 1;
+                badge.textContent = cantidadActual + cantidad;
             }
 
             setTimeout(() => {
@@ -173,7 +194,7 @@ function generarSugeridos(productoActualId) {
             <p class="panel-sugerido-nombre">${p.nombre}</p>
             <p class="panel-sugerido-puntos">${p.puntos} PUNTOS</p>
         `;
-        card.onclick = () => abrirPanel(p.id, p.nombre, p.puntos, p.imagenes, p.descripcion, p.stock);
+        card.onclick = () => abrirPanel(p.id, p.nombre, p.puntos, p.imagenes, p.descripcion, p.stock, p.categoria);
         contenedor.appendChild(card);
     });
 }

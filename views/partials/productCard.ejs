@@ -6,7 +6,8 @@
             '<%= producto.puntos %>',
             '<%- JSON.stringify(producto.imagenes).split(String.fromCharCode(34)).join("&quot;") %>',
             '<%= producto.descripcion.replace(/'/g, "\\'") %>',
-            <%= producto.stock %>
+            <%= producto.stock %>,
+            '<%= producto.categoria ? producto.categoria.replace(/'/g, "\\'") : "" %>'
         )"
     <% } %>
 >

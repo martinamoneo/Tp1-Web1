@@ -109,6 +109,24 @@ const controller = {
     },
     checkout: (req, res) => {
         res.render('pages/checkout', { esInicio: false, esCarrito: false });
+    },
+    productDetail: (req, res) => {
+        const productId = req.params.id;
+        const allProducts = productModel.findAll();
+        const producto = allProducts.find(p => p.id == productId);
+
+        if (!producto) {
+            return res.status(404).send('Producto no encontrado');
+        }
+
+        const sugeridos = allProducts.filter(p => p.id != productId).sort(() => 0.5 - Math.random()).slice(0, 4);
+
+        res.render('pages/product', { 
+            esInicio: false, 
+            esCarrito: false,
+            producto: producto,
+            productosSugeridos: sugeridos
+        });
     }
 };
 
