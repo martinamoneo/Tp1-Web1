@@ -1,4 +1,4 @@
-/* CSS DE HEADER, LOGIN, REGISTER, 404, RESPONSIVE Y FOOTER */
+/* CSS DE HEADER, 404 Y FOOTER */
 :root {
     --color-fondo: #f0f0f0;
     --color-turquesa: #1abc9c;
@@ -63,7 +63,7 @@ body {
 .header-search {
     flex: 1; /* Esto hace que el buscador ocupe todo el espacio central */
     position: relative;
-    max-width: 600px; /* Para que no sea infinitamente largo */
+    max-width: 500px; /* Para que no sea infinitamente largo */
 }
 
 .header-search input {
@@ -76,7 +76,7 @@ body {
 
 .header-search button {
     position: absolute;
-    right: 15px;
+    right: -45px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -147,169 +147,74 @@ body {
     object-fit: cover;
 }
 
-/*INICIA SESION Y REGISTRO*/
-.login-container, .register-container {
-    flex: 1; /* Esto hace que esta sección crezca y empuje al footer al fondo */
+/* ------------ PRODUCT-CARD ------------ */
+.product-card {
+    background: #fdfdfd;
+    border-radius: 18px;
+    padding: 13px;
+    box-sizing: border-box;
+    /* Previene que el padding ensanche la tarjeta */
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    position: relative; /* Para que el banner turquesa se posicione bien */
-}
-
-/* El bloque turquesa de arriba */
-.top-banner {
-    background-color: var(--color-turquesa);
-    height: 300px; /* Ajusta la altura según veas */
-    width: 100%;
-}
-
-/* El contenedor que envuelve la tarjeta blanca */
-.login-wrapper, .register-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Movemos todo hacia arriba para que pise el turquesa */
-    margin-top: -249.44px; 
-}
-
-.login-card, .register-card {
-    background-color: var(--color-fondo);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 300px;
-    text-align: center;
-}
-
-.login-card h1, 
-.register-card h1 {
-    margin-bottom: 18.89px;
-    font-family: 'Montserrat', sans-serif;
-    color: #333;
-    font-weight: 300;
-    text-align: left;
-}
-
-.login-form input,
-.register-form input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    border-radius: 25px; /* Bordes redondeados como en la imagen */
-}
-
-.login-form input:focus,
-.register-form input:focus {
-    outline: none;
-    border-color: var(--color-turquesa);
-    box-shadow: 0 0 0 2px rgba(26, 188, 156, 0.25);
-}
-
-/* Si el campo tiene error, el foco sigue en rojo */
-.form-group input.invalid:focus {
-    border-color: var(--color-rojo);
-    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-}
-.form-group input {
-    margin-bottom: 6px; /* separa input del error */
-}
-
-.btn-submit {
-    background-color: #4a4a4a;
-    color: white;
-    width: 100%;
-    padding: 12px;
-    border-radius: 25px;
-    border: none;
     cursor: pointer;
-    margin-top: 11.33px;
 }
 
-.bottom-text {
-    color: #666; /* Un gris para todo el texto de abajo */
-    margin-top: 20px;
-    font-size: 14px;
-    font-family: 'Montserrat', sans-serif;
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18);
 }
 
-.bottom-text a {
-    color: inherit; /* 'inherit' significa que use el mismo color que el texto de al lado */
-    text-decoration: underline; /*  */
-}
-/* errores */
-.error-msg {
-    display: block;
-    min-height: 16px;   /* reserva espacio aunque no haya error */
-    margin: 0;
-    font-size: 11px;
-    color: var(--color-rojo);
-    text-align: center;
+.product-image {
+    height: 240px;
+    background: #f8f8f8;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
-.form-group input.invalid {
-    border: 1px solid var(--color-rojo);
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
 }
 
-/*ver contraseña*/
-.password-container {
-    position: relative;
+.product-card:hover .product-image img {
+    transform: scale(1.06);
 }
 
-.btn-eye {
-    position: absolute;
-    right: 13px;
-    top: 30%;
-    transform: translateY(-40%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 0;
-    line-height: 1;
-    color: #888;
+.product-info {
+    padding: 0 8px 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
-#password {
-    padding-right: 42px;
-}
-
-.password-container {
-    position: relative;
-}
-.password-container #password {
-    padding-right: 42px;
-}
-
-.password-hint {
-    margin: 0 0 4px 0;
-    padding: 8px 10px 0 10px;
-    font-size: 11px;
-    line-height: 1.45;
-    color: #666;
-    text-align: left;
-    border-top: 1px solid #eee;
-}
-
-.password-hint-title {
-    display: block;
+.product-name {
+    font-size: 1rem;
     font-weight: 600;
-    color: #4a4a4a;
-    margin-bottom: 4px;
-    font-size: 11px;
+    color: #2c3e50;
+    margin: 15px 0 4px 0;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;   
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.password-hint em {
-    font-style: normal;
-    color: #555;
+.product-price {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1abc9c;
+    margin: 0;
 }
 
 /* ------------ FOOTER ------------ */
@@ -330,6 +235,59 @@ body {
     align-items: center;
     flex-wrap: wrap;
     gap: 15px;
+}
+
+.footer-social {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.footer-social a {
+    color: #999;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+.footer-social a:hover {
+    color: #666;
+}
+
+.footer-copy {
+    flex: 1;
+    text-align: center;
+    color: #999;
+    font-size: 0.95rem;
+}
+
+.footer-apps {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+.app-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.app-link i {
+    font-size: 1.5rem;
+}
+
+.app-link span {
+    font-weight: 500;
+}
+
+.app-link:hover {
+    color: #666;
 }
 
 /* ------------ RESPONSIVE ------------ */

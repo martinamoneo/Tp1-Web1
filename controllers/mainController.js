@@ -3,16 +3,13 @@ const productModel = require('../models/productModel');
 const controller = {
     home: (req, res) => {
         const productos = productModel.findAll();
-        const sugeridos = productModel.findSugeridos();
         res.render('pages/home', {
             esInicio: true,
-            esCarrito: false,
-            listaProductos: productos,
-            productosSugeridos: sugeridos
+            listaProductos: productos
         });
     },
     register: (req, res) => {
-        res.render('pages/register', { esInicio: false, esCarrito: false });
+        res.render('pages/register', { esInicio: false });
     },
     registerProcess: (req, res) => {
         const { nombre, apellido, email, password } = req.body;
@@ -20,7 +17,7 @@ const controller = {
         res.redirect('/login');
     },
     login: (req, res) => {
-        res.render('pages/login', { esInicio: false, esCarrito: false });
+        res.render('pages/login', { esInicio: false });
     },
     cart: (req, res) => {
         const cartSession = req.session.cart;
@@ -43,7 +40,6 @@ const controller = {
 
         res.render('pages/cart', {
             esInicio: false,
-            esCarrito: true,
             carrito: carritoCompleto,
             total: totalPuntos,
             mensaje: mensaje
@@ -108,7 +104,7 @@ const controller = {
         res.redirect('/cart');
     },
     checkout: (req, res) => {
-        res.render('pages/checkout', { esInicio: false, esCarrito: false });
+        res.render('pages/checkout', { esInicio: true });
     },
     productDetail: (req, res) => {
         const productId = req.params.id;
@@ -119,11 +115,13 @@ const controller = {
             return res.status(404).send('Producto no encontrado');
         }
 
-        const sugeridos = allProducts.filter(p => p.id != productId).sort(() => 0.5 - Math.random()).slice(0, 4);
+        const sugeridos = allProducts
+            .filter(p => p.id != productId && p.categoria === producto.categoria)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 4);
 
         res.render('pages/product', { 
-            esInicio: false, 
-            esCarrito: false,
+            esInicio: true,
             producto: producto,
             productosSugeridos: sugeridos
         });

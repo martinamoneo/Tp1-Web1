@@ -18,7 +18,7 @@
             descripcion: 'Vaso oficial de River Plate edición especial.', esProximo: true , stock: 0, categoria: 'COLECCION VASOS' },
 
         { id: 7, nombre: 'Producto 7', puntos: 60900, imagenes: ['producto.jpg'], 
-            descripcion: 'Vaso oficial de River Plate edición especial.' , stock: 0, categoria: 'COLECCION VASOS'},
+            descripcion: 'Vaso oficial de River Plate edición especial.' , stock: 0, categoria: 'COLECCION OTROS'},
 
         { id: 8, nombre: 'Producto 8', puntos: 60900, imagenes: ['producto.jpg'], 
             descripcion: 'Vaso oficial de River Plate edición especial.', stock: 3, categoria: 'COLECCION VASOS'},
@@ -45,14 +45,7 @@
             descripcion: 'Vaso oficial de River Plate edición especial.', stock: 5, categoria: 'COLECCION VASOS'}
     ];
 
-    const productosSugeridos = [
-        { nombre: 'Sugerido 1', puntos: 12000, imagen: 'lampara.jpeg', descripcion: 'Descripción del producto sugerido 1.' },
-        { nombre: 'Sugerido 2', puntos: 8500, imagen: 'llaveros.jpeg', descripcion: 'Descripción del producto sugerido 2.' },
-        { nombre: 'Sugerido 3', puntos: 19000, imagen: 'mate.jpeg', descripcion: 'Descripción del producto sugerido 3.' },
-    ];
-
     // Exportamos funciones para que el controlador las use
     module.exports = {
-    findAll: () => productos,
-    findSugeridos: () => productosSugeridos
+    findAll: () => productos
     };

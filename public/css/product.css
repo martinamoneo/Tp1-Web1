@@ -1,7 +1,13 @@
-/* Estilos de la página de Producto Individual */
+:root {
+    --color-fondo: #f0f0f0;
+    --color-turquesa: #1abc9c;
+    --color-blanco: #f8f8f8;
+    --color-rojo: #e74c3c;
+    --color-gris: #4a4d4e;
+}
 
 .product-page {
-    background-color: var(--color-fondo, #f0f0f0);
+    background-color: var(--color-fondo);
 }
 
 .product-container {
@@ -25,7 +31,7 @@
 }
 
 .product-breadcrumb a:hover {
-    color: var(--color-turquesa, #1abc9c);
+    color: var(--color-turquesa);
 }
 
 /* Main Section: Galería e Información */
@@ -58,6 +64,7 @@
     opacity: 0.5;
     transition: all 0.3s;
     background: #e0e0e0;
+    border-radius: 2px;
 }
 
 .thumb-img:hover,
@@ -69,8 +76,14 @@
 .gallery-main-img {
     flex: 1;
     height: 500px;
-    background: #e0e0e0;
+    background: transparent;
     overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid #00000030;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .gallery-main-img img {
@@ -107,7 +120,7 @@
 .detail-price {
     font-size: 2rem;
     font-weight: 700;
-    color: #222;
+    color: var(--color-turquesa);
     margin: 0 0 30px 0;
 }
 
@@ -115,11 +128,12 @@
     font-size: 0.95rem;
     color: #555;
     margin-bottom: 25px;
+    font-weight: 600;
 }
 
 .detail-stock-info .in-stock {
-    color: var(--color-turquesa, #1abc9c);
-    font-weight: 600;
+    color: var(--color-gris);
+    font-weight: 400;
 }
 
 .detail-stock-info .out-of-stock {
@@ -129,9 +143,9 @@
 
 .detail-divisor {
     border: 0;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #c4c4c4;
     margin: 0 0 30px 0;
-    width: 100%;
+    width: 70%;
 }
 
 .detail-actions {
@@ -139,11 +153,18 @@
     gap: 25px;
     align-items: center;
 }
-
-/* La clase .cantidad-selector y .btn-carrito 
-   ya están estilizadas en stylesHOME.css y stylesCART.css, 
-   pero si necesitamos ajustes específicos los agregamos aquí: */
    
+#productoCantidad {
+    width: 30px;
+    text-align: center;
+    border: none;
+    font-weight: 400;
+    font-size: 24px;
+    background: transparent;
+    color: var(--color-fuente, #333);
+    pointer-events: none;
+}
+
 .detail-actions .btn-carrito {
     padding: 15px 30px;
     font-size: 1rem;
@@ -172,7 +193,7 @@
 }
 
 .tab-title.activo {
-    color: #222;
+    color: var(--color-turquesa);
 }
 
 .tab-title.activo::after {
@@ -182,7 +203,7 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #222;
+    background-color: var(--color-turquesa);
 }
 
 .tabs-content {
@@ -199,9 +220,9 @@
 }
 
 .product-sugeridos h2 {
-    font-size: 2rem;
+    font-size: 1.7rem;
     font-weight: 400;
-    color: #222;
+    color: var(--color-turquesa);
     margin-bottom: 40px;
 }
 
@@ -254,9 +275,24 @@
 }
 
 .sugeridos-vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
     color: #777;
+    margin-top: 30px;
+}
+
+.sugeridos-vacio i {
+    font-size: 4rem;
+    color: #ccc;
+}
+
+.sugeridos-vacio p {
     font-size: 1.1rem;
     font-style: italic;
+    text-align: center;
+    margin: 0;
 }
 
 /* Responsive */

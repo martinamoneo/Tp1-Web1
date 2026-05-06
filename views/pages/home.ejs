@@ -47,7 +47,7 @@
             </button>
             <div class="carousel-grid" id="loMasPedidoTrack">
                 <% 
-                    const productosMasPedidos = [...listaProductos].slice(0, 10);
+                    const productosMasPedidos = [...listaProductos].sort(() => 0.5 - Math.random()).slice(0, 10);
                     productosMasPedidos.forEach(producto => { 
                 %>
                     <%- include('../partials/productCard', { producto: producto }) %>
@@ -127,9 +127,7 @@
 <script>
     window.listaProductosGlobal = ('<%- JSON.stringify(listaProductos) %>');
 </script>
-<script>
-const productosSugeridosData = JSON.parse('<%- JSON.stringify(productosSugeridos) %>');
-</script>
+
 <script src="/js/productDetail.js"></script>
 <script src="/js/home.js"></script> 
 

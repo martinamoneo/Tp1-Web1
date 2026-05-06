@@ -23,7 +23,7 @@ function abrirPanel(productId, nombre, puntos, imagenes, descripcion, stock, cat
     if(linkElem) linkElem.href = '/product/' + productId;
 
     const inputCant = document.getElementById('panelCantidad');
-    if(inputCant) inputCant.value = 1;
+    if(inputCant) inputCant.value = stock > 0 ? 1 : 0;
 
     // Manejar stock
     const btn = document.getElementById('btnAgregarCarrito');

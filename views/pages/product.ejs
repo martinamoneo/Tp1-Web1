@@ -39,15 +39,25 @@
 
                 <div class="detail-actions">
                     <div class="cantidad-selector">
-                        <button class="btn-cantidad" onclick="cambiarCantidadProducto(-1)" <%= producto.stock === 0 ? 'disabled' : '' %>>
+                        <button class="btn-cantidad" 
+                            <% if (producto.stock > 0) { %> onclick="cambiarCantidadProducto(-1)" <% } else { %> disabled style="cursor: not-allowed;" <% } %>
+                        >
                             <i class="fa-solid fa-minus"></i>
                         </button>
                         <input type="text" id="productoCantidad" value="<%= producto.stock > 0 ? 1 : 0 %>" readonly>
-                        <button class="btn-cantidad" onclick="cambiarCantidadProducto(1)" <%= producto.stock === 0 ? 'disabled' : '' %>>
+                        <button class="btn-cantidad" 
+                            <% if (producto.stock > 0) { %> onclick="cambiarCantidadProducto(1)" <% } else { %> disabled style="cursor: not-allowed;" <% } %>
+                        >
                             <i class="fa-solid fa-plus"></i>
                         </button>
                     </div>
-                    <button class="btn-carrito" id="btnAgregarProducto" onclick="agregarAlCarritoProducto('<%= producto.id %>')" <%= producto.stock === 0 ? 'disabled' : '' %>>
+                    <button class="btn-carrito" id="btnAgregarProducto" 
+                        <% if (producto.stock > 0) { %>
+                            onclick="agregarAlCarritoProducto('<%= producto.id %>')"
+                        <% } else { %>
+                            disabled style="background-color: #aaa; cursor: not-allowed;"
+                        <% } %>
+                    >
                         <%= producto.stock > 0 ? 'AGREGAR AL CARRITO' : 'SIN STOCK' %>
                     </button>
                 </div>
@@ -82,7 +92,10 @@
                     <% }) %>
                 </div>
             <% } else { %>
-                <p class="sugeridos-vacio">No hay otros productos para mostrar en este momento.</p>
+                <div class="sugeridos-vacio">
+                    <i class="fa-regular fa-face-frown"></i>
+                    <p>Lo sentimos, no hay productos similares en este momento.</p>
+                </div>
             <% } %>
         </div>
     </div>
