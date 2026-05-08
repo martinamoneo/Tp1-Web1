@@ -1,9 +1,17 @@
 
 <main class="product-page">
     <div class="product-container">
-        <!-- VOLVER -->
+        <!-- BREADCRUMB -->
         <div class="product-breadcrumb">
-            <a href="/">&larr; Volver al inicio</a>
+            <% 
+                let catDisplay = producto.categoria ? producto.categoria.replace(/colecci[oó]n/gi, '').trim() : ''; 
+                catDisplay = catDisplay ? catDisplay.charAt(0).toUpperCase() + catDisplay.slice(1).toLowerCase() : '';
+            %>
+            <a href="/">Home</a> 
+            <i class="fa-solid fa-angle-right"></i> 
+            <a href="/categories/<%= catDisplay.toLowerCase() %>"><%= catDisplay %></a>
+            <i class="fa-solid fa-angle-right"></i> 
+            <span style="color: var(--color-turquesa); font-weight: 500; text-transform: capitalize;"><%= producto.nombre.toLowerCase() %></span>
         </div>
 
         <!-- MAIN PRODUCT SECTION -->
@@ -104,4 +112,4 @@
 <script>
     window.stockActual = parseInt('<%= producto.stock %>', 10);
 </script>
-<script src="/js/productPage.js"></script>
+<script src="/js/productPage.js"></script>

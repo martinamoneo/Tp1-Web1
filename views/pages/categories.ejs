@@ -1,9 +1,17 @@
-
-
 <main class="category-page">
+    
+    <div class="category-breadcrumb-container">
+        <div class="product-breadcrumb" style="margin-bottom: 0;">
+            <a href="/">Home</a> 
+            <i class="fa-solid fa-angle-right"></i> 
+            <span class="category-breadcrumb-active"><%= categoriaNombre %></span>
+        </div>
+    </div>
+
     <%- include('../partials/category-nav') %>
 
     <section class="products-section" style="min-height: 50vh;">
+        
         <h2 style="text-transform: capitalize;">Categoría: <%= categoriaNombre %></h2>
         
         <% if (productos && productos.length > 0) { %>

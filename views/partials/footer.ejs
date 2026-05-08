@@ -24,5 +24,16 @@
     </div>
 </footer>
 
+<script>
+    // Refuerzo para asegurar que las transiciones se disparen siempre
+    if (window.navigation) {
+        window.navigation.addEventListener('navigate', (event) => {
+            if (!event.canIntercept) return;
+            const url = new URL(event.destination.url);
+            if (location.origin !== url.origin) return;
+        });
+    }
+</script>
+
 </body>
 </html>
