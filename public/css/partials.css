@@ -1,4 +1,4 @@
-/* CSS DE HEADER, 404 Y FOOTER */
+/* CSS DE HEADER, PRODUCT-CARD Y FOOTER */
 :root {
     --color-fondo: #f0f0f0;
     --color-turquesa: #1abc9c;
@@ -15,6 +15,32 @@ body {
     flex-direction: column;
     min-height: 100vh; /* 'vh' significa Viewport Height (altura de la pantalla) */
     margin: 0;
+}
+
+/* View Transitions API - Hace que el cambio entre páginas sea casi instantáneo y fluido */
+@view-transition {
+  navigation: auto;
+}
+
+/* Identificamos los elementos que son los mismos entre páginas para que el navegador los anime suavemente */
+.main-header {
+    view-transition-name: main-header;
+}
+
+.categories-container {
+    view-transition-name: category-nav;
+}
+
+/* Personalizamos la duración para que el movimiento sea más lento y elegante */
+::view-transition-group(category-nav),
+::view-transition-group(main-header) {
+  animation-duration: 0.6s;
+}
+
+/* Suavizamos el desvanecimiento general de la página */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.6s;
 }
 
 /*HEADER*/
@@ -217,6 +243,60 @@ body {
     margin: 0;
 }
 
+/* ---------- CATEGORIAS ---------- */
+.categories-nav {
+    margin: 30px 0 40px 0;
+    display: flex;
+    justify-content: center;
+    padding: 0 15px;
+}
+
+.categories-list {
+    background-color: #2c3e50;
+    display: flex;
+    list-style: none;
+    padding: 15px 20px;
+    border-radius: 30px;
+    width: 100%;
+    max-width: 1100px;
+    overflow-x: auto;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.categories-list li {
+    flex: 1;
+    min-width: 75px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    gap: 6px;
+    padding: 8px 4px;
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.categories-list li:last-child {
+    border-right: none;
+}
+
+.categories-list li i {
+    font-size: 26px;
+}
+
+.categories-list li span {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.categories-list li:hover {
+    color: #1abc9c;
+    transform: translateY(-2px);
+}
+
 /* ------------ FOOTER ------------ */
 .main-footer {
     background-color: #eeeeee;
@@ -308,75 +388,4 @@ body {
         flex-direction: column;
         text-align: center;
     }
-}
-
-/* ------------ 404 ------------ */
-.error-page {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-    background-color: #f0f0f0;
-    min-height: calc(100vh - 140px);
-}
-
-.error-container {
-    text-align: center;
-    max-width: 500px;
-}
-
-.error-code {
-    font-size: 120px;
-    font-weight: 800;
-    color: #1abc9c;
-    margin: 0 0 10px 0;
-    line-height: 1;
-}
-
-.error-title {
-    font-size: 28px;
-    color: #2c3e50;
-    margin-bottom: 15px;
-}
-
-.error-message {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 40px;
-    line-height: 1.5;
-}
-
-.error-actions {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.error-actions a {
-    padding: 14px 28px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s;
-}
-
-.btn-volver {
-    background-color: #1abc9c;
-    color: white;
-}
-
-.btn-volver:hover {
-    background-color: #16a085;
-    transform: translateY(-3px);
-}
-
-.btn-secondary {
-    background-color: #2c3e50;
-    color: white;
-}
-
-.btn-secondary:hover {
-    background-color: #34495e;
 }

@@ -13,13 +13,13 @@
 .product-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 40px 155px;
     font-family: 'Montserrat', sans-serif;
 }
 
 /* Breadcrumbs (Volver) */
 .product-breadcrumb {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .product-breadcrumb a {
@@ -37,7 +37,7 @@
 /* Main Section: Galería e Información */
 .product-main {
     display: flex;
-    gap: 60px;
+    gap: 90px;
     margin-bottom: 80px;
 }
 
@@ -232,6 +232,15 @@
     gap: 30px;
 }
 
+.sugeridos-grid.pocos-productos {
+    display: flex;
+    justify-content: center;
+}
+
+.sugeridos-grid.pocos-productos .sug-card {
+    width: calc(25% - 22.5px);
+}
+
 .sug-card {
     cursor: pointer;
     transition: transform 0.3s;
@@ -247,6 +256,8 @@
     background: #e0e0e0;
     margin-bottom: 20px;
     overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.30);
 }
 
 .sug-img-box img {
@@ -268,7 +279,7 @@
 }
 
 .sug-price {
-    color: #666;
+    color: var(--color-turquesa);
     font-size: 0.95rem;
     font-weight: 500;
     margin: 0;
@@ -316,6 +327,9 @@
     }
     .sugeridos-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .sugeridos-grid.pocos-productos .sug-card {
+        width: calc(50% - 15px);
     }
     .detail-title {
         font-size: 2rem;
