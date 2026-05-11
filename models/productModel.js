@@ -12,7 +12,7 @@
             descripcion: 'Pastillero revatible y practico.', stock: 0, categoria: 'COLECCION OTROS' },
 
         { id: 5, nombre: 'Trofeo padel', puntos: 4500, imagenes: ['premio.jpeg'], 
-            descripcion: 'Trofeo personalizado para eventos.', stock: 5, categoria: 'COLECCION TROFEOS'},
+            descripcion: 'Trofeo personalizado para eventos.', stock: 5, categoria: 'COLECCION PREMIOS'},
 
         { id: 6, nombre: 'Vaso CARP', puntos: 60900, imagenes: ['vasoRiver.jpeg', 'vaso2.jpeg'], 
             descripcion: 'Vaso oficial de River Plate edición especial.', esProximo: true , stock: 0, categoria: 'COLECCION VASOS' },
