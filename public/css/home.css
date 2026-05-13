@@ -635,6 +635,7 @@ button.btn-carrito {
 
 .carousel-grid {
     display: flex;
+    align-items: stretch;
     overflow-x: auto;
     scroll-behavior: smooth;
     width: 100%;

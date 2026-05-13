@@ -1,4 +1,6 @@
 /* CSS DE HEADER, PRODUCT-CARD Y FOOTER */
+
+
 :root {
     --color-fondo: #f0f0f0;
     --color-turquesa: #1abc9c;
@@ -17,31 +19,6 @@ body {
     margin: 0;
 }
 
-/* View Transitions API - Hace que el cambio entre páginas sea casi instantáneo y fluido */
-@view-transition {
-  navigation: auto;
-}
-
-/* Identificamos los elementos que son los mismos entre páginas para que el navegador los anime suavemente */
-.main-header {
-    view-transition-name: main-header;
-}
-
-.categories-container {
-    view-transition-name: category-nav;
-}
-
-/* Personalizamos la duración para que el movimiento sea más lento y elegante */
-::view-transition-group(category-nav),
-::view-transition-group(main-header) {
-  animation-duration: 0.6s;
-}
-
-/* Suavizamos el desvanecimiento general de la página */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 0.6s;
-}
 
 /*HEADER*/
 .main-header {
@@ -182,7 +159,6 @@ body {
     /* Previene que el padding ensanche la tarjeta */
     box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
-    height: 100%;
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -220,7 +196,7 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 .product-name {
@@ -229,6 +205,7 @@ body {
     color: #2c3e50;
     margin: 15px 0 4px 0;
     line-height: 1.35;
+    min-height: 2.7rem; /* Reserva exactamente 2 renglones de espacio */
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;   
