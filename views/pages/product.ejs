@@ -75,11 +75,25 @@
         <!-- MIDDLE SECTION (DESCRIPTION) -->
         <div class="product-details-tabs">
             <div class="tabs-header">
-                <span class="tab-title activo">Descripción</span>
+                <span class="tab-title activo">Descripción y Especificaciones</span>
             </div>
             <div class="tabs-content">
                 <div class="tab-pane-left">
                     <p><%= producto.descripcion %></p>
+                </div>
+                <div class="tab-pane-right">
+                    <h4 class="spec-title">Especificaciones</h4>
+                    <% if (producto.especificaciones) { %>
+                        <ul class="spec-list">
+                            <% producto.especificaciones.split('\n').forEach(line => { %>
+                                <% if (line.trim().length > 0) { %>
+                                    <li><%= line.trim() %></li>
+                                <% } %>
+                            <% }) %>
+                        </ul>
+                    <% } else { %>
+                        <p class="spec-empty">No hay especificaciones adicionales para este producto.</p>
+                    <% } %>
                 </div>
             </div>
         </div>

@@ -3,6 +3,11 @@ let indiceActual = 0;
 let productoIdPanel = null;
 let sugeridosActuales = [];
 
+function abrirPanelDesdeElemento(elem) {
+    const p = JSON.parse(decodeURIComponent(elem.dataset.producto));
+    abrirPanel(p.id, p.nombre, p.puntos, p.imagenes, p.descripcionCorta || p.descripcion || '', p.stock, p.categoria || '');
+}
+
 function abrirPanel(productId, nombre, puntos, imagenes, descripcion, stock, categoria) {
     if (typeof imagenes === 'string') {
         imagenes = JSON.parse(imagenes.replace(/&quot;/g, '"'));

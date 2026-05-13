@@ -1,6 +1,5 @@
 const productsService = require('../services/productsService');
 const cartService = require('../services/cartService');
-const normalizeId = require('../utils/normalizeId');
 
 const controller = {
     home: (req, res) => {
@@ -35,11 +34,7 @@ const controller = {
         });
     },
     addToCart: (req, res) => {
-        const productId = normalizeId(req.body.productId);
-        if (!productId) {
-            return res.status(400).json({ success: false, message: 'ID no numérico o inválido' });
-        }
-
+        const productId = req.productId;
         const cantidadEnviada = parseInt(req.body.cantidad) || 1;
 
         const result = cartService.addProduct(req.session, productId, cantidadEnviada);
@@ -49,11 +44,7 @@ const controller = {
         res.json(result);
     },
     updateCart: (req, res) => {
-        const productId = normalizeId(req.body.productId);
-        if (!productId) {
-            return res.status(400).render('pages/400', { esInicio: false, esCarrito: false });
-        }
-
+        const productId = req.productId;
         const { action } = req.body;
         cartService.updateProductQuantity(req.session, productId, action);
         
@@ -67,16 +58,8 @@ const controller = {
         res.render('pages/checkout', { esInicio: true });
     },
     productDetail: (req, res) => {
-        const productId = normalizeId(req.params.id);
-        if (!productId) {
-            return res.status(400).render('pages/400', { esInicio: false, esCarrito: false });
-        }
-
-        const producto = productsService.getProductById(productId);
-
-        if (!producto) {
-            return res.status(404).render('pages/404', { esInicio: false, esCarrito: false });
-        }
+        const productId = req.productId;
+        const producto = req.producto;
 
         const sugeridos = productsService.getSuggestedProducts(productId, producto.categoria);
 
@@ -95,9 +78,21 @@ const controller = {
             return res.status(404).render('pages/404', { esInicio: false, esCarrito: false });
         }
 
+        const formatCategoryName = {
+            'mates': 'Mates',
+            'vasos': 'Vasos',
+            'llaveros': 'Llaveros',
+            'soportes': 'Soportes',
+            'premios': 'Premios',
+            'munecos': 'Muñecos',
+            'lamparas': 'Lámparas',
+            'otros': 'Otros'
+        };
+        const displayCategoryName = formatCategoryName[categoryName] || categoryName;
+
         res.render('pages/categories', {
             esInicio: true,
-            categoriaNombre: categoryName,
+            categoriaNombre: displayCategoryName,
             productos: productosFiltrados
         });
     },
