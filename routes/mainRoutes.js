@@ -16,5 +16,6 @@ router.get('/checkout', mainController.checkout);
 router.get('/product/:id', normalizeId, mainController.productDetail);
 router.get('/categories/:categoryName', mainController.category);
 router.get('/500', mainController.error500);
+router.get('/search', mainController.search);
 
 module.exports = router;
