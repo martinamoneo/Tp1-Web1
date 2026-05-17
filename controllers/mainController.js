@@ -3,11 +3,38 @@ const cartService = require('../services/cartService');
 
 const controller = {
     home: (req, res) => {
-        const productos = productsService.getAllProducts();
-        res.render('pages/home', {
-            esInicio: true,
-            listaProductos: productos
-        });
+    const sort = req.query.sort || null;
+    let productos = productsService.getAllProducts();
+
+    if (sort === 'asc') {
+        productos = [...productos].sort((a, b) => a.puntos - b.puntos);
+    } else if (sort === 'desc') {
+        productos = [...productos].sort((a, b) => b.puntos - a.puntos);
+    }
+
+    res.render('pages/home', {
+        esInicio: true,
+        listaProductos: productos,
+        sort: sort
+    });
+    },
+    search: (req, res) => {
+        const query = req.query.query || '';
+        const queryLower = query.toLowerCase().trim();
+
+        const allProducts = productsService.getAllProducts();
+
+     const resultados = queryLower === ''
+        ? []
+        : allProducts.filter(p =>
+            p.nombre.toLowerCase().includes(queryLower)
+        );
+
+    res.render('pages/search', {
+        esInicio: false,
+        query: query,
+        resultados: resultados
+    });
     },
     register: (req, res) => {
         res.render('pages/register', { esInicio: false, layout: false });

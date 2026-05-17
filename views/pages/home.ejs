@@ -58,14 +58,30 @@
         </div>
     </section>
     <!-- productos -->
-    <section class="products-section">
+<section class="products-section" id="productos">
+    <div class="products-section-header">
         <h2>Mira nuestros productos!</h2>
-        <div class="products-grid">
-            <% listaProductos.forEach(producto => { %>
-                <%- include('../partials/productCard', { producto: producto }) %>
-            <% }); %>
+        <div class="sort-controls">
+            <span>Ordenar por precio:</span>
+            <a href="/?sort=asc#productos" class="sort-btn <%= sort === 'asc' ? 'activo' : '' %>">
+                <i class="fas fa-arrow-up"></i> Menor precio
+            </a>
+            <a href="/?sort=desc#productos" class="sort-btn <%= sort === 'desc' ? 'activo' : '' %>">
+                <i class="fas fa-arrow-down"></i> Mayor precio
+            </a>
+            <% if (sort) { %>
+                <a href="/#productos" class="sort-btn sort-btn-clear">
+                    <i class="fas fa-times"></i> Quitar orden
+                </a>
+            <% } %>
         </div>
-    </section>
+    </div>
+    <div class="products-grid">
+        <% listaProductos.forEach(producto => { %>
+            <%- include('../partials/productCard', { producto: producto }) %>
+        <% }); %>
+    </div>
+</section>
 
 </main>
 
@@ -78,4 +94,4 @@
 
 <script src="/js/productDetail.js"></script>
 <script src="/js/home.js"></script> 
-
+
