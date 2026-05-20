@@ -6,10 +6,11 @@
             <% 
                 let catDisplay = producto.categoria ? producto.categoria.replace(/colecci[oó]n/gi, '').trim() : ''; 
                 catDisplay = catDisplay ? catDisplay.charAt(0).toUpperCase() + catDisplay.slice(1).toLowerCase() : '';
+                let catUrl = catDisplay.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             %>
             <a href="/">Home</a> 
             <i class="fa-solid fa-angle-right"></i> 
-            <a href="/categories/<%= catDisplay.toLowerCase() %>"><%= catDisplay %></a>
+            <a href="/categories/<%= catUrl %>"><%= catDisplay %></a>
             <i class="fa-solid fa-angle-right"></i> 
             <span style="color: var(--color-turquesa); font-weight: 500; text-transform: capitalize;"><%= producto.nombre.toLowerCase() %></span>
         </div>

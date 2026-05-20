@@ -150,7 +150,7 @@ body {
 
 .panel-contenido {
     background: white;
-    max-width: 700px;
+    max-width: 850px;
     width: 100%;
     border-radius: 20px;
     padding: 30px 35px 0 35px;
@@ -200,7 +200,7 @@ body {
     /* miniaturas al lado izquierdo de la imagen */
     gap: 12px;
     flex-shrink: 0;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .miniatura-producto {
@@ -226,16 +226,19 @@ body {
     transform: scale(1.05);
 }
 
-/* Imagen Principal */
 .slider-container {
     position: relative;
     background: transparent;
     padding: 0;
-    min-height: 420px;
+    height: fit-content;
+    max-height: 420px;
+    min-height: 250px;
+    width: fit-content;
+    max-width: 400px;
+    min-width: 260px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    width: auto;
+    justify-content: center;
     flex-shrink: 0;
     border: 1px solid #00000030;
     border-radius: 9px;
@@ -245,8 +248,10 @@ body {
 .panel-img-principal {
     max-height: 420px;
     max-width: 100%;
+    width: auto;
+    height: auto;
     object-fit: contain;
-    object-position: left center;
+    object-position: center;
     border-radius: 8px;
 }
 
@@ -715,7 +720,7 @@ button.btn-carrito {
 .panel-info-row {
     display: flex;
     gap: 30px;
-    align-items: flex-start;
+    align-items: stretch;
     padding-bottom: 30px;
 }
 
