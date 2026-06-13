@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import CategoryNav from '../components/molecules/CategoryNav';
 import ProductCard from '../components/molecules/ProductCard';
+import apiService from '../services/api';
 
 const Categories = () => {
     const { categoryName } = useParams();
@@ -13,8 +14,7 @@ const Categories = () => {
         const fetchCategory = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`http://localhost:3000/api/categories/${categoryName}`);
-                const data = await response.json();
+                const data = await apiService.getCategoryProducts(categoryName);
                 
                 if (data.productos) {
                     setProductos(data.productos);

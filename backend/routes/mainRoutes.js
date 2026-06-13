@@ -1,3 +1,6 @@
+// controla las rutas, es decir segun el / que llegue llama a la pagina
+// que corresponda del mainController
+
 const express = require('express');
 const router = express.Router();
 const mainController = require('../controllers/mainController');
@@ -18,4 +21,4 @@ router.get('/categories/:categoryName', mainController.category);
 router.get('/500', mainController.error500);
 router.get('/search', mainController.search);
 
-module.exports = router;
+module.exports = router; 

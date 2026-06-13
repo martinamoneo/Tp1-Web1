@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import Icon from '../components/atoms/Icon';
+import Image from '../components/atoms/Image';
+import Input from '../components/atoms/Input';
+import Title from '../components/atoms/Title';
+import Button from '../components/atoms/Button';
+import ProductCard from '../components/molecules/ProductCard';
+import QuantitySelector from '../components/molecules/QuantitySelector';
+import apiService from '../services/api';
+import { useCart } from '../context/CartContext';
 
 const ProductDetail = () => {
+    const { addToCart } = useCart();
     const { id } = useParams();
     const navigate = useNavigate();
     const [producto, setProducto] = useState(null);
@@ -14,8 +24,7 @@ const ProductDetail = () => {
         const fetchProduct = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`http://localhost:3000/api/product/${id}`);
-                const data = await response.json();
+                const data = await apiService.getProductById(id);
                 
                 if (data.producto) {
                     setProducto(data.producto);
@@ -45,27 +54,12 @@ const ProductDetail = () => {
     };
 
     const handleAddToCart = () => {
-        if (!producto || producto.stock === 0) return;
-        
-        // Aquí implementaremos la lógica del carrito en localStorage
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-        const existingItem = cart.find(item => item.id === producto.id);
-        
-        if (existingItem) {
-            existingItem.quantity += cantidad;
-            if (existingItem.quantity > producto.stock) existingItem.quantity = producto.stock;
-        } else {
-            cart.push({ ...producto, quantity: cantidad });
-        }
-        
-        localStorage.setItem('cart', JSON.stringify(cart));
-        alert('Producto agregado al carrito!');
-        // Opcionalmente despachar un evento personalizado para actualizar el badge del header
-        window.dispatchEvent(new Event('cartUpdated'));
+        const result = addToCart(producto, cantidad);
+        alert(result.message);
     };
 
     if (loading) {
-        return <div style={{ minHeight: '60vh', padding: '2rem', textAlign: 'center' }}><h2>Cargando detalle...</h2></div>;
+        return <div style={{ minHeight: '60vh', padding: '2rem', textAlign: 'center' }}><Title level={2}>Cargando detalle...</Title></div>;
     }
 
     if (!producto) return null;
@@ -80,9 +74,9 @@ const ProductDetail = () => {
                 {/* BREADCRUMB */}
                 <div className="product-breadcrumb">
                     <Link to="/">Home</Link> 
-                    <i className="fa-solid fa-angle-right"></i> 
+                    <Icon name="angle-right" /> 
                     <Link to={`/categories/${catUrl}`}>{catDisplay}</Link>
-                    <i className="fa-solid fa-angle-right"></i> 
+                    <Icon name="angle-right" /> 
                     <span style={{ color: 'var(--color-turquesa)', fontWeight: 500, textTransform: 'capitalize' }}>
                         {producto.nombre.toLowerCase()}
                     </span>
@@ -94,21 +88,19 @@ const ProductDetail = () => {
                     <div className="product-gallery">
                         <div className="gallery-thumbnails">
                             {producto.imagenes && producto.imagenes.map((img, i) => (
-                                <img 
+                                <Image 
                                     key={i}
                                     src={`/img/${img}`} 
                                     alt={`Thumbnail ${i}`} 
                                     className={`thumb-img ${i === imagenActiva ? 'activo' : ''}`} 
                                     onClick={() => setImagenActiva(i)}
-                                    onError={(e) => { e.target.onerror = null; e.target.src = '/img/no-image.png'; }}
                                 />
                             ))}
                         </div>
                         <div className="gallery-main-img">
-                            <img 
+                            <Image 
                                 src={producto.imagenes && producto.imagenes.length > 0 ? `/img/${producto.imagenes[imagenActiva]}` : '/img/no-image.png'} 
                                 alt={producto.nombre} 
-                                onError={(e) => { e.target.onerror = null; e.target.src = '/img/no-image.png'; }}
                             />
                         </div>
                     </div>
@@ -116,7 +108,7 @@ const ProductDetail = () => {
                     {/* INFO DERECHA */}
                     <div className="detail-info">
                         <p className="detail-category">{producto.categoria || 'Sin categoría'}</p>
-                        <h1 className="detail-title">{producto.nombre}</h1>
+                        <Title level={1} className="detail-title">{producto.nombre}</Title>
                         <p className="detail-price">{producto.puntos} PUNTOS</p>
                         
                         <div className="detail-stock-info">
@@ -129,30 +121,20 @@ const ProductDetail = () => {
                         <hr className="detail-divisor" />
 
                         <div className="detail-actions">
-                            <div className="cantidad-selector">
-                                <button className="btn-cantidad" 
-                                    onClick={() => handleQuantityChange(-1)}
-                                    disabled={producto.stock === 0}
-                                    style={producto.stock === 0 ? { cursor: 'not-allowed' } : {}}
-                                >
-                                    <i className="fa-solid fa-minus"></i>
-                                </button>
-                                <input type="text" value={cantidad} readOnly />
-                                <button className="btn-cantidad" 
-                                    onClick={() => handleQuantityChange(1)}
-                                    disabled={producto.stock === 0}
-                                    style={producto.stock === 0 ? { cursor: 'not-allowed' } : {}}
-                                >
-                                    <i className="fa-solid fa-plus"></i>
-                                </button>
-                            </div>
-                            <button className="btn-carrito" 
+                            <QuantitySelector 
+                                quantity={cantidad}
+                                onDecrease={() => handleQuantityChange(-1)}
+                                onIncrease={() => handleQuantityChange(1)}
+                                disabledDecrease={producto.stock === 0}
+                                disabledIncrease={producto.stock === 0}
+                            />
+                            <Button variant="carrito" 
                                 onClick={handleAddToCart}
                                 disabled={producto.stock === 0}
                                 style={producto.stock === 0 ? { backgroundColor: '#aaa', cursor: 'not-allowed' } : {}}
                             >
                                 {producto.stock > 0 ? 'AGREGAR AL CARRITO' : 'SIN STOCK'}
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -167,7 +149,7 @@ const ProductDetail = () => {
                             <p>{producto.descripcion}</p>
                         </div>
                         <div className="tab-pane-right">
-                            <h4 className="spec-title">Especificaciones</h4>
+                            <Title level={4} className="spec-title">Especificaciones</Title>
                             {producto.especificaciones ? (
                                 <ul className="spec-list">
                                     {producto.especificaciones.split('\n').map((line, i) => (
@@ -183,26 +165,16 @@ const ProductDetail = () => {
 
                 {/* SUGGESTED PRODUCTS */}
                 <div className="product-sugeridos">
-                    <h2>También te puede interesar</h2>
+                    <Title level={2}>También te puede interesar</Title>
                     {sugeridos && sugeridos.length > 0 ? (
                         <div className={`sugeridos-grid ${sugeridos.length < 3 ? 'pocos-productos' : ''}`}>
                             {sugeridos.map(sug => (
-                                <div key={sug.id} className="sug-card" onClick={() => navigate(`/product/${sug.id}`)}>
-                                    <div className="sug-img-box">
-                                        <img 
-                                            src={sug.imagenes && sug.imagenes.length > 0 ? `/img/${sug.imagenes[0]}` : '/img/no-image.png'} 
-                                            alt={sug.nombre} 
-                                            onError={(e) => { e.target.onerror = null; e.target.src = '/img/no-image.png'; }}
-                                        />
-                                    </div>
-                                    <p className="sug-title">{sug.nombre}</p>
-                                    <p className="sug-price">{sug.puntos} PUNTOS</p>
-                                </div>
+                                <ProductCard key={sug.id} producto={sug} />
                             ))}
                         </div>
                     ) : (
                         <div className="sugeridos-vacio">
-                            <i className="fa-regular fa-face-frown"></i>
+                            <Icon type="regular" name="face-frown" />
                             <p>Lo sentimos, no hay productos similares en este momento.</p>
                         </div>
                     )}

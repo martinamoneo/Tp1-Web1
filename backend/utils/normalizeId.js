@@ -1,43 +1,35 @@
+// middleware para verificar que el id sea válido y exista en BD
 const productsService = require('../services/productsService');
 
 const normalizeId = (req, res, next) => {
-    // Obtenemos el ID de los parámetros de la URL o del body (para el carrito)
+    // se fija de donde viene el id (params (pagina individual) o body (carrito))
     const rawId = req.params.id || req.body.productId;
 
-    // Si es null, undefined, o un string vacío, lo rechazamos
+    // si es null o no existe -> error 400
     if (rawId === null || rawId === undefined || rawId === '') {
-        if (req.xhr || req.headers.accept.indexOf('json') > -1 || req.path.includes('/cart/add')) {
-            return res.status(400).json({ success: false, message: 'ID no numérico o inválido' });
-        }
-        return res.status(400).render('pages/400', { esInicio: false, esCarrito: false });
+        return res.status(400).json({ success: false, message: 'ID no numérico o inválido' });
     }
 
     // Intentamos convertir a número entero
     const parsedId = Number(rawId);
 
-    // Si no es un número válido
+    // número inválido -> error 400
     if (Number.isNaN(parsedId) || !Number.isInteger(parsedId) || parsedId <= 0) {
-        if (req.xhr || req.headers.accept.indexOf('json') > -1 || req.path.includes('/cart/add')) {
-            return res.status(400).json({ success: false, message: 'ID no numérico o inválido' });
-        }
-        return res.status(400).render('pages/400', { esInicio: false, esCarrito: false });
+        return res.status(400).json({ success: false, message: 'ID no numérico o inválido' });
     }
 
-    // Validar en la base de datos (SQLite)
+    // busca el id en la BD, si no existe -> error 404
     const producto = productsService.getProductById(parsedId);
     if (!producto) {
-        if (req.xhr || req.headers.accept.indexOf('json') > -1 || req.path.includes('/cart/add')) {
-            return res.status(404).json({ success: false, message: 'Producto no encontrado' });
-        }
-        return res.status(404).render('pages/404', { esInicio: false, esCarrito: false });
+        return res.status(404).json({ success: false, message: 'Producto no encontrado' });
     }
 
-    // Si pasamos todas las validaciones, inyectamos los datos en req
-    // para que el controlador no tenga que buscarlos de nuevo.
+    // Si pasamos todas las validaciones, guardamos el id y el producto 
+    // en el request para no buscar de nuevo en la BD
     req.productId = parsedId;
     req.producto = producto;
 
-    // Pasamos el control a la siguiente función (el controlador)
+    // le decimos que pase al main controller
     next();
 };
 

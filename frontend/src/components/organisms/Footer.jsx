@@ -1,14 +1,15 @@
 import React from 'react';
+import Icon from '../atoms/Icon';
 
 const Footer = () => {
     return (
         <footer className="main-footer">
             <div className="footer-container">
                 <div className="footer-social">
-                    <a href="#"><i className="fab fa-twitter"></i></a>
-                    <a href="#"><i className="fab fa-facebook"></i></a>
-                    <a href="#"><i className="fab fa-instagram"></i></a>
-                    <a href="#"><i className="fab fa-youtube"></i></a>
+                    <a href="#"><Icon type="brands" name="twitter" /></a>
+                    <a href="#"><Icon type="brands" name="facebook" /></a>
+                    <a href="#"><Icon type="brands" name="instagram" /></a>
+                    <a href="#"><Icon type="brands" name="youtube" /></a>
                 </div>
 
                 <div className="footer-copy">
@@ -17,11 +18,11 @@ const Footer = () => {
 
                 <div className="footer-apps">
                     <div className="app-link">
-                        <i className="fab fa-apple"></i>
+                        <Icon type="brands" name="apple" />
                         <span>App Store</span>
                     </div>
                     <div className="app-link">
-                        <i className="fab fa-google-play"></i>
+                        <Icon type="brands" name="google-play" />
                         <span>Google Play</span>
                     </div>
                 </div>

@@ -1,10 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import CategoryNav from '../components/molecules/CategoryNav';
 import ProductCard from '../components/molecules/ProductCard';
+import ProductPopup from '../components/organisms/ProductPopup';
+import Button from '../components/atoms/Button';
+import Title from '../components/atoms/Title';
+import Icon from '../components/atoms/Icon';
+import apiService from '../services/api';
 
 const Home = () => {
     const [productos, setProductos] = useState([]);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const carouselRef = useRef(null);
+
+    const handleCardClick = (producto) => {
+        setSelectedProduct(producto);
+        setIsPopupOpen(true);
+    };
+
+    const scrollCarousel = (direction) => {
+        if (carouselRef.current && carouselRef.current.children.length > 0) {
+            // Calculamos el ancho de una tarjeta + el gap (30px según el CSS)
+            const cardWidth = carouselRef.current.children[0].offsetWidth;
+            const gap = 30; 
+            const scrollAmount = cardWidth + gap;
+            
+            carouselRef.current.scrollBy({ 
+                left: direction === 'left' ? -scrollAmount : scrollAmount, 
+                behavior: 'smooth' 
+            });
+        }
+    };
     const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     
@@ -15,9 +42,8 @@ const Home = () => {
         const fetchProducts = async () => {
             try {
                 setLoading(true);
-                const url = sortParam ? `http://localhost:3000/api/?sort=${sortParam}` : 'http://localhost:3000/api/';
-                const response = await fetch(url);
-                const data = await response.json();
+                const params = sortParam ? { sort: sortParam } : {};
+                const data = await apiService.getProducts(params);
                 
                 if (data.productos) {
                     setProductos(data.productos);
@@ -44,7 +70,7 @@ const Home = () => {
         }
     };
 
-    if (loading) {
+    if (loading && productos.length === 0) {
         return <div style={{ minHeight: '60vh', padding: '2rem', textAlign: 'center' }}><h2>Cargando productos...</h2></div>;
     }
 
@@ -58,7 +84,7 @@ const Home = () => {
                     <article className="banner-card banner-card1">
                         <div className="banner-content">
                             <div className="banner-text">
-                                <h3>Novedades</h3>
+                                <Title level={3}>Novedades</Title>
                                 <p>Descubre lo último que llegó</p>
                             </div>
                         </div>
@@ -67,7 +93,7 @@ const Home = () => {
                     <article className="banner-card banner-card2">
                         <div className="banner-content">
                             <div className="banner-text">
-                                <h3>Próximos Ingresos</h3>
+                                <Title level={3}>Próximos Ingresos</Title>
                                 <p>Lo que pronto estará disponible</p>
                             </div>
                         </div>
@@ -77,28 +103,28 @@ const Home = () => {
 
             {/* Lo más pedido */}
             <section className="products-section lo-mas-pedido-section" style={{ paddingBottom: '10px' }}>
-                <h2>Lo más pedido</h2>
+                <Title level={2}>Lo más pedido</Title>
                 <div className="carousel-wrapper">
-                    <button className="sugeridos-btn izquierda carousel-btn">
-                        <i className="fa-solid fa-angle-left"></i>
-                    </button>
-                    <div className="carousel-grid" id="loMasPedidoTrack">
+                    <Button variant="sugeridos" className="izquierda" onClick={() => scrollCarousel('left')}>
+                        <Icon name="angle-left" />
+                    </Button>
+                    <div className="carousel-grid" id="loMasPedidoTrack" ref={carouselRef}>
                         {productosMasPedidos.map(producto => (
-                            <ProductCard key={`pedido-${producto.id}`} producto={producto} />
+                            <ProductCard key={`pedido-${producto.id}`} producto={producto} onCardClick={handleCardClick} />
                         ))}
                     </div>
-                    <button className="sugeridos-btn derecha carousel-btn">
-                        <i className="fa-solid fa-angle-right"></i>
-                    </button>
+                    <Button variant="sugeridos" className="derecha" onClick={() => scrollCarousel('right')}>
+                        <Icon name="angle-right" />
+                    </Button>
                 </div>
             </section>
 
             {/* Te puede interesar */}
             <section className="products-section" style={{ paddingBottom: '10px' }}>
-                <h2>Te puede interesar</h2>
+                <Title level={2}>Te puede interesar</Title>
                 <div className="products-grid">
                     {productosInteres.map(producto => (
-                        <ProductCard key={`interes-${producto.id}`} producto={producto} />
+                        <ProductCard key={`interes-${producto.id}`} producto={producto} onCardClick={handleCardClick} />
                     ))}
                 </div>
             </section>
@@ -106,28 +132,34 @@ const Home = () => {
             {/* Todos los Productos */}
             <section className="products-section" id="productos">
                 <div className="products-section-header">
-                    <h2>Mira nuestros productos!</h2>
+                    <Title level={2}>Mira nuestros productos!</Title>
                     <div className="sort-controls">
                         <span>Ordenar por precio:</span>
-                        <button onClick={() => handleSort('asc')} className={`sort-btn ${sortParam === 'asc' ? 'activo' : ''}`}>
-                            <i className="fas fa-arrow-up"></i> Menor precio
-                        </button>
-                        <button onClick={() => handleSort('desc')} className={`sort-btn ${sortParam === 'desc' ? 'activo' : ''}`}>
-                            <i className="fas fa-arrow-down"></i> Mayor precio
-                        </button>
+                        <Button variant="sort" onClick={() => handleSort('asc')} className={sortParam === 'asc' ? 'activo' : ''}>
+                            <Icon name="arrow-up" /> Menor precio
+                        </Button>
+                        <Button variant="sort" onClick={() => handleSort('desc')} className={sortParam === 'desc' ? 'activo' : ''}>
+                            <Icon name="arrow-down" /> Mayor precio
+                        </Button>
                         {sortParam && (
-                            <button onClick={() => handleSort(null)} className="sort-btn sort-btn-clear">
-                                <i className="fas fa-times"></i> Quitar orden
-                            </button>
+                            <Button variant="sort-clear" onClick={() => handleSort(null)}>
+                                <Icon name="times" /> Quitar orden
+                            </Button>
                         )}
                     </div>
                 </div>
                 <div className="products-grid">
                     {productos.map(producto => (
-                        <ProductCard key={producto.id} producto={producto} />
+                        <ProductCard key={producto.id} producto={producto} onCardClick={handleCardClick} />
                     ))}
                 </div>
             </section>
+
+            <ProductPopup 
+                producto={selectedProduct} 
+                isOpen={isPopupOpen} 
+                onClose={() => setIsPopupOpen(false)} 
+            />
         </main>
     );
 };

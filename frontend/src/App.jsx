@@ -8,10 +8,12 @@ import Categories from './pages/Categories';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import { CartProvider } from './context/CartContext';
 
 function App() {
   return (
-    <Router>
+    <CartProvider>
+      <Router>
       <Header />
       <main>
         <Routes>
@@ -26,6 +28,7 @@ function App() {
       </main>
       <Footer />
     </Router>
+    </CartProvider>
   );
 }
 

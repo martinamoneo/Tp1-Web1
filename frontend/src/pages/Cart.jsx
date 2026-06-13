@@ -1,49 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import QuantitySelector from '../components/molecules/QuantitySelector';
+import { useCart } from '../context/CartContext';
 
 const Cart = () => {
-    const [carrito, setCarrito] = useState([]);
+    const { cart: carrito, updateQuantity, clearCart } = useCart();
     const [mensaje, setMensaje] = useState(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const cartData = JSON.parse(localStorage.getItem('cart') || '[]');
-        setCarrito(cartData);
-    }, []);
-
-    const updateCartStorage = (newCart) => {
-        localStorage.setItem('cart', JSON.stringify(newCart));
-        setCarrito(newCart);
-        window.dispatchEvent(new Event('cartUpdated'));
-    };
-
-    const handleClearCart = () => {
-        updateCartStorage([]);
-    };
-
     const handleQuantityChange = (productId, action) => {
-        const newCart = [...carrito];
-        const itemIndex = newCart.findIndex(item => item.id === productId);
-        
-        if (itemIndex > -1) {
-            const item = newCart[itemIndex];
-            
-            if (action === 'increase') {
-                if (item.quantity < item.stock) {
-                    item.quantity += 1;
-                    setMensaje(null);
-                } else {
-                    setMensaje(`No hay más stock disponible para ${item.nombre}`);
-                }
-            } else if (action === 'decrease') {
-                item.quantity -= 1;
-                setMensaje(null);
-                if (item.quantity <= 0) {
-                    newCart.splice(itemIndex, 1);
-                }
-            }
-            updateCartStorage(newCart);
-        }
+        const resultMsg = updateQuantity(productId, action);
+        setMensaje(resultMsg);
     };
 
     const total = carrito.reduce((acc, item) => acc + (item.puntos * item.quantity), 0);
@@ -69,7 +36,7 @@ const Cart = () => {
                     <>
                         <div className="cart-header-actions">
                             <Link to="/" className="btn-volverInicio">← Volver al inicio</Link>
-                            <button onClick={handleClearCart} className="btn-vaciar">Vaciar carrito</button>
+                            <button onClick={clearCart} className="btn-vaciar">Vaciar carrito</button>
                         </div>
 
                         <div className="cart-items">
@@ -86,21 +53,12 @@ const Cart = () => {
                                         <p>{item.puntos} puntos</p>
                                     </div>
                                     <div className="item-controls">
-                                        <div className="form-qty">
-                                            <button 
-                                                onClick={() => handleQuantityChange(item.id, 'decrease')} 
-                                                className="btn-qty"
-                                            >
-                                                <i className="fa-solid fa-minus"></i>
-                                            </button>
-                                            <span className="qty-num">{item.quantity}</span>
-                                            <button 
-                                                onClick={() => handleQuantityChange(item.id, 'increase')} 
-                                                className="btn-qty"
-                                            >
-                                                <i className="fa-solid fa-plus"></i>
-                                            </button>
-                                        </div>
+                                        <QuantitySelector 
+                                            quantity={item.quantity}
+                                            onDecrease={() => handleQuantityChange(item.id, 'decrease')}
+                                            onIncrease={() => handleQuantityChange(item.id, 'increase')}
+                                            className="cart-qty-selector"
+                                        />
                                     </div>
                                 </div>
                             ))}

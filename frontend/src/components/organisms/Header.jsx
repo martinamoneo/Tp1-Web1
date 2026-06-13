@@ -1,24 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Icon from '../atoms/Icon';
+import Input from '../atoms/Input';
+import { useCart } from '../../context/CartContext';
 
 const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [query, setQuery] = useState('');
-    const [cartItemCount, setCartItemCount] = useState(0);
-
-    useEffect(() => {
-        const updateCartCount = () => {
-            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            const count = cart.reduce((total, item) => total + item.quantity, 0);
-            setCartItemCount(count);
-        };
-
-        updateCartCount();
-        window.addEventListener('cartUpdated', updateCartCount);
-
-        return () => window.removeEventListener('cartUpdated', updateCartCount);
-    }, []);
+    const { cartItemCount } = useCart();
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -41,20 +31,19 @@ const Header = () => {
 
                 {esInicio && (
                     <form className="header-search" onSubmit={handleSearch}>
-                        <input 
-                            type="text" 
+                        <Input 
                             name="query" 
                             placeholder="Buscar productos..."
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                         />
-                        <button type="submit"><i className="fas fa-search"></i></button>
+                        <button type="submit"><Icon name="search" /></button>
                     </form>
                 )}
 
                 <div className="header-user-actions">
                     <Link to="/cart" className="header-cart">
-                        <i className="fas fa-shopping-cart"></i>
+                        <Icon name="shopping-cart" />
                         <span className="cart-badge" id="cart-badge">
                             {cartItemCount}
                         </span>

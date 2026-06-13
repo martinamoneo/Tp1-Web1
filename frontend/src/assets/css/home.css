@@ -595,6 +595,8 @@ button.btn-carrito {
     font-size: 0.85rem;
     text-decoration: none;
     transition: all 0.3s;
+    cursor: pointer;
+    background-color: transparent;
 }
 
 .sort-btn:hover,

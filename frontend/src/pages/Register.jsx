@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import apiService from '../services/api';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -47,20 +48,10 @@ const Register = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/api/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+            await apiService.register(formData);
             
-            if (response.ok) {
-                alert('Cuenta creada exitosamente');
-                navigate('/login');
-            } else {
-                alert('Error al registrar');
-            }
+            alert('Cuenta creada exitosamente');
+            navigate('/login');
         } catch (error) {
             console.error('Error registering:', error);
             alert('Cuenta creada exitosamente (Simulado en fallback)');
@@ -110,7 +101,7 @@ const Register = () => {
 
                         <div className="form-group password-container">
                             <input 
-                                type="password" 
+                                type={showPassword ? "text" : "password"} 
                                 name="password" 
                                 placeholder="Tu contraseña" 
                                 value={formData.password}

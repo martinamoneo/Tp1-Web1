@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import apiService from '../services/api';
 
 const Login = () => {
     const [nombre, setNombre] = useState('');
@@ -10,21 +11,11 @@ const Login = () => {
         e.preventDefault();
         
         try {
-            const response = await fetch('http://localhost:3000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ nombre, password }),
-            });
+            await apiService.login({ nombre, password });
             
-            if (response.ok) {
-                // Simulamos login exitoso
-                alert('Sesión iniciada con éxito (Simulado)');
-                navigate('/');
-            } else {
-                alert('Error al iniciar sesión');
-            }
+            // Login exitoso
+            alert('Sesión iniciada con éxito (Simulado)');
+            navigate('/');
         } catch (error) {
             console.error('Error logging in:', error);
             // Fallback since API might not handle POST /login cleanly yet

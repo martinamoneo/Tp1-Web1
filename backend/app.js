@@ -1,26 +1,23 @@
-const express = require('express');
-const path = require('path');
-const app = express();
-const mainRoutes = require('./routes/mainRoutes');
-const session = require('express-session');
+// maneja todo lo del servidor: rutas, middleware y puertos
+const express = require('express'); // libreria express
+const app = express(); // inicializa express
+const mainRoutes = require('./routes/mainRoutes'); // importa el mapa de rutas
+const session = require('express-session'); // libreria para sesiones
 
-const cors = require('cors');
-
-// Middleware básicos
+// cors permite que el back y el front se comuniquen
+const cors = require('cors'); 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // obtener datos del front
+app.use(express.json()); // traducir datos del JSON
 
-//
 app.use(session({
-    secret: 'mi-secreto-super-seguro', // frase para encriptar la sesión
-    resave: false,
-    saveUninitialized: true
+    secret: 'martinaynico:)', // frase para encriptar la sesión
+    resave: false, // si no se modifico nada, no guardes nada
+    saveUninitialized: true // si es nuevo, guardalo
 }));
 
-// Middleware para asegurar que req.session.cart siempre exista
+// middleware para el carrito exista siempre
 app.use((req, res, next) => {
     if (!req.session.cart) {
         req.session.cart = [];
@@ -28,16 +25,16 @@ app.use((req, res, next) => {
     next();
 });
 
-
-
 // si dotenv no está instalado, no rompe el servidor.
+// dotenv crea un archivo oculto para guardar datos sensibles
 try {
     require('dotenv').config();
 } catch (err) {
     console.log("⚠️  dotenv no está instalado.");
 }
 
-app.use('/api', mainRoutes);
+// agrupa todas las rutas de mainRoutes para que empiecen con /api
+app.use('/api', mainRoutes); 
 
 // 404
 app.use((req, res) => {

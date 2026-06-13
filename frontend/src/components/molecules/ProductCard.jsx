@@ -1,13 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Badge from '../atoms/Badge';
+import Image from '../atoms/Image';
+import Title from '../atoms/Title';
 
-const ProductCard = ({ producto }) => {
+const ProductCard = ({ producto, onCardClick }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        // En el futuro podemos volver a implementar el panel lateral, 
-        // por ahora navegamos a la vista del producto
-        navigate(`/product/${producto.id}`);
+        if (onCardClick) {
+            onCardClick(producto);
+        } else {
+            navigate(`/product/${producto.id}`);
+        }
     };
 
     const imageUrl = producto.imagenes && producto.imagenes[0] ? `/img/${producto.imagenes[0]}` : '/img/no-image.png';
@@ -19,17 +24,16 @@ const ProductCard = ({ producto }) => {
             onClick={handleClick}
         >
             <div className="product-image">
-                <img 
+                <Image 
                     src={imageUrl} 
                     alt={producto.nombre} 
-                    onError={(e) => { e.target.onerror = null; e.target.src = '/img/no-image.png'; }}
                 />
                 {isOutOfStock && (
-                    <span className="badge-sin-stock">Sin stock</span>
+                    <Badge text="Sin stock" />
                 )}
             </div>
             <div className="product-info">
-                <h4 className="product-name">{producto.nombre}</h4>
+                <Title level={4} className="product-name">{producto.nombre}</Title>
                 <div className="product-footer">
                     <p className="product-price">{producto.puntos} PUNTOS</p>
                 </div>

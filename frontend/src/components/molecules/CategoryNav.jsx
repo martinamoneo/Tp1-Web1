@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Icon from '../atoms/Icon';
 
 const CategoryNav = () => {
     const navigate = useNavigate();
@@ -12,14 +13,14 @@ const CategoryNav = () => {
         <section className="categories-container">
             <nav className="categories-nav">
                 <ul className="categories-list">
-                    <li onClick={() => goToCategory('mates')}><i className="fas fa-whiskey-glass"></i><span>Mates</span></li>
-                    <li onClick={() => goToCategory('vasos')}><i className="fas fa-beer"></i><span>Vasos</span></li>
-                    <li onClick={() => goToCategory('llaveros')}><i className="fas fa-key"></i><span>Llaveros</span></li>
-                    <li onClick={() => goToCategory('soportes')}><i className="fas fa-crop-simple"></i><span>Soportes</span></li>
-                    <li onClick={() => goToCategory('premios')}><i className="fas fa-trophy"></i><span>Premios</span></li>
-                    <li onClick={() => goToCategory('munecos')}><i className="fas fa-snowman"></i><span>Muñecos</span></li>
-                    <li onClick={() => goToCategory('lamparas')}><i className="fa-regular fa-lightbulb"></i><span>Lámparas</span></li>
-                    <li className="last-item" onClick={() => goToCategory('otros')}><i className="fas fa-gift"></i><span>Otros</span></li>
+                    <li onClick={() => goToCategory('mates')}><Icon name="whiskey-glass" /><span>Mates</span></li>
+                    <li onClick={() => goToCategory('vasos')}><Icon name="beer" /><span>Vasos</span></li>
+                    <li onClick={() => goToCategory('llaveros')}><Icon name="key" /><span>Llaveros</span></li>
+                    <li onClick={() => goToCategory('soportes')}><Icon name="crop-simple" /><span>Soportes</span></li>
+                    <li onClick={() => goToCategory('premios')}><Icon name="trophy" /><span>Premios</span></li>
+                    <li onClick={() => goToCategory('munecos')}><Icon name="snowman" /><span>Muñecos</span></li>
+                    <li onClick={() => goToCategory('lamparas')}><Icon type="regular" name="lightbulb" /><span>Lámparas</span></li>
+                    <li className="last-item" onClick={() => goToCategory('otros')}><Icon name="gift" /><span>Otros</span></li>
                 </ul>
             </nav>
         </section>

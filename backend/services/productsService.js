@@ -1,13 +1,16 @@
+// se comunica con la base datos para traer los datos de los productos
+// es el unico archivo que lo hace
 const db = require('../db/database');
 
-// Mapeamos de la base de datos a la estructura que esperan las vistas/controladores
+// traduce lo q que está en la BD a lo que el código espera
 const mapRowToProduct = (row) => {
     if (!row) return null;
     return {
-        id: row.id,
+        // codigo : BD
+        id: row.id, 
         nombre: row.nombre,
         puntos: row.puntos,
-        imagenes: [row.imagen], // Lo convertimos a array porque las vistas iteran o toman el [0]
+        imagenes: [row.imagen], // se pasa a un vector para cuando hay más de una img
         descripcion: row.descripcion,
         descripcionCorta: row.short_description,
         especificaciones: row.specifications,
@@ -16,6 +19,7 @@ const mapRowToProduct = (row) => {
     };
 };
 
+// consulta en SQL para traer los datos de los productos
 const baseQuery = `
     SELECT p.id, p.name as nombre, p.price as puntos, p.image as imagen, p.description as descripcion, p.short_description, p.specifications, p.stock, c.name as categoria 
     FROM products p 
@@ -23,19 +27,19 @@ const baseQuery = `
 `;
 
 const productsService = {
-    // Obtener todos los productos desde SQLite
+    // le pide a la BD la lista de productos
     getAllProducts: () => {
         const rows = db.prepare(baseQuery).all();
         return rows.map(mapRowToProduct);
     },
 
-    // Obtener un producto por ID
+    // recibe el ID y te devuelve el producto q corresponde
     getProductById: (id) => {
         const row = db.prepare(`${baseQuery} WHERE p.id = ?`).get(id);
         return mapRowToProduct(row);
     },
 
-    // Filtrar por categoría
+    // recibe la categoria del código y la traduce a como está guardado en la BD
     getProductsByCategoryName: (categoryName) => {
         const mapCategory = {
             'mates': 'COLECCIÓN MATES',
@@ -67,23 +71,11 @@ const productsService = {
         return rows.map(mapRowToProduct);
     },
 
-    // Obtener productos sugeridos (misma categoría pero distinto id)
+    // Productos sugeridos (misma categoría, distinto id)
     getSuggestedProducts: (productId, category) => {
         const rows = db.prepare(`${baseQuery} WHERE p.id != ? AND c.name = ? ORDER BY RANDOM() LIMIT 4`).all(productId, category);
         return rows.map(mapRowToProduct);
     },
-
-    // Obtener productos relacionados
-    getRelatedProducts: (productId, category) => {
-        // Asumimos que relacionados funciona igual que sugeridos para esta estructura
-        return productsService.getSuggestedProducts(productId, category);
-    },
-
-    // Mantenemos getRandomProducts por si algún controlador antiguo lo llama
-    getRandomProducts: (count) => {
-        const rows = db.prepare(`${baseQuery} ORDER BY RANDOM() LIMIT ?`).all(count);
-        return rows.map(mapRowToProduct);
-    }
 };
 
 module.exports = productsService;
