@@ -1,15 +1,16 @@
-import React from 'react';
+// botones para la cantidad
+
 import Button from '../atoms/Button';
 import Input from '../atoms/Input';
 import Icon from '../atoms/Icon';
 
 const QuantitySelector = ({ 
-    quantity, 
-    onDecrease, 
-    onIncrease, 
-    disabledDecrease = false, 
-    disabledIncrease = false,
-    className = ''
+    quantity, // cantidad a mostrar
+    onDecrease, // funcion para disminuir
+    onIncrease, // funcion para aumentar
+    disabledDecrease = false, // deshabilitar boton menos
+    disabledIncrease = false, // deshabilitar boton mas
+    className = '' // clase opcional para estilos extra
 }) => {
     return (
         <div className={`cantidad-selector ${className}`.trim()}>
@@ -24,7 +25,7 @@ const QuantitySelector = ({
             
             <Input 
                 value={quantity} 
-                readOnly 
+                readOnly // hace que el num no se pueda escribir
                 className="qty-input"
             />
             

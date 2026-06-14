@@ -1,4 +1,4 @@
-import React from 'react';
+import './Footer.css';
 import Icon from '../atoms/Icon';
 
 const Footer = () => {

@@ -1,0 +1,71 @@
+.main-footer {
+    background-color: #eeeeee;
+    padding: 20px 0;
+    margin-top: auto;
+    color: #666;
+    font-size: 14px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.footer-social {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.footer-social a {
+    color: #999;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+.footer-social a:hover {
+    color: #666;
+}
+
+.footer-copy {
+    flex: 1;
+    text-align: center;
+    color: #999;
+    font-size: 0.95rem;
+}
+
+.footer-apps {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+.app-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.app-link i {
+    font-size: 1.5rem;
+}
+
+.app-link span {
+    font-weight: 500;
+}
+
+.app-link:hover {
+    color: #666;
+}

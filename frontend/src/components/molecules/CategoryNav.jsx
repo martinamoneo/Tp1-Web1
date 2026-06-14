@@ -1,11 +1,13 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// bara de categorias q se muestra en el home
+
+import './CategoryNav.css';
+import { useNavigate } from 'react-router-dom'; // hook para q la pag no se recarge cuando cambias
 import Icon from '../atoms/Icon';
 
 const CategoryNav = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // constante para navegar entre rutas 
 
-    const goToCategory = (category) => {
+    const goToCategory = (category) => { // funcion para q cambie la url
         navigate(`/categories/${category}`);
     };
 
@@ -20,7 +22,7 @@ const CategoryNav = () => {
                     <li onClick={() => goToCategory('premios')}><Icon name="trophy" /><span>Premios</span></li>
                     <li onClick={() => goToCategory('munecos')}><Icon name="snowman" /><span>Muñecos</span></li>
                     <li onClick={() => goToCategory('lamparas')}><Icon type="regular" name="lightbulb" /><span>Lámparas</span></li>
-                    <li className="last-item" onClick={() => goToCategory('otros')}><Icon name="gift" /><span>Otros</span></li>
+                    <li onClick={() => goToCategory('otros')}><Icon name="gift" /><span>Otros</span></li>
                 </ul>
             </nav>
         </section>

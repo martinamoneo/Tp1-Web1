@@ -1,0 +1,36 @@
+/* ==================== TÍTULO GIGANTE (H1) ==================== */
+/* Usado en Login, Registro y páginas de carga/error */
+.title-hero {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* ==================== TÍTULO DE SECCIÓN (H2) ==================== */
+/* Usado en Home ("Lo más pedido") y Categorías */
+.title-section {
+    text-align: left;
+    margin-bottom: 5px;
+    margin-left: 70px;
+    font-size: clamp(22px, 5vw, 28px);
+    color: var(--color-turquesa, #1abc9c);
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .title-section {
+        margin-left: 20px; /* Ajuste para celulares */
+    }
+}
+
+/* ==================== TÍTULO DE CARRITO (H1) ==================== */
+.title-cart {
+    font-size: 2.2rem;
+    color: var(--color-turquesa, #1abc9c);
+    margin-top: 0;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 15px;
+}

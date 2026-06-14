@@ -1,0 +1,128 @@
+.main-header {
+    background-color:var(--color-blanco);
+    padding: 20px 0 0 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 15px 20px;
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 28px; /* Ajusta según veas necesario */
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+}
+
+/* La parte gordita (Mi) */
+.logo-bold {
+    color: #1abc9c; /* El verde agua */
+    font-weight: 800; /* Extra Bold */
+}
+
+/* La parte finita (Ecommerce) */
+.logo-light {
+    color: var(--color-turquesa);
+    font-weight: 300; /* Light */
+}
+
+/* Contenedor principal del header */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+/* buscador */
+.header-search {
+    flex: 1; /* Esto hace que el buscador ocupe todo el espacio central */
+    position: relative;
+    max-width: 500px; /* Para que no sea infinitamente largo */
+}
+
+.header-search input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+}
+
+.header-search button {
+    position: absolute;
+    right: -45px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+}
+
+/* carrito y perfil */
+.header-user-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.header-cart {
+    position: relative;
+    font-size: 22px;
+    color: #4a4d4e;
+}
+
+/* La burbujita roja del carrito */
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: var(--color-rojo);
+    color: var(--color-blanco);
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+/* Píldora de perfil (Gris oscuro) */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--color-gris);
+    color: purple;
+    padding: 6px 6px 6px 6px; /* Menos padding a la izquierda para la foto */
+    border-radius: 25px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.user-profile:hover {
+    background-color: var(--color-fondo); /* Un gris un poco más oscuro al pasar el mouse */
+    color: var(--color-turquesa);
+    transition: 0.3s; 
+}
+
+.user-profile a {
+    color: var(--color-fondo);
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.user-profile:hover a { 
+    color: var(--color-turquesa);
+    transition: 0.3s;
+}
+
+.user-profile img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}

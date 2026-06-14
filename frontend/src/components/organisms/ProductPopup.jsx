@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon';
@@ -13,7 +13,7 @@ const ProductPopup = ({ producto, isOpen, onClose }) => {
 
     if (!producto) return null;
 
-    const imageUrl = producto.imagenes && producto.imagenes[0] ? `/img/${producto.imagenes[0]}` : '/img/no-image.png';
+    const imageUrl = producto.imagenes && producto.imagenes[0] ? `/img/products/${producto.imagenes[0]}` : '/img/ui/no-image.png';
 
     const handleIncrement = () => setCantidad(c => c + 1);
     const handleDecrement = () => setCantidad(c => (c > 1 ? c - 1 : 1));

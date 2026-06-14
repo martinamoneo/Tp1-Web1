@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import './Header.css';
+import { useState } from 'react'; // memoria a corto plazo de react
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Icon from '../atoms/Icon';
 import Input from '../atoms/Input';
@@ -7,25 +8,23 @@ import { useCart } from '../../context/CartContext';
 const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [query, setQuery] = useState('');
-    const { cartItemCount } = useCart();
+    const [query, setQuery] = useState(''); // se guarda lo q el usuario pone en la busqueda
+    const { cartItemCount } = useCart(); // pregunta cuantos productos hay en el carrito
 
     const handleSearch = (e) => {
-        e.preventDefault();
-        if (query.trim()) {
-            navigate(`/search?query=${encodeURIComponent(query)}`);
+        e.preventDefault(); // para q la pagina no se recargue
+        if (query.trim()) { // si no escribio nada no hace nada
+            navigate(`/search?query=${encodeURIComponent(query)}`); // te lleva a la pag de busqueda
         }
     };
 
-
-    // En el EJS original, la barra de búsqueda se mostraba según 'esInicio'
-    // Aquí podemos mostrarla siempre o solo en el home. La mostraremos en el Home.
+    // si estamos en el inicio muestra la barra de busqueda, si no no
     const esInicio = location.pathname === '/';
 
     return (
         <header className="main-header">
             <div className="header-container">
-                <Link to="/" className="logo">
+                <Link to="/" className="logo"> {/* tocando te lleva al inicio */}
                     <span className="logo-bold">Mi</span><span className="logo-light">Ecommerce</span>
                 </Link>
 

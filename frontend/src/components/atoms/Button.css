@@ -1,0 +1,145 @@
+/* ==================== BOTON CARRITO ==================== */
+.btn-carrito {
+    background-color: var(--color-turquesa, #1abc9c);
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    min-width: 180px;
+    transition: all 0.3s;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.btn-carrito:hover {
+    background-color: #16a085;
+    transform: translateY(-2px);
+}
+
+/* ==================== BOTON CANTIDAD (+ y -) ==================== */
+.btn-cantidad {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-gris, #4a4d4e);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, color 0.2s;
+    padding: 0 5px;
+}
+
+.btn-cantidad:hover {
+    color: var(--color-turquesa, #1abc9c);
+    transform: scale(1.2);
+    background: none;
+}
+
+/* ==================== BOTON CERRAR PANEL (X) ==================== */
+.panel-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #f0f0f0;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    color: #555;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    transition: 0.3s;
+}
+
+.panel-close:hover {
+    background: #1abc9c;
+    color: white;
+}
+
+/* ==================== BOTONES CARRUSEL (< y >) ==================== */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: 0.3s;
+    padding: 0;
+    color: #333;
+    line-height: 1;
+}
+
+.carousel-btn:hover {
+    background: #1abc9c;
+    color: white;
+    box-shadow: 0 5px 15px rgba(26, 188, 156, 0.4);
+}
+
+.carousel-btn.izquierda {
+    left: 5px;
+}
+
+.carousel-btn.derecha {
+    right: 5px;
+}
+
+/* Compatibilidad con la clase sugeridos-btn que se usaba antes */
+.sugeridos-btn {
+    position: absolute;
+    top: 35%;
+    transform: translateY(-50%);
+}
+.sugeridos-btn.izquierda { left: -23px; }
+.sugeridos-btn.derecha { right: -23px; }
+
+/* ==================== BOTONES ORDENAR (Filtros) ==================== */
+.sort-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 2px solid var(--color-turquesa, #1abc9c);
+    color: var(--color-turquesa, #1abc9c);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.sort-btn:hover,
+.sort-btn.activo {
+    background-color: var(--color-turquesa, #1abc9c);
+    color: white;
+}
+
+.sort-btn-clear {
+    border-color: var(--color-rojo, #e74c3c);
+    color: var(--color-rojo, #e74c3c);
+}
+
+.sort-btn-clear:hover {
+    background-color: var(--color-rojo, #e74c3c);
+    color: white;
+}

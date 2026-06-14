@@ -1,14 +1,14 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/organisms/Header';
 import Footer from './components/organisms/Footer';
-import Home from './pages/Home';
-import ProductDetail from './pages/ProductDetail';
-import Categories from './pages/Categories';
-import Cart from './pages/Cart';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Home from './pages/Home/Home';
+import ProductDetail from './pages/Products/ProductDetail';
+import Categories from './pages/Categories/Categories';
+import Cart from './pages/Cart/Cart';
+import Login from './pages/Auth/Login';
+import Register from './pages/Auth/Register';
 import { CartProvider } from './context/CartContext';
+import Title from './components/atoms/Title';
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="*" element={<div style={{ minHeight: '60vh', padding: '2rem', textAlign: 'center' }}><h2>404 - No encontrado</h2></div>} />
+          <Route path="*" element={<div style={{ minHeight: '60vh', padding: '2rem', textAlign: 'center' }}><Title level={2} className="title-hero">404 - No encontrado</Title></div>} />
         </Routes>
       </main>
       <Footer />

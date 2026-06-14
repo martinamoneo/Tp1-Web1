@@ -1,0 +1,17 @@
+:root {
+    --color-fondo: #f0f0f0;
+    --color-turquesa: #1abc9c;
+    --color-blanco: #f8f8f8;
+    --color-rojo: #e74c3c;
+    --color-gris: #4a4d4e;
+}
+
+body {
+    background-color: var(--color-fondo); 
+    font-family: 'Montserrat', sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 'vh' significa Viewport Height (altura de la pantalla) */
+    margin: 0;
+}

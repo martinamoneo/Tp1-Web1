@@ -1,8 +1,8 @@
-import React from 'react';
+// para poner sin stock en los productos
 
+// recibe texto, tipo prederminado sin stock y una clase opcional
 const Badge = ({ text, type = 'sin-stock', className = '' }) => {
-    // Definimos las clases base y la clase específica del tipo
-    // Por ahora el único estilo que existe en CSS es 'badge-sin-stock'
+    // badge - type (en este caso sin stock)
     const badgeClass = `badge-${type}`;
 
     return (

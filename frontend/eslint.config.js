@@ -1,3 +1,4 @@
+// herramienta que avisa si hay errores de sixtasis o malas prácticas
 import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'

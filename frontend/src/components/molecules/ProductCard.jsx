@@ -1,21 +1,25 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Badge from '../atoms/Badge';
-import Image from '../atoms/Image';
-import Title from '../atoms/Title';
+import './ProductCard.css';
+import { useNavigate } from 'react-router-dom'; // hook para navegar entre rutas
+import Badge from '../atoms/Badge'; // etiqueta para mostrar info
+import Image from '../atoms/Image'; // componente para mostrar imagenes
+import Title from '../atoms/Title'; // componente para mostrar titulos
 
+// recibe toda la info del producto y el click para q abra el pop up
 const ProductCard = ({ producto, onCardClick }) => {
     const navigate = useNavigate();
 
+    // si me pasan onCardClick abro el pop up, si no abro la pag de producto
     const handleClick = () => {
-        if (onCardClick) {
+        if (onCardClick) { 
             onCardClick(producto);
         } else {
             navigate(`/product/${producto.id}`);
         }
     };
 
-    const imageUrl = producto.imagenes && producto.imagenes[0] ? `/img/${producto.imagenes[0]}` : '/img/no-image.png';
+    // si se manda imagen usar esa, si no usar fallback
+    const imageUrl = producto.imagenes && producto.imagenes[0] ? `/img/products/${producto.imagenes[0]}` : '/img/ui/no-image.png';
+    // verifico si hay stock
     const isOutOfStock = producto.stock === 0;
 
     return (
