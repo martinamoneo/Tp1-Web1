@@ -1,4 +1,4 @@
-import React from 'react';
+// logo svg convertido en componente react para poder cambiarle el color
 
 const LogoSVG = ({ className, width = '40px', height = '40px', color = 'currentColor' }) => (
     <svg 

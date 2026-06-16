@@ -30,7 +30,7 @@ const Header = () => {
                     <div><span className="logo-light">IDEA </span><span className="logo-bold">3D</span></div>
                 </Link>
 
-                {esInicio && (
+                {esInicio && ( // si es inicio muestra la barra de busqueda
                     <form className="header-search" onSubmit={handleSearch}>
                         <Input 
                             name="query" 

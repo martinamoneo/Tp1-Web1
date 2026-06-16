@@ -1,5 +1,5 @@
 import './cart.css';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import QuantitySelector from '../../components/molecules/QuantitySelector';
 import { useCart } from '../../context/CartContext';

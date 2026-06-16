@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     --color-fondo: #f0f0f0;
     --color-turquesa: #1abc9c;
     --color-blanco: #f8f8f8;
@@ -31,12 +31,12 @@
 }
 
 .login-card, .register-card {
-    background-color: var(--color-fondo);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    padding: 50px 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     width: 100%;
-    max-width: 300px;
+    max-width: 380px;
     text-align: center;
 }
 
@@ -52,11 +52,15 @@
 .login-form input,
 .register-form input {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    border-radius: 25px; /* Bordes redondeados como en la imagen */
+    box-sizing: border-box; /* Esto arregla que se salga de la tarjeta */
+    padding: 10px 16px;
+    margin-bottom: 12px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    border-radius: 20px; 
+    background-color: #fcfcfc;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
 }
 
 .login-form input:focus,
@@ -82,14 +86,25 @@
 }
 
 .btn-submit {
-    background-color: #4a4a4a;
+    background-color: var(--color-turquesa);
     color: white;
     width: 100%;
-    padding: 12px;
-    border-radius: 25px;
+    padding: 11px;
+    border-radius: 20px;
     border: none;
     cursor: pointer;
-    margin-top: 11.33px;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 15px rgba(26, 188, 156, 0.3);
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-submit:hover {
+    background-color: #16a085;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 188, 156, 0.4);
 }
 
 .bottom-text {
@@ -117,16 +132,16 @@
     border: 1px solid var(--color-rojo);
 }
 
-/*ver contraseÃ±a*/
+/*ver contraseña*/
 .password-container {
     position: relative;
 }
 
 .btn-eye {
     position: absolute;
-    right: 13px;
-    top: 30%;
-    transform: translateY(-40%);
+    right: 15px;
+    top: 20px; /* Centrado verticalmente respecto al input (asumiendo ~40px de alto) */
+    transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;

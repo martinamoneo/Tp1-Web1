@@ -1,32 +1,33 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Button from '../atoms/Button';
-import Icon from '../atoms/Icon';
-import Image from '../atoms/Image';
-import Title from '../atoms/Title';
-import QuantitySelector from '../molecules/QuantitySelector';
-import { useCart } from '../../context/CartContext';
+import { useState } from 'react'; // memoria a corto plazo de react
+import { Link } from 'react-router-dom'; // para poder navegar entre paginas
+import Button from '../atoms/Button'; // para poder crear botones
+import Icon from '../atoms/Icon'; // para poder crear iconos
+import Image from '../atoms/Image'; // para poder crear imagenes
+import Title from '../atoms/Title'; // para poder crear titulos
+import QuantitySelector from '../molecules/QuantitySelector'; // para poder crear selectores de cantidad
+import { useCart } from '../../context/CartContext'; // para poder usar el carrito
 
+// funcion q recibe producto, si esta abierto y si esta cerrado
 const ProductPopup = ({ producto, isOpen, onClose }) => {
-    const { addToCart } = useCart();
-    const [cantidad, setCantidad] = useState(1);
+    const { addToCart } = useCart(); // constante para usar el carrito
+    const [cantidad, setCantidad] = useState(1); // constante para guardar la cantidad
 
-    if (!producto) return null;
+    if (!producto) return null; // si el producto no existe no se muestra nada del popup
 
-    const imageUrl = producto.imagenes && producto.imagenes[0] ? producto.imagenes[0] : null;
+    const imageUrl = producto.imagenes && producto.imagenes[0] ? producto.imagenes[0] : null; // constante para guardar la imagen
 
-    const handleIncrement = () => setCantidad(c => c + 1);
-    const handleDecrement = () => setCantidad(c => (c > 1 ? c - 1 : 1));
+    const handleIncrement = () => setCantidad(c => c + 1); // funcion para aumentar la cantidad
+    const handleDecrement = () => setCantidad(c => (c > 1 ? c - 1 : 1)); // funcion para disminuir la cantidad
 
     return (
         <div className={`panel-producto ${isOpen ? 'activo' : ''}`} onClick={(e) => {
-            // Close if clicking outside the modal content
+            // cierra el popup si se hace click fuera de él
             if (e.target.classList.contains('panel-producto')) {
                 onClose();
             }
         }}>
             <div className="panel-contenido">
-                <Button variant="close" onClick={onClose}>
+                <Button variant="close" onClick={onClose}> {/* boton para cerrar */}
                     <Icon name="xmark" />
                 </Button>
                 
@@ -41,14 +42,14 @@ const ProductPopup = ({ producto, isOpen, onClose }) => {
                         <p className="panel-categoria">{producto.categoria || 'Categoría'}</p>
                         <Title level={2}>{producto.nombre}</Title>
                         <p className="panel-puntos">{producto.puntos} PUNTOS</p>
-                        <p className="panel-descripcion">
-                            {producto.descripcionCorta || producto.descripcion || "Un producto excelente que se ajusta a tus necesidades. Con detalles únicos y una gran calidad en sus materiales."}
+                        <p className="panel-descripcion"> {/* descripcion corta y descripcion fallback */}
+                            {producto.descripcionCorta || "Un producto excelente que se ajusta a tus necesidades. Con detalles únicos y una gran calidad en sus materiales."}
                         </p>
                         
-                        <hr className="panel-divisor" />
+                        <hr className="panel-divisor" /> {/* linea separadora */}
                         
-                        <Link to={`/product/${producto.id}`} className="panel-detalle-link">
-                            Ver más detalles
+                        <Link to={`/product/${producto.id}`} className="panel-detalle-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}> 
+                            Más información sobre este producto <Icon name="arrow-right" style={{ fontSize: '0.85em' }} />
                         </Link>
                         
                         <div className="panel-acciones">

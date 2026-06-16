@@ -268,6 +268,7 @@ body {
     display: flex;
     gap: 15px;
     align-items: center;
+    justify-content: space-between;
     margin: 15px 0 0 0;
 }
 
@@ -275,17 +276,24 @@ body {
     display: flex;
     align-items: center;
     height: 45px;
+    background-color: #f5f5f5;
+    border-radius: 25px;
+    padding: 0 10px;
 }
 
-
-#panelCantidad {
-    width: 30px;
+.qty-input {
+    width: 40px;
     text-align: center;
     border: none;
-    font-weight: 400;
-    font-size: 24px;
+    font-weight: 600;
+    font-size: 18px;
     background: transparent;
-    color: var(--color-fuente, #333);
+    color: #333;
+    padding: 0;
+}
+
+.qty-input:focus {
+    outline: none;
 }
 
 
