@@ -13,7 +13,7 @@ const ProductPopup = ({ producto, isOpen, onClose }) => {
 
     if (!producto) return null;
 
-    const imageUrl = producto.imagenes && producto.imagenes[0] ? `/img/products/${producto.imagenes[0]}` : '/img/ui/no-image.png';
+    const imageUrl = producto.imagenes && producto.imagenes[0] ? producto.imagenes[0] : null;
 
     const handleIncrement = () => setCantidad(c => c + 1);
     const handleDecrement = () => setCantidad(c => (c > 1 ? c - 1 : 1));

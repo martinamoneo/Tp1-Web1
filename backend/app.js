@@ -10,6 +10,8 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: true })); // obtener datos del front
 app.use(express.json()); // traducir datos del JSON
+app.use('/products', express.static('public/products')); // archivo estatico de img para q el front las pueda ver/usar
+
 
 app.use(session({
     secret: 'martinaynico:)', // frase para encriptar la sesión

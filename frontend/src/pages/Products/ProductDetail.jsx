@@ -91,7 +91,7 @@ const ProductDetail = () => {
                             {producto.imagenes && producto.imagenes.map((img, i) => (
                                 <Image 
                                     key={i}
-                                    src={`/img/products/${img}`} 
+                                    src={img} 
                                     alt={`Thumbnail ${i}`} 
                                     className={`thumb-img ${i === imagenActiva ? 'activo' : ''}`} 
                                     onClick={() => setImagenActiva(i)}
@@ -100,7 +100,7 @@ const ProductDetail = () => {
                         </div>
                         <div className="gallery-main-img">
                             <Image 
-                                src={producto.imagenes && producto.imagenes.length > 0 ? `/img/products/${producto.imagenes[imagenActiva]}` : '/img/ui/no-image.png'} 
+                                src={producto.imagenes && producto.imagenes.length > 0 ? producto.imagenes[imagenActiva] : null} 
                                 alt={producto.nombre} 
                             />
                         </div>

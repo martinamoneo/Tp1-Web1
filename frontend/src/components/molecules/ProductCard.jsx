@@ -18,7 +18,7 @@ const ProductCard = ({ producto, onCardClick }) => {
     };
 
     // si se manda imagen usar esa, si no usar fallback
-    const imageUrl = producto.imagenes && producto.imagenes[0] ? `/img/products/${producto.imagenes[0]}` : '/img/ui/no-image.png';
+    const imageUrl = producto.imagenes && producto.imagenes[0] ? producto.imagenes[0] : null;
     // verifico si hay stock
     const isOutOfStock = producto.stock === 0;
 

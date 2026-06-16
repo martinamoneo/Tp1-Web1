@@ -11,6 +11,8 @@ import apiService from '../../services/api';
 
 const Home = () => {
     const [productos, setProductos] = useState([]);
+    const [productosMasPedidos, setProductosMasPedidos] = useState([]);
+    const [productosInteres, setProductosInteres] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const carouselRef = useRef(null);
@@ -48,6 +50,10 @@ const Home = () => {
                 
                 if (data.productos) {
                     setProductos(data.productos);
+                    
+                    // Solo calculamos las secciones aleatorias si están vacías (la primera vez que carga la página)
+                    setProductosMasPedidos(prev => prev.length > 0 ? prev : [...data.productos].sort(() => 0.5 - Math.random()).slice(0, 10));
+                    setProductosInteres(prev => prev.length > 0 ? prev : [...data.productos].sort(() => 0.5 - Math.random()).slice(0, 5));
                 }
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -59,9 +65,7 @@ const Home = () => {
         fetchProducts();
     }, [sortParam]);
 
-    // Calculamos las secciones "Lo más pedido" y "Te puede interesar" mezclando los productos
-    const productosMasPedidos = [...productos].sort(() => 0.5 - Math.random()).slice(0, 10);
-    const productosInteres = [...productos].sort(() => 0.5 - Math.random()).slice(0, 5);
+    // Las secciones "Lo más pedido" y "Te puede interesar" ya se calcularon en el useEffect
 
     const handleSort = (type) => {
         if (type) {

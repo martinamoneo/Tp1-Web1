@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import QuantitySelector from '../../components/molecules/QuantitySelector';
 import { useCart } from '../../context/CartContext';
 import Title from '../../components/atoms/Title';
+import Image from '../../components/atoms/Image';
 
 const Cart = () => {
     const { cart: carrito, updateQuantity, clearCart } = useCart();
@@ -45,8 +46,8 @@ const Cart = () => {
                             {carrito.map(item => (
                                 <div className="cart-item" key={item.id}>
                                     <div className="item-img-box">
-                                        <img 
-                                            src={item.imagenes && item.imagenes.length > 0 ? `/img/products/${item.imagenes[0]}` : '/img/ui/no-image.png'} 
+                                        <Image 
+                                            src={item.imagenes && item.imagenes.length > 0 ? item.imagenes[0] : null} 
                                             alt={item.nombre} 
                                         />
                                     </div>
