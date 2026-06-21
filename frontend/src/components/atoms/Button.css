@@ -152,3 +152,54 @@
     background-color: var(--color-rojo, #e74c3c);
     color: white;
 }
+
+
+/* ==================== BOTONES GENERALES ==================== */
+.btn-primary {
+    background-color: var(--color-turquesa, #1abc9c);
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: #16a085;
+    color: white;
+    border: 2px solid transparent;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-turquesa, #1abc9c);
+    padding: 10px 20px;
+    border: 2px solid var(--color-turquesa, #1abc9c);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(26, 188, 156, 0.08); /* Un fondo turquesa súper suave y casi transparente */
+    color: var(--color-turquesa, #1abc9c);
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+    background-color: rgba(236, 240, 241, 0.7); /* Gris muy suave */
+    color: var(--color-gris, #bdc3c7);
+    border-color: var(--color-gris, #bdc3c7);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}

@@ -1,78 +1,87 @@
 import './product.css';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'; // useState ->  manejar estado, useEffect ->  manejar efectos secundarios
 import { useParams, Link, useNavigate } from 'react-router-dom';
+// useParams -> obtener ID del producto de la URL
+// Link -> crear enlaces
+// useNavigate -> navegar entre rutas
 import Icon from '../../components/atoms/Icon';
 import Image from '../../components/atoms/Image';
-import Input from '../../components/atoms/Input';
 import Title from '../../components/atoms/Title';
 import Button from '../../components/atoms/Button';
 import ProductCard from '../../components/molecules/ProductCard';
 import QuantitySelector from '../../components/molecules/QuantitySelector';
-import apiService from '../../services/api';
-import { useCart } from '../../context/CartContext';
+import apiService from '../../services/api'; // objeto apiService para manejar peticiones a la API
+import { useCart } from '../../context/CartContext'; // funcion useCart para hablar con la memoria del carrito
 
 const ProductDetail = () => {
-    const { addToCart } = useCart();
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [producto, setProducto] = useState(null);
-    const [sugeridos, setSugeridos] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [cantidad, setCantidad] = useState(1);
-    const [imagenActiva, setImagenActiva] = useState(0);
+    const { addToCart } = useCart(); // funcion addToCart para agregar productos al carrito
+    const { id } = useParams(); // useParams para obtener el id del producto
+    const navigate = useNavigate(); // funcion navigate para navegar entre rutas
+    const [producto, setProducto] = useState(null); // estado para guardar el producto
+    const [sugeridos, setSugeridos] = useState([]); // estado para guardar los productos sugeridos
+    const [loading, setLoading] = useState(true); // estado para guardar el estado de carga
+    const [cantidad, setCantidad] = useState(1); // estado para guardar la cantidad 
+    const [imagenActiva, setImagenActiva] = useState(0); // estado para guardar la imagen activa
 
-    useEffect(() => {
-        const fetchProduct = async () => {
+    useEffect(() => { // esto sucede cada vez q el ID de la URL cambia
+        const fetchProduct = async () => { // funcion asincronica para obtener el producto
             try {
-                setLoading(true);
-                const data = await apiService.getProductById(id);
+                setLoading(true); // inicio la carga
+                const data = await apiService.getProductById(id); // obtengo el producto
                 
-                if (data.producto) {
-                    setProducto(data.producto);
-                    setSugeridos(data.productosSugeridos || []);
-                    setCantidad(data.producto.stock > 0 ? 1 : 0);
-                    setImagenActiva(0);
-                } else {
-                    navigate('/404');
+                if (data.producto) { // si se obtiene el producto
+                    setProducto(data.producto); // guardo el producto
+                    setSugeridos(data.productosSugeridos || []); // guardo los productos sugeridos
+                    setCantidad(data.producto.stock > 0 ? 1 : 0); // guardo la cantidad
+                    setImagenActiva(0); // guardo la imagen activa
+                } else { // si no se obtiene el producto
+                    navigate('/404'); // navego a la pagina 404
                 }
-            } catch (error) {
-                console.error('Error fetching product:', error);
-            } finally {
-                setLoading(false);
+            } catch (error) { // si hay un error
+                console.error('Error fetching product:', error); // muestro el error
+                navigate('/404'); // navego a la pagina 404
+            } finally { // despues de todo
+                setLoading(false); // deja de cargar
             }
         };
 
-        fetchProduct();
-    }, [id, navigate]);
+        fetchProduct(); // llamo a la funcion
+    }, [id, navigate]); // cuando cambia el id o navigate
 
-    const handleQuantityChange = (delta) => {
-        if (!producto || producto.stock === 0) return;
+    // manejar cantidad de producto en general
+    const handleQuantityChange = (delta) => { // delta puede ser +1 o -1
+        if (!producto || producto.stock === 0) return; // si no hay producto o no hay stock no hace nada
         
-        const newQty = cantidad + delta;
-        if (newQty >= 1 && newQty <= producto.stock) {
-            setCantidad(newQty);
+        const newQty = cantidad + delta; // nueva cantidad 
+        if (newQty >= 1 && newQty <= producto.stock) { // si la nueva cantidad es mayor o igual a 1 y menor o igual al stock
+            setCantidad(newQty); // guardo la nueva cantidad
         }
     };
 
+    // agregar producto al carrito
     const handleAddToCart = () => {
-        const result = addToCart(producto, cantidad);
-        alert(result.message);
+        const result = addToCart(producto, cantidad); // se agrega el producto al carrito
+        alert(result.message); // se muestra el mensaje de confirmacion o error
     };
 
-    if (loading) {
+    if (loading) { // si se esta cargando
+        // muestra el msj de carga
         return <div style={{ minHeight: '60vh', padding: '2rem', textAlign: 'center' }}><Title level={2}>Cargando detalle...</Title></div>;
     }
 
-    if (!producto) return null;
+    if (!producto) return null; // si no se obtiene el producto, no se muestra nada
 
+    // borra el "colección" del nombre de la categoria
     let catDisplay = producto.categoria ? producto.categoria.replace(/colecci[oó]n/gi, '').trim() : ''; 
+    // deja solo la primera letra mayuscula y el resto minuscula
     catDisplay = catDisplay ? catDisplay.charAt(0).toUpperCase() + catDisplay.slice(1).toLowerCase() : '';
+    // URL compatible con el servidor (minuscula, sin tildes)
     let catUrl = catDisplay.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     return (
         <main className="product-page">
             <div className="product-container">
-                {/* BREADCRUMB */}
+                {/* home -> categoria -> producto */}
                 <div className="product-breadcrumb">
                     <Link to="/">Home</Link> 
                     <Icon name="angle-right" /> 
@@ -83,9 +92,9 @@ const ProductDetail = () => {
                     </span>
                 </div>
 
-                {/* MAIN PRODUCT SECTION */}
+                {/* pagina de producto */}
                 <div className="product-main">
-                    {/* GALERIA IZQUIERDA */}
+                    {/* lado izq - fotos */}
                     <div className="product-gallery">
                         <div className="gallery-thumbnails">
                             {producto.imagenes && producto.imagenes.map((img, i) => (
@@ -106,7 +115,7 @@ const ProductDetail = () => {
                         </div>
                     </div>
 
-                    {/* INFO DERECHA */}
+                    {/* lado derecho - info */}
                     <div className="detail-info">
                         <p className="detail-category">{producto.categoria || 'Sin categoría'}</p>
                         <Title level={1} className="detail-title">{producto.nombre}</Title>
@@ -140,10 +149,10 @@ const ProductDetail = () => {
                     </div>
                 </div>
 
-                {/* MIDDLE SECTION (DESCRIPTION) */}
+                {/* descripcion */}
                 <div className="product-details-tabs">
                     <div className="tabs-header">
-                        <span className="tab-title activo">Descripción y Especificaciones</span>
+                        <span className="tab-title activo">Descripción</span>
                     </div>
                     <div className="tabs-content">
                         <div className="tab-pane-left">
@@ -164,7 +173,7 @@ const ProductDetail = () => {
                     </div>
                 </div>
 
-                {/* SUGGESTED PRODUCTS */}
+                {/* productos sugeridos en la pag producto */}
                 <div className="product-sugeridos">
                     <Title level={2}>También te puede interesar</Title>
                     {sugeridos && sugeridos.length > 0 ? (

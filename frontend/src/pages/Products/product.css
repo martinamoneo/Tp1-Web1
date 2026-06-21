@@ -1,11 +1,3 @@
-﻿:root {
-    --color-fondo: #f0f0f0;
-    --color-turquesa: #1abc9c;
-    --color-blanco: #f8f8f8;
-    --color-rojo: #e74c3c;
-    --color-gris: #4a4d4e;
-}
-
 .product-page {
     background-color: var(--color-fondo);
 }
@@ -34,14 +26,12 @@
     color: var(--color-turquesa);
 }
 
-/* Main Section: GalerÃ­a e InformaciÃ³n */
 .product-main {
     display: flex;
     gap: 90px;
     margin-bottom: 80px;
 }
 
-/* GalerÃ­a de imÃ¡genes */
 .product-gallery {
     display: flex;
     gap: 20px;
@@ -92,7 +82,7 @@
     object-fit: cover;
 }
 
-/* InformaciÃ³n del Producto a la derecha */
+/* info producto - derecha */
 .detail-info {
     flex: 1;
     display: flex;
@@ -153,26 +143,8 @@
     gap: 25px;
     align-items: center;
 }
-   
-#productoCantidad {
-    width: 30px;
-    text-align: center;
-    border: none;
-    font-weight: 400;
-    font-size: 24px;
-    background: transparent;
-    color: var(--color-fuente, #333);
-    pointer-events: none;
-}
 
-/* .detail-actions .btn-carrito (removido) */ {
-    padding: 15px 30px;
-    font-size: 1rem;
-    min-width: 250px;
-}
-
-
-/* Middle Section: DescripciÃ³n */
+/* descripcion */
 .product-details-tabs {
     margin-bottom: 80px;
 }
@@ -257,16 +229,9 @@
     margin: 0;
 }
 
-/* Sugeridos (You may also like) */
+/* Sugeridos */
 .product-sugeridos {
     margin-top: 60px;
-}
-
-/* .product-sugeridos h2 removido */ {
-    font-size: 1.7rem;
-    font-weight: 400;
-    color: var(--color-turquesa);
-    margin-bottom: 40px;
 }
 
 .sugeridos-grid {
@@ -381,9 +346,9 @@
         flex-direction: column;
         align-items: stretch;
     }
-    /* .detail-actions .btn-carrito (removido) */ {
+    /* .detail-actions .btn-carrito (removido) {
         width: 100%;
-    }
+    } */
     .tabs-content {
         flex-direction: column;
         gap: 30px;

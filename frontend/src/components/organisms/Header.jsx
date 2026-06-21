@@ -26,7 +26,7 @@ const Header = () => {
         <header className="main-header">
             <div className="header-container">
                 <Link to="/" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}> {/* tocando te lleva al inicio */}
-                    <LogoSVG color="var(--color-turquesa, #1abc9c)" width="32px" height="32px" />
+                    <LogoSVG color="var(--color-turquesa, #1abc9c)" width="48px" height="48px" />
                     <div><span className="logo-light">IDEA </span><span className="logo-bold">3D</span></div>
                 </Link>
 

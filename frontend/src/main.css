@@ -1,3 +1,5 @@
+/* estilos basicos para no repetirlos en todos los archivos css */ 
+
 :root {
     --color-fondo: #f0f0f0;
     --color-turquesa: #1abc9c;

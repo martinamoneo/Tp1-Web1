@@ -29,6 +29,12 @@ const Button = ({ children, variant, className = '', onClick, type = 'button', .
         case 'sort-clear':
             variantClass = 'sort-btn sort-btn-clear'; // quitar orden (home)
             break;
+        case 'primary':
+            variantClass = 'btn-primary';
+            break;
+        case 'secondary':
+            variantClass = 'btn-secondary';
+            break;
         default:
             variantClass = '';
     }

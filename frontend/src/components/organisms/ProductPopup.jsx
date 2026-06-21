@@ -1,11 +1,12 @@
 import { useState } from 'react'; // memoria a corto plazo de react
 import { Link } from 'react-router-dom'; // para poder navegar entre paginas
-import Button from '../atoms/Button'; // para poder crear botones
-import Icon from '../atoms/Icon'; // para poder crear iconos
-import Image from '../atoms/Image'; // para poder crear imagenes
-import Title from '../atoms/Title'; // para poder crear titulos
-import QuantitySelector from '../molecules/QuantitySelector'; // para poder crear selectores de cantidad
+import Button from '../atoms/Button';
+import Icon from '../atoms/Icon'; 
+import Image from '../atoms/Image'; 
+import Title from '../atoms/Title'; 
+import QuantitySelector from '../molecules/QuantitySelector';
 import { useCart } from '../../context/CartContext'; // para poder usar el carrito
+import './ProductPopup.css'; 
 
 // funcion q recibe producto, si esta abierto y si esta cerrado
 const ProductPopup = ({ producto, isOpen, onClose }) => {

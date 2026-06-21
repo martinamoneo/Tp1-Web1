@@ -24,10 +24,10 @@ const Login = () => { // componente login
     const handleSubmit = async (e) => { // función que se ejecuta cuando se presiona enviar
         e.preventDefault(); // evita que el formulario se envíe solo
         
-        const validationErrors = validate();
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
+        const validationErrors = validate(); // valida que los campos esten llenos y que el email sea valido
+        if (Object.keys(validationErrors).length > 0) { // si hay errores
+            setErrors(validationErrors); // guarda los errores para mostrarlos
+            return; // no continua
         }
         
         try { // inicio de sesion simulado, en realidad no va a llegar nunca al back 
@@ -62,7 +62,7 @@ const Login = () => { // componente login
                                 value={email}
                                 className={errors.email ? 'invalid' : ''}
                                 onChange={(e) => {
-                                    setEmail(e.target.value);
+                                    setEmail(e.target.value); 
                                     if (errors.email) setErrors(prev => ({ ...prev, email: null }));
                                 }}
                             />

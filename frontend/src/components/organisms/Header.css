@@ -19,13 +19,13 @@
     display: inline-block;
 }
 
-/* La parte gordita (Mi) */
+/* 3D */
 .logo-bold {
     color: #1abc9c; /* El verde agua */
     font-weight: 800; /* Extra Bold */
 }
 
-/* La parte finita (Ecommerce) */
+/* idea */
 .logo-light {
     color: var(--color-turquesa);
     font-weight: 300; /* Light */

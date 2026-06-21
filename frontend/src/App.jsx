@@ -1,19 +1,25 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// contiene todas las rutas y las cosas basicas de la pagina (logo, menu, footer)
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // cambiar URL sin recargar pagina
 import Header from './components/organisms/Header';
 import Footer from './components/organisms/Footer';
 import Home from './pages/Home/Home';
-import ProductDetail from './pages/Products/ProductDetail';
+import ProductDetail from './pages/Products/Product';
 import Categories from './pages/Categories/Categories';
 import Cart from './pages/Cart/Cart';
+import Checkout from './pages/Checkout/checkout';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
+import Error400 from './pages/Error/400';
+import Error500 from './pages/Error/500';
+import NotFound404 from './pages/Error/404';
 import { CartProvider } from './context/CartContext';
-import Title from './components/atoms/Title';
 
 function App() {
   return (
+    /* se envuelve en un cartprovider para q cualquier componente pueda pedir/mandar datos al carrito */ 
     <CartProvider>
-      <Router>
+      <Router>  { /* router me permite cambiar la URL sin recargar pagina */} 
       <Header />
       <main>
         <Routes>
@@ -21,9 +27,12 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/categories/:categoryName" element={<Categories />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="*" element={<div style={{ minHeight: '60vh', padding: '2rem', textAlign: 'center' }}><Title level={2} className="title-hero">404 - No encontrado</Title></div>} />
+          <Route path="/400" element={<Error400 />} />
+          <Route path="/500" element={<Error500 />} />
+          <Route path="*" element={<NotFound404 />} />
         </Routes>
       </main>
       <Footer />

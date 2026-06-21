@@ -1,40 +1,40 @@
 import './categories.css';
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import CategoryNav from '../../components/molecules/CategoryNav';
-import ProductCard from '../../components/molecules/ProductCard';
-import apiService from '../../services/api';
+import { useState, useEffect } from 'react'; // useState -> manejar estados, useEffect -> manejar efectos secundarios 
+import { useParams, Link } from 'react-router-dom'; // useParams -> obtener parámetros de la URL, Link -> crear enlaces 
+import CategoryNav from '../../components/molecules/CategoryNav'; 
+import apiService from '../../services/api'; 
 import Title from '../../components/atoms/Title';
 
 const Categories = () => {
-    const { categoryName } = useParams();
-    const [productos, setProductos] = useState([]);
-    const [categoriaNombre, setCategoriaNombre] = useState('');
-    const [loading, setLoading] = useState(true);
+    const { categoryName } = useParams(); // obtengo el nombre de la categoría de la URL
+    const [productos, setProductos] = useState([]); // estado q guarda los productos de esa categoria
+    const [categoriaNombre, setCategoriaNombre] = useState(''); // estado q guarda el nombre de la categoria
+    const [loading, setLoading] = useState(true); // estado q indica si se esta cargando
 
-    useEffect(() => {
-        const fetchCategory = async () => {
+    useEffect(() => { // hook q se ejecuta cuando cambia la categoriaName
+        const fetchCategory = async () => { // funcion asincrona q obtiene los productos de la categoria
             try {
-                setLoading(true);
+                setLoading(true); // empieza a cargar
+                // espera q el back le mande el producto de la categoria
                 const data = await apiService.getCategoryProducts(categoryName);
                 
-                if (data.productos) {
-                    setProductos(data.productos);
-                    setCategoriaNombre(data.categoriaNombre || categoryName);
-                } else {
-                    setProductos([]);
-                    setCategoriaNombre(categoryName);
+                if (data.productos) { // si hay productos
+                    setProductos(data.productos); // guarda los productos en el estado
+                    setCategoriaNombre(data.categoriaNombre || categoryName); // guarda el nombre de la categoria y si no hay lo toma del useParams
+                } else { // si no hay productos
+                    setProductos([]); // guarda vacio en el estado
+                    setCategoriaNombre(categoryName); // guarda el nombre de la categoria de la URL
                 }
             } catch (error) {
                 console.error('Error fetching category:', error);
-                setProductos([]);
+                setProductos([]); // guarda vacio en el estado
             } finally {
-                setLoading(false);
+                setLoading(false); // deja de cargar
             }
         };
 
         fetchCategory();
-    }, [categoryName]);
+    }, [categoryName]); // se ejecuta cuando cambia la categoriaName
 
     return (
         <main className="category-page">
@@ -50,13 +50,17 @@ const Categories = () => {
 
             <CategoryNav />
 
+            {/* section donde se muestran los productos */}
             <section className="products-section" style={{ minHeight: '50vh' }}>
+                {/* titulo de la categoria */}
                 <Title level={2} className="title-section" style={{ textTransform: 'capitalize' }}>Categoría: {categoriaNombre}</Title>
                 
+                {/* si esta cargando muestra un mensaje */}
                 {loading ? (
                     <div style={{ padding: '2rem', textAlign: 'center' }}><Title level={2} className="title-hero">Cargando categoría...</Title></div>
                 ) : productos.length > 0 ? (
                     <div className="products-grid">
+                        {/* recorre los productos y muestra cada uno */}
                         {productos.map(producto => (
                             <ProductCard key={producto.id} producto={producto} />
                         ))}

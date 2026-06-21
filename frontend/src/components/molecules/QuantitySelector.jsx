@@ -3,6 +3,7 @@
 import Button from '../atoms/Button';
 import Input from '../atoms/Input';
 import Icon from '../atoms/Icon';
+import './QuantitySelector.css'
 
 const QuantitySelector = ({ 
     quantity, // cantidad a mostrar
