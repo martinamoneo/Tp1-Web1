@@ -2,12 +2,13 @@ import './checkout.css';
 import '../../components/atoms/Button.css';
 import { Link } from 'react-router-dom';
 import Title from '../../components/atoms/Title';
+import Icon from '../../components/atoms/Icon';
 
 const Checkout = () => {
     return (
         <div className="checkout-container">
             <div className="checkout-content">
-                <i className="fa-solid fa-person-digging checkout-icon"></i>
+                <Icon name="person-digging" className="checkout-icon" />
                 <Title level={1} className="title-checkout">¡Estamos en obra!</Title>
                 <p className="checkout-message">
                     Seguimos trabajando en esta página por ahora.<br/>

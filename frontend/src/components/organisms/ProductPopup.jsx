@@ -49,8 +49,8 @@ const ProductPopup = ({ producto, isOpen, onClose }) => {
                         
                         <hr className="panel-divisor" /> {/* linea separadora */}
                         
-                        <Link to={`/product/${producto.id}`} className="panel-detalle-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}> 
-                            Más información sobre este producto <Icon name="arrow-right" style={{ fontSize: '0.85em' }} />
+                        <Link to={`/products/${producto.id}`} className="panel-detalle-link popup-detalle-link"> 
+                            Más información sobre este producto <Icon name="arrow-right" className="popup-detalle-icon" />
                         </Link>
                         
                         <div className="panel-acciones">

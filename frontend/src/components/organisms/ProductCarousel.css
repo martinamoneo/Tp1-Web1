@@ -1,0 +1,60 @@
+/* ==================== carrusel ==================== */
+.carousel-wrapper {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: block;
+}
+
+.carousel-grid {
+    display: flex;
+    align-items: stretch;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: 100%;
+    scrollbar-width: none;
+    /* Firefox */
+    gap: 30px;
+    padding: 20px 0 35px 0;
+    /* Padding extra arriba y abajo para que no se corte la sombra al hacer hover */
+    margin: 0;
+}
+
+.carousel-grid::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
+}
+
+.carousel-grid .product-card {
+    /* Exactamente 5 tarjetas descontando los 4 espacios (gap) de 30px */
+    flex: 0 0 calc((100% - 120px) / 5);
+    min-width: 0;
+}
+
+@media (max-width: 1200px) {
+    .carousel-grid .product-card {
+        flex: 0 0 calc((100% - 90px) / 4);
+        /* 4 cards */
+    }
+}
+
+@media (max-width: 900px) {
+    .carousel-grid .product-card {
+        flex: 0 0 calc((100% - 60px) / 3);
+        /* 3 cards */
+    }
+}
+
+@media (max-width: 600px) {
+    .carousel-grid .product-card {
+        flex: 0 0 calc((100% - 30px) / 2);
+        /* 2 cards */
+    }
+}
+
+@media (max-width: 400px) {
+    .carousel-grid .product-card {
+        flex: 0 0 100%;
+        /* 1 card */
+    }
+}

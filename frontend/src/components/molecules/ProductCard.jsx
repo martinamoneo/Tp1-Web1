@@ -13,7 +13,7 @@ const ProductCard = ({ producto, onCardClick }) => {
         if (onCardClick) { 
             onCardClick(producto);
         } else {
-            navigate(`/product/${producto.id}`);
+            navigate(`/products/${producto.id}`);
         }
     };
 

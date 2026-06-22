@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import apiService from '../../utils/api';
 import Title from '../../components/atoms/Title';
+import Icon from '../../components/atoms/Icon';
 
 const Register = () => { // componente register
     const [formData, setFormData] = useState({ // hook para guardar los datos del formulario
@@ -143,10 +144,10 @@ const Register = () => { // componente register
                                 onChange={handleChange}
                             />
                             <button type="button" className="btn-eye" onClick={() => setShowPassword(!showPassword)}>
-                                <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'} fa-fw`}></i>
+                                <Icon type="regular" name={showPassword ? 'eye-slash' : 'eye'} className="fa-fw" />
                             </button>
                             {errors.password && (
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '4px' }}>
+                                <div className="register-password-requirements">
                                     {Array.isArray(errors.password) ? (
                                         errors.password.map((err, idx) => (
                                             <small key={idx} className="error-msg">{err}</small>

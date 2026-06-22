@@ -75,7 +75,17 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding-top: 20px;
+    margin-top: auto;
+}
+
+.popup-detalle-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.popup-detalle-icon {
+    font-size: 0.85em;
 }
 
 .panel-categoria {

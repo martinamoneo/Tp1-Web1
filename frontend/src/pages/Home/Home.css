@@ -9,93 +9,14 @@ body {
     margin: 0;
 }
 
-/* ---------- NOVEDADES E INGRESOS ---------- */
-.banner-section {
-    background-color: #1abc9c;
-    padding: 60px 15px;
-    margin-bottom: 20px;
+.home-loading {
+    min-height: 60vh;
+    padding: 2rem;
+    text-align: center;
 }
 
-.banner-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    justify-content: center;
-}
-
-.banner-card {
-    flex: 1;
-    min-width: 300px;
-    height: 240px;
-    border-radius: 20px;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.4s ease;
-}
-
-.banner-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
-}
-
-.banner-card1 {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75)),
-        url('/ui/novedades.jpeg');
-}
-
-.banner-card2 {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75)),
-        url('/ui/ingresos.jpeg');
-}
-
-.banner-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 35px 30px;
-    color: white;
-}
-
-.banner-text h3 {
-    margin: 0 0 10px 0;
-    font-size: 2rem;
-    font-weight: 700;
-}
-
-.banner-text p {
-    margin: 0;
-    font-size: 1.1rem;
-    opacity: 0.9;
-}
-
-/* Responsive Banners */
-@media (max-width: 768px) {
-    .banner-card {
-        min-width: 280px;
-        height: 200px;
-    }
-
-    .banner-text h3 {
-        font-size: 1.7rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .banner-card {
-        min-width: 100%;
-        height: 190px;
-    }
-
-    .banner-content {
-        padding: 25px 20px;
-    }
+.home-products-section {
+    padding-bottom: 10px;
 }
 
 /* ---------- PRODUCTOS ---------- */
@@ -122,10 +43,6 @@ body {
         gap: 20px;
     }
 
-    .banner-card {
-        height: 180px;
-    }
-
     .product-image {
         height: 180px;
     }
@@ -134,75 +51,6 @@ body {
 @media (max-width: 360px) {
     .products-grid {
         grid-template-columns: 1fr;
-    }
-}
-
-
-/* ==================== lo mas pedido ==================== */
-.carousel-wrapper {
-    position: relative;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: block;
-}
-
-.carousel-grid {
-    display: flex;
-    align-items: stretch;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    width: 100%;
-    scrollbar-width: none;
-    /* Firefox */
-    gap: 30px;
-    padding: 20px 0 35px 0;
-    /* Padding extra arriba y abajo para que no se corte la sombra al hacer hover */
-    margin: 0;
-}
-
-.carousel-grid::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari, Opera */
-}
-
-.carousel-grid .product-card {
-    /* Exactamente 5 tarjetas descontando los 4 espacios (gap) de 30px */
-    flex: 0 0 calc((100% - 120px) / 5);
-    min-width: 0;
-}
-
-
-@media (max-width: 1200px) {
-    .carousel-grid .product-card {
-        flex: 0 0 calc((100% - 90px) / 4);
-        /* 4 cards */
-    }
-}
-
-@media (max-width: 900px) {
-    .carousel-grid .product-card {
-        flex: 0 0 calc((100% - 60px) / 3);
-        /* 3 cards */
-    }
-}
-
-@media (max-width: 600px) {
-    .carousel-grid .product-card {
-        flex: 0 0 calc((100% - 30px) / 2);
-        /* 2 cards */
-    }
-}
-
-@media (max-width: 400px) {
-    .carousel-grid .product-card {
-        flex: 0 0 100%;
-        /* 1 card */
-    }
-}
-
-@media (max-width: 768px) {
-    .panel-info-row {
-        flex-direction: column;
     }
 }
 

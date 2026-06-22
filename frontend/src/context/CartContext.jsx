@@ -5,6 +5,10 @@ import { createContext, useState, useContext, useEffect } from 'react';
 
 const CartContext = createContext(); // se crea el contexto para q los hijos se puedan conectar 
 
+// hay 2 funciones q se exportan en este codigo, a vite no le gusta eso y tira error 
+// asi q se usa esta linea para decirle a vite q ignore el error
+
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => {
     return useContext(CartContext);
 };

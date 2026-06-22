@@ -77,14 +77,14 @@
 /* ==================== BOTONES CARRUSEL (< y >) ==================== */
 .carousel-btn {
     position: absolute;
-    top: 50%;
+    top: 45%; /* Modificá este valor para subirlas (ej: 30%) o bajarlas (ej: 50%) */
     transform: translateY(-50%);
     background: white;
     border: none;
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    font-size: 28px;
+    font-size: 20px;
     cursor: pointer;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
     display: flex;
@@ -104,11 +104,11 @@
 }
 
 .carousel-btn.izquierda {
-    left: 5px;
+    left: -50px;
 }
 
 .carousel-btn.derecha {
-    right: 5px;
+    right: -50px;
 }
 
 /* Compatibilidad con la clase sugeridos-btn que se usaba antes */

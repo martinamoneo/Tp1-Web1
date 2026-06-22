@@ -15,6 +15,11 @@ import Error500 from './pages/Error/500';
 import NotFound404 from './pages/Error/404';
 import { CartProvider } from './context/CartContext';
 
+// Nuevas Rutas (Sprint 5)
+import ProductsList from './pages/Products/ProductsList/ProductsList';
+import ProductCreate from './pages/Products/ProductCreate/ProductCreate';
+import Profile from './pages/Profile/Profile';
+
 function App() {
   return (
     /* se envuelve en un cartprovider para q cualquier componente pueda pedir/mandar datos al carrito */ 
@@ -24,7 +29,10 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/products" element={<ProductsList />} />
+          <Route path="/products/new" element={<ProductCreate />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/categories/:categoryName" element={<Categories />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />

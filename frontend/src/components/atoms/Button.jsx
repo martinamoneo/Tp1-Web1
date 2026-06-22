@@ -9,7 +9,7 @@ import './Button.css';
 
 const Button = ({ children, variant, className = '', onClick, type = 'button', ...props }) => {
     // diferentes clases segun lo q le pases
-    let variantClass = '';
+    let variantClass;
     switch (variant) {
         case 'carrito':
             variantClass = 'btn-carrito'; // agregar al carrito
@@ -21,7 +21,7 @@ const Button = ({ children, variant, className = '', onClick, type = 'button', .
             variantClass = 'panel-close'; // cerrar panel del pop up
             break;
         case 'carousel':
-            variantClass = 'sugeridos-btn carousel-btn'; // flechas < > en el carrousel
+            variantClass = 'carousel-btn'; // flechas < > en el carrousel
             break;
         case 'sort':
             variantClass = 'sort-btn'; // menor y mayor precio

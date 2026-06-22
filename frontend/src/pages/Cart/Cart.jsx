@@ -3,7 +3,8 @@ import { useState } from 'react'; // hook para guardar el estado (mensaje de err
 import { Link } from 'react-router-dom'; // hook para navegar entre rutas sin recargar página
 import QuantitySelector from '../../components/molecules/QuantitySelector'; // componente para seleccionar la cantidad
 import { useCart } from '../../context/CartContext'; // hook para obtener el carrito
-import Title from '../../components/atoms/Title'; // componente para títulos
+import Title from '../../components/atoms/Title';
+import Icon from '../../components/atoms/Icon'; // componente para imágenes
 import Image from '../../components/atoms/Image'; // componente para imágenes
 
 const Cart = () => { // componente del carrito con funcion flecha
@@ -31,7 +32,7 @@ const Cart = () => { // componente del carrito con funcion flecha
                 
                 {mensaje && ( // si hay un error al cambiar la cantidad (es true), muestra el mensaje de error
                     <div className="cart-mensaje-error"> 
-                        <i className="fa-solid fa-triangle-exclamation"></i> 
+                        <Icon name="triangle-exclamation" /> 
                         {mensaje}
                     </div>
                 )}

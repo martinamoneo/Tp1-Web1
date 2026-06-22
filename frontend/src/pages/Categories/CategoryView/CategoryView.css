@@ -19,10 +19,19 @@ body {
 
 .category-breadcrumb-container {
     max-width: 1100px;
+    width: 100%;
     margin: 30px auto -30px;
-    padding: 0;
+    padding: 0 15px;
     position: relative;
     z-index: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.category-breadcrumb-left {
+    margin-bottom: 0;
+    text-align: left;
+    width: 100%;
 }
 
 .product-breadcrumb a {
@@ -41,5 +50,22 @@ body {
     font-size: 13px;
     color: var(--color-gris);
     margin: 0 5px;
+}
+
+.category-products-section {
+    min-height: 50vh;
+}
+
+.category-title-section {
+    text-transform: capitalize;
+}
+
+.category-loading {
+    padding: 2rem;
+    text-align: center;
+}
+
+.category-vacio {
+    margin-bottom: 50px;
 }
 

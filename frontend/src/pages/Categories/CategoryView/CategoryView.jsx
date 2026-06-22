@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom'; // useParams -> obtener par�
 import CategoryNav from '../../../components/molecules/CategoryNav'; 
 import apiService from '../../../utils/api'; 
 import Title from '../../../components/atoms/Title';
+import Icon from '../../../components/atoms/Icon';
 import ProductCard from '../../../components/molecules/ProductCard';
 
 const Categories = () => {
@@ -40,10 +41,10 @@ const Categories = () => {
     return (
         <main className="category-page">
             <div className="category-breadcrumb-container">
-                <div className="product-breadcrumb" style={{ marginBottom: 0 }}>
+                <div className="product-breadcrumb category-breadcrumb-left">
                     <Link to="/">Home</Link> 
-                    <i className="fa-solid fa-angle-right"></i> 
-                    <span className="category-breadcrumb-active" style={{ textTransform: 'capitalize' }}>
+                    <Icon name="angle-right" /> 
+                    <span className="category-breadcrumb-active">
                         {categoriaNombre}
                     </span>
                 </div>
@@ -52,13 +53,13 @@ const Categories = () => {
             <CategoryNav />
 
             {/* section donde se muestran los productos */}
-            <section className="products-section" style={{ minHeight: '50vh' }}>
+            <section className="products-section category-products-section">
                 {/* titulo de la categoria */}
-                <Title level={2} className="title-section" style={{ textTransform: 'capitalize' }}>Categoría: {categoriaNombre}</Title>
+                <Title level={2} className="title-section category-title-section">Categoría: {categoriaNombre}</Title>
                 
                 {/* si esta cargando muestra un mensaje */}
                 {loading ? (
-                    <div style={{ padding: '2rem', textAlign: 'center' }}><Title level={2} className="title-hero">Cargando categoría...</Title></div>
+                    <div className="category-loading"><Title level={2} className="title-hero">Cargando categoría...</Title></div>
                 ) : productos.length > 0 ? (
                     <div className="products-grid">
                         {/* recorre los productos y muestra cada uno */}
@@ -67,8 +68,8 @@ const Categories = () => {
                         ))}
                     </div>
                 ) : (
-                    <div className="sugeridos-vacio" style={{ marginBottom: '50px' }}>
-                        <i className="fa-regular fa-face-frown"></i>
+                    <div className="sugeridos-vacio category-vacio">
+                        <Icon type="regular" name="face-frown" />
                         <p>Lo sentimos, no hay productos en esta categoría en este momento.</p>
                     </div>
                 )}

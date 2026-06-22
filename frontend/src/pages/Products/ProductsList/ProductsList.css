@@ -1,1 +1,29 @@
-ÿþ
+.products-list-page {
+    padding: 2rem 5%;
+    background-color: var(--color-fondo, #f0f0f0);
+}
+
+.products-list-page .title-container {
+    text-align: center;
+    margin-bottom: 3rem;
+    margin-top: 1rem;
+}
+
+.products-list-section {
+    min-height: 50vh;
+}
+
+.products-list-vacio {
+    margin-bottom: 50px;
+}
+
+.products-list-page .title-container p {
+    color: var(--color-gray-dark, #666);
+    font-size: 1.1rem;
+}
+
+.loading-state {
+    padding: 4rem;
+    text-align: center;
+    color: var(--color-gray, #999);
+}
