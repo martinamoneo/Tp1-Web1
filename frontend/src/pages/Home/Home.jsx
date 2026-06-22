@@ -1,4 +1,4 @@
-import './home.css';
+import './Home.css';
 import { useState, useEffect, useRef } from 'react';
 // useState -> hook para manejar estados
 // useEffect -> hook para efectos secundarios
@@ -10,7 +10,7 @@ import ProductPopup from '../../components/organisms/ProductPopup';
 import Button from '../../components/atoms/Button';
 import Title from '../../components/atoms/Title';
 import Icon from '../../components/atoms/Icon';
-import apiService from '../../services/api'; // servicio para hablar con el back
+import apiService from '../../utils/api'; // servicio para hablar con el back
 
 const Home = () => {
     const [productos, setProductos] = useState([]); // guardar productos

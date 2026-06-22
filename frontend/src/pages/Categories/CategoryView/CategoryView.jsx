@@ -1,9 +1,10 @@
-import './categories.css';
+import './CategoryView.css';
 import { useState, useEffect } from 'react'; // useState -> manejar estados, useEffect -> manejar efectos secundarios 
 import { useParams, Link } from 'react-router-dom'; // useParams -> obtener parámetros de la URL, Link -> crear enlaces 
-import CategoryNav from '../../components/molecules/CategoryNav'; 
-import apiService from '../../services/api'; 
-import Title from '../../components/atoms/Title';
+import CategoryNav from '../../../components/molecules/CategoryNav'; 
+import apiService from '../../../utils/api'; 
+import Title from '../../../components/atoms/Title';
+import ProductCard from '../../../components/molecules/ProductCard';
 
 const Categories = () => {
     const { categoryName } = useParams(); // obtengo el nombre de la categoría de la URL

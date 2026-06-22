@@ -1,17 +1,17 @@
-import './product.css';
+import './ProductView.css';
 import { useState, useEffect } from 'react'; // useState ->  manejar estado, useEffect ->  manejar efectos secundarios
 import { useParams, Link, useNavigate } from 'react-router-dom';
 // useParams -> obtener ID del producto de la URL
 // Link -> crear enlaces
 // useNavigate -> navegar entre rutas
-import Icon from '../../components/atoms/Icon';
-import Image from '../../components/atoms/Image';
-import Title from '../../components/atoms/Title';
-import Button from '../../components/atoms/Button';
-import ProductCard from '../../components/molecules/ProductCard';
-import QuantitySelector from '../../components/molecules/QuantitySelector';
-import apiService from '../../services/api'; // objeto apiService para manejar peticiones a la API
-import { useCart } from '../../context/CartContext'; // funcion useCart para hablar con la memoria del carrito
+import Icon from '../../../components/atoms/Icon';
+import Image from '../../../components/atoms/Image';
+import Title from '../../../components/atoms/Title';
+import Button from '../../../components/atoms/Button';
+import ProductCard from '../../../components/molecules/ProductCard';
+import QuantitySelector from '../../../components/molecules/QuantitySelector';
+import apiService from '../../../utils/api'; // objeto apiService para manejar peticiones a la API
+import { useCart } from '../../../context/CartContext'; // funcion useCart para hablar con la memoria del carrito
 
 const ProductDetail = () => {
     const { addToCart } = useCart(); // funcion addToCart para agregar productos al carrito

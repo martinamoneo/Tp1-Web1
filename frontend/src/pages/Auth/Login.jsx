@@ -1,7 +1,7 @@
 import './login-register.css';
 import { useState } from 'react'; // hook para q react se acuerde de lo q el usuario escribe
 import { Link, useNavigate } from 'react-router-dom'; // hook para navegar entre rutas sin recargar página
-import apiService from '../../services/api'; // para comunicarse con el back
+import apiService from '../../utils/api'; // para comunicarse con el back
 import Title from '../../components/atoms/Title'; // componente title
 
 const Login = () => { // componente login

@@ -1,6 +1,6 @@
 // para que no haya errores si no se encuentra la imagen
 
-import { SERVER_URL } from '../../services/api';
+import { SERVER_URL } from '../../utils/api';
 
 const Image = ({ src, alt, className = '', defaultImage = '/ui/no-image.png', ...props }) => {
     
