@@ -1,85 +1,79 @@
 import './cart.css';
-import { useState } from 'react'; // hook para guardar el estado (mensaje de error)
-import { Link } from 'react-router-dom'; // hook para navegar entre rutas sin recargar página
-import QuantitySelector from '../../components/molecules/QuantitySelector'; // componente para seleccionar la cantidad
-import { useCart } from '../../context/CartContext'; // hook para obtener el carrito
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useCart } from '../../context/CartContext';
 import Title from '../../components/atoms/Title';
-import Icon from '../../components/atoms/Icon'; // componente para imágenes
-import Image from '../../components/atoms/Image'; // componente para imágenes
+import Icon from '../../components/atoms/Icon';
+import CartItem from '../../components/molecules/CartItem';
+import CartSummary from '../../components/molecules/CartSummary';
 
-const Cart = () => { // componente del carrito con funcion flecha
-    // uso el hook useCart para obtener el carrito, la funcion para actualizar la cantidad y para vaciar el carrito
-    const { cart: carrito, updateQuantity, clearCart } = useCart(); 
-    // hook para guardar el mensaje de error
+const Cart = () => {
+    const { cart: carrito, updateQuantity, clearCart, removeFromCart } = useCart(); 
     const [mensaje, setMensaje] = useState(null); 
 
-    // funcion para manejar el cambio de cantidad
     const handleQuantityChange = (productId, action) => {
-        // actualiza la cantidad del producto
         const resultMsg = updateQuantity(productId, action);
-        // guarda el mensaje de error
         setMensaje(resultMsg); 
     };
 
-    // calcula el total de puntos del carrito
-    // reduce reduce el array a un solo valor, en este caso la suma de los puntos de cada item multiplicados por su cantidad
     const total = carrito.reduce((acc, item) => acc + (item.puntos * item.quantity), 0);
 
     return (
         <main className="cart-container">
             <div className="cart-wrapper">
-                <Title level={1} className="title-cart">Tu Carrito</Title>
                 
-                {mensaje && ( // si hay un error al cambiar la cantidad (es true), muestra el mensaje de error
+                <div className="cart-header">
+                    <Title level={1} className="title-section">Tu Carrito</Title>
+                    {carrito.length > 0 && (
+                        <div className="cart-header-actions">
+                            <Link to="/" className="btn-volver">
+                                <Icon name="arrow-left" /> Seguir comprando
+                            </Link>
+                            <button onClick={clearCart} className="btn-vaciar">
+                                <Icon name="trash" /> Vaciar todo
+                            </button>
+                        </div>
+                    )}
+                </div>
+                
+                {mensaje && (
                     <div className="cart-mensaje-error"> 
                         <Icon name="triangle-exclamation" /> 
                         {mensaje}
                     </div>
                 )}
                 
-                {carrito.length === 0 ? ( // si el carrito esta vacio muestra el mensaje
+                {carrito.length === 0 ? (
                     <div className="cart-vacio">
-                        <p>No hay productos por aquí...</p>
-                        <Link to="/" className="btn-gris">Volver al inicio</Link>
+                        <div className="cart-vacio-icon">
+                            <Icon name="bag-shopping" />
+                        </div>
+                        <Title level={2} className="title-empty">Tu carrito está vacío</Title>
+                        <p>¿No sabés qué comprar? ¡Miles de productos te esperan!</p>
+                        <Link to="/" className="btn-primary">Descubrir productos</Link>
                     </div>
                 ) : (
-                    <> {/* si el carrito no esta vacio muestra esto*/}
-                        <div className="cart-header-actions">
-                            <Link to="/" className="btn-volverInicio">← Volver al inicio</Link>
-                            <button onClick={clearCart} className="btn-vaciar">Vaciar carrito</button>
-                        </div>
-
-                        <div className="cart-items">
-                            {carrito.map(item => ( // recorre el carrito y muestra cada item en un div 
-                                <div className="cart-item" key={item.id}> {/* cada prod debe tener un ID para q react lo pueda mostrar */}
-                                    <div className="item-img-box">
-                                        <Image 
-                                            // se fija si hay imagenes y muestra la primera, sino no muestra fallback
-                                            src={item.imagenes && item.imagenes.length > 0 ? item.imagenes[0] : null} 
-                                            alt={item.nombre} 
-                                        />
-                                    </div>
-                                    <div className="item-main-info">
-                                        <h4>{item.nombre}</h4>
-                                        <p>{item.puntos} puntos</p>
-                                    </div>
-                                    <div className="item-controls">
-                                        <QuantitySelector 
-                                            quantity={item.quantity}
-                                            onDecrease={() => handleQuantityChange(item.id, 'decrease')}
-                                            onIncrease={() => handleQuantityChange(item.id, 'increase')}
-                                            className="cart-qty-selector"
-                                        />
-                                    </div>
-                                </div>
-                            ))}
+                    <div className="cart-grid">
+                        {/* COLUMNA IZQUIERDA: PRODUCTOS */}
+                        <div className="cart-items-column">
+                            
+                            <div className="cart-items-list">
+                                {carrito.map(item => (
+                                    <CartItem 
+                                        key={item.id} 
+                                        item={item} 
+                                        onQuantityChange={handleQuantityChange}
+                                        onRemove={removeFromCart} 
+                                    />
+                                ))}
+                            </div>
                         </div>
                         
-                        <div className="cart-total-bar">
-                            <p className="total-text">Total: {total} puntos</p>
-                            <Link to="/checkout" className="btn-pagar">Pagar</Link>
+                        {/* COLUMNA DERECHA: RESUMEN */}
+                        <div className="cart-summary-column">
+                            <CartSummary total={total} />
                         </div>
-                    </>
+                    </div>
                 )}
             </div>
         </main>

@@ -21,11 +21,11 @@ const ProductInfo = ({ producto, cantidad, onQuantityChange, onAddToCart }) => {
 
             <div className="detail-actions">
                 <QuantitySelector 
-                    quantity={cantidad}
-                    onDecrease={() => onQuantityChange(-1)}
-                    onIncrease={() => onQuantityChange(1)}
-                    disabledDecrease={producto.stock === 0}
-                    disabledIncrease={producto.stock === 0}
+                    cantidad={cantidad}
+                    alDisminuir={() => onQuantityChange(-1)}
+                    alAumentar={() => onQuantityChange(1)}
+                    deshabilitarDisminuir={producto.stock === 0}
+                    deshabilitarAumentar={producto.stock === 0}
                 />
                 <Button variant="carrito" 
                     onClick={onAddToCart}

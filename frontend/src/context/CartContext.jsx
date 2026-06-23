@@ -50,7 +50,7 @@ export const CartProvider = ({ children }) => {
             if (existingItemIndex > -1) {
                 // si el producto ya existe, aumenta la cantidad
                 const newCart = [...prevCart];
-                const existingItem = newCart[existingItemIndex];
+                const existingItem = { ...newCart[existingItemIndex] };
                 
                 // si ya lo tenias suma uno pero no se pasa del stock
                 const newQuantity = existingItem.quantity + quantity;
@@ -59,6 +59,7 @@ export const CartProvider = ({ children }) => {
                 } else {
                     existingItem.quantity = product.stock;
                 }
+                newCart[existingItemIndex] = existingItem;
                 return newCart;
             } else { // si no existe, lo agrega al carrito
                 return [...prevCart, { ...product, quantity }];
@@ -75,7 +76,7 @@ export const CartProvider = ({ children }) => {
             const itemIndex = newCart.findIndex(item => item.id === productId); // busca el producto en el carrito 
             
             if (itemIndex > -1) { // si el producto existe
-                const item = newCart[itemIndex]; // obtiene el producto
+                const item = { ...newCart[itemIndex] }; // obtenemos una copia del producto
                 if (action === 'increase') { // si aumenta
                     if (item.quantity < item.stock) { // si hay stock 
                         item.quantity += 1; // aumenta la cantidad
@@ -84,9 +85,12 @@ export const CartProvider = ({ children }) => {
                     }
                 } else if (action === 'decrease') { // si disminuye
                     item.quantity -= 1; // disminuye la cantidad 
-                    if (item.quantity <= 0) { // si la cantidad es menor o igual a 0
-                        newCart.splice(itemIndex, 1); // elimina el producto del carrito
-                    }
+                }
+                
+                if (item.quantity <= 0) { // si la cantidad es menor o igual a 0
+                    newCart.splice(itemIndex, 1); // elimina el producto del carrito
+                } else {
+                    newCart[itemIndex] = item; // guarda el item actualizado
                 }
             }
             return newCart;

@@ -14,9 +14,6 @@ const Button = ({ children, variant, className = '', onClick, type = 'button', .
         case 'carrito':
             variantClass = 'btn-carrito'; // agregar al carrito
             break;
-        case 'cantidad':
-            variantClass = 'btn-cantidad'; // + y - para la cantidad
-            break;
         case 'close':
             variantClass = 'panel-close'; // cerrar panel del pop up
             break;

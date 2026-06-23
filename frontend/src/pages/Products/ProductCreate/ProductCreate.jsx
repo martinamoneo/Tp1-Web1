@@ -17,7 +17,7 @@ const ProductCreate = () => {
                     <Icon name="person-digging" className="construction-icon" />
                     <Title level={2}>Sección en Construcción</Title>
                     <p>Acá irá el formulario de alta de productos para el panel administrativo.</p>
-                    <Button variant="primary" className="btn-volver" onClick={() => window.history.back()}>
+                    <Button variant="primary" onClick={() => window.history.back()}>
                         Volver Atrás
                     </Button>
                 </div>

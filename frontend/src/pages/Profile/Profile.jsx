@@ -28,7 +28,7 @@ const Profile = () => {
                         <Icon name="person-digging" className="construction-icon" />
                         <Title level={3}>Panel en Construcción</Title>
                         <p>Próximamente podrás editar tus datos y ver tu historial de compras acá.</p>
-                        <Button variant="primary" className="btn-volver" onClick={() => window.history.back()}>
+                        <Button variant="primary" onClick={() => window.history.back()}>
                             Volver Atrás
                         </Button>
                     </div>

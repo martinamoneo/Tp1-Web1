@@ -55,11 +55,11 @@ const ProductPopup = ({ producto, isOpen, onClose }) => {
                         
                         <div className="panel-acciones">
                             <QuantitySelector 
-                                quantity={cantidad}
-                                onDecrease={handleDecrement}
-                                onIncrease={handleIncrement}
-                                disabledDecrease={producto.stock === 0}
-                                disabledIncrease={producto.stock === 0 || cantidad >= producto.stock}
+                                cantidad={cantidad}
+                                alDisminuir={handleDecrement}
+                                alAumentar={handleIncrement}
+                                deshabilitarDisminuir={producto.stock === 0}
+                                deshabilitarAumentar={producto.stock === 0 || cantidad >= producto.stock}
                             />
                             <Button 
                                 variant="carrito" 

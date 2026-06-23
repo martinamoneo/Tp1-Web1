@@ -1,43 +1,42 @@
 // botones para la cantidad
 
-import Button from '../atoms/Button';
 import Input from '../atoms/Input';
 import Icon from '../atoms/Icon';
 import './QuantitySelector.css'
 
 const QuantitySelector = ({ 
-    quantity, // cantidad a mostrar
-    onDecrease, // funcion para disminuir
-    onIncrease, // funcion para aumentar
-    disabledDecrease = false, // deshabilitar boton menos
-    disabledIncrease = false, // deshabilitar boton mas
+    cantidad, // cantidad a mostrar
+    alDisminuir, // funcion para disminuir
+    alAumentar, // funcion para aumentar
+    deshabilitarDisminuir = false, // deshabilitar boton menos
+    deshabilitarAumentar = false, // deshabilitar boton mas
     className = '' // clase opcional para estilos extra
 }) => {
     return (
         <div className={`cantidad-selector ${className}`.trim()}>
-            <Button 
-                variant="cantidad" 
-                onClick={onDecrease}
-                disabled={disabledDecrease}
-                style={disabledDecrease ? { cursor: 'not-allowed' } : {}}
+            <button 
+                className="cantidad-btn"
+                onClick={alDisminuir}
+                disabled={deshabilitarDisminuir}
+                style={deshabilitarDisminuir ? { cursor: 'not-allowed' } : {}}
             >
                 <Icon name="minus" />
-            </Button>
+            </button>
             
             <Input 
-                value={quantity} 
+                value={cantidad} 
                 readOnly // hace que el num no se pueda escribir
-                className="qty-input"
+                className="cantidad-input"
             />
             
-            <Button 
-                variant="cantidad" 
-                onClick={onIncrease}
-                disabled={disabledIncrease}
-                style={disabledIncrease ? { cursor: 'not-allowed' } : {}}
+            <button 
+                className="cantidad-btn"
+                onClick={alAumentar}
+                disabled={deshabilitarAumentar}
+                style={deshabilitarAumentar ? { cursor: 'not-allowed' } : {}}
             >
                 <Icon name="plus" />
-            </Button>
+            </button>
         </div>
     );
 };

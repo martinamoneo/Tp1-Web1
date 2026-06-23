@@ -13,7 +13,7 @@ const Footer = () => {
                 </div>
 
                 <div className="footer-copy">
-                    <p>© MiEcommerce. Todos los derechos reservados.</p>
+                    <p>© Idea 3D. Todos los derechos reservados.</p>
                 </div>
 
                 <div className="footer-apps">
