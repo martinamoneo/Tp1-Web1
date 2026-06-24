@@ -1,5 +1,6 @@
-// input personalizado
+import './Input.css';
 
+// input personalizado
 // type = por default es texto, 
 // id, 
 // value = texto q escribe el usuario

@@ -3,6 +3,7 @@ import { useState } from 'react'; // memoria a corto plazo de react
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Icon from '../atoms/Icon';
 import Input from '../atoms/Input';
+import Button from '../atoms/Button';
 import LogoSVG from '../atoms/LogoSVG';
 import { useCart } from '../../context/CartContext';
 
@@ -38,7 +39,7 @@ const Header = () => {
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                         />
-                        <button type="submit"><Icon name="search" /></button>
+                        <Button variant="search" type="submit"><Icon name="search" /></Button>
                     </form>
                 )}
 

@@ -32,6 +32,27 @@ const Button = ({ children, variant, className = '', onClick, type = 'button', .
         case 'secondary':
             variantClass = 'btn-secondary';
             break;
+        case 'submit':
+            variantClass = 'btn-submit';
+            break;
+        case 'eye':
+            variantClass = 'btn-eye';
+            break;
+        case 'remove':
+            variantClass = 'btn-remove-item';
+            break;
+        case 'cantidad':
+            variantClass = 'cantidad-btn';
+            break;
+        case 'search':
+            variantClass = 'btn-search';
+            break;
+        case 'logout':
+            variantClass = 'logout-btn';
+            break;
+        case 'vaciar':
+            variantClass = 'btn-vaciar';
+            break;
         default:
             variantClass = '';
     }

@@ -49,63 +49,14 @@
     text-align: left;
 }
 
-.login-form input,
-.register-form input {
-    width: 100%;
-    box-sizing: border-box; /* Esto arregla que se salga de la tarjeta */
-    padding: 10px 16px;
-    margin-bottom: 12px;
-    border: 1px solid #e0e0e0;
-    transition: all 0.3s ease;
-    border-radius: 20px; 
-    background-color: #fcfcfc;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.8rem;
-}
 
-.login-form input:focus,
-.register-form input:focus {
-    outline: none;
-    border-color: var(--color-turquesa);
-    box-shadow: 0 0 0 2px rgba(26, 188, 156, 0.25);
-}
-
-/* Si el campo tiene error, el foco sigue en rojo */
-.form-group input.invalid:focus {
-    border-color: var(--color-rojo);
-    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
-}
 
 .form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
 }
-.form-group input {
-    margin-bottom: 6px; /* separa input del error */
-}
 
-.btn-submit {
-    background-color: var(--color-turquesa);
-    color: white;
-    width: 100%;
-    padding: 11px;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-    font-weight: 600;
-    font-size: 0.85rem;
-    box-shadow: 0 4px 15px rgba(26, 188, 156, 0.3);
-    transition: all 0.3s ease;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.btn-submit:hover {
-    background-color: #16a085;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(26, 188, 156, 0.4);
-}
 
 .bottom-text {
     color: #666; /* Un gris para todo el texto de abajo */
@@ -136,28 +87,14 @@
     text-align: center;
 }
 
-.form-group input.invalid {
-    border: 1px solid var(--color-rojo);
-}
+
 
 /*ver contraseña*/
 .password-container {
     position: relative;
 }
 
-.btn-eye {
-    position: absolute;
-    right: 15px;
-    top: 20px; /* Centrado verticalmente respecto al input (asumiendo ~40px de alto) */
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 0;
-    line-height: 1;
-    color: #888;
-}
+
 
 #password {
     padding-right: 42px;

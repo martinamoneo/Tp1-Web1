@@ -21,21 +21,4 @@
 .cantidad-input:focus {
     outline: none;
 }
-
-.cantidad-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--color-gris, #4a4d4e);
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s; /* Solo transicionamos color */
-    padding: 0 5px;
-}
-
-.cantidad-btn:hover {
-    color: var(--color-turquesa, #1abc9c);
-    background: none;
-}
+

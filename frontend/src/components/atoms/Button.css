@@ -219,3 +219,71 @@
 .btn-volver:hover:not(:disabled) {
     color: var(--color-turquesa, #1abc9c);
 }
+
+/* ==================== BOTONES LOGIN/REGISTER ==================== */
+.btn-submit {
+    background-color: var(--color-turquesa, #1abc9c);
+    color: white;
+    width: 100%;
+    padding: 11px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 15px rgba(26, 188, 156, 0.3);
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-submit:hover {
+    background-color: #16a085;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 188, 156, 0.4);
+}
+
+.btn-eye {
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0;
+    line-height: 1;
+    color: #888;
+}
+
+/* ==================== BOTON SEARCH ==================== */
+.btn-search {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+}
+
+/* ==================== BOTON CANTIDAD ==================== */
+.cantidad-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-gris, #4a4d4e);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    padding: 0 5px;
+}
+
+.cantidad-btn:hover {
+    color: var(--color-turquesa, #1abc9c);
+    background: none;
+}

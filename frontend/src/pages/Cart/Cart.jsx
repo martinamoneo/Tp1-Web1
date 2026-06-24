@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import Title from '../../components/atoms/Title';
 import Icon from '../../components/atoms/Icon';
+import Button from '../../components/atoms/Button';
 import CartItem from '../../components/molecules/CartItem';
 import CartSummary from '../../components/molecules/CartSummary';
+import EmptyState from '../../components/molecules/EmptyState';
 
 const Cart = () => {
     const { cart: carrito, updateQuantity, clearCart, removeFromCart } = useCart(); 
@@ -20,18 +22,18 @@ const Cart = () => {
 
     return (
         <main className="cart-container">
-            <div className="cart-wrapper">
+            <div className="page-wrapper">
                 
-                <div className="cart-header">
+                <div className="page-header">
                     <Title level={1} className="title-section">Tu Carrito</Title>
                     {carrito.length > 0 && (
-                        <div className="cart-header-actions">
+                        <div className="page-header-actions">
                             <Link to="/" className="btn-volver">
                                 <Icon name="arrow-left" /> Seguir comprando
                             </Link>
-                            <button onClick={clearCart} className="btn-vaciar">
+                            <Button variant="vaciar" onClick={clearCart}>
                                 <Icon name="trash" /> Vaciar todo
-                            </button>
+                            </Button>
                         </div>
                     )}
                 </div>
@@ -44,14 +46,13 @@ const Cart = () => {
                 )}
                 
                 {carrito.length === 0 ? (
-                    <div className="cart-vacio">
-                        <div className="cart-vacio-icon">
-                            <Icon name="bag-shopping" />
-                        </div>
-                        <Title level={2} className="title-empty">Tu carrito está vacío</Title>
-                        <p>¿No sabés qué comprar? ¡Miles de productos te esperan!</p>
+                    <EmptyState 
+                        icon="bag-shopping" 
+                        title="Tu carrito está vacío" 
+                        description="¿No sabés qué comprar? ¡Miles de productos te esperan!"
+                    >
                         <Link to="/" className="btn-primary">Descubrir productos</Link>
-                    </div>
+                    </EmptyState>
                 ) : (
                     <div className="cart-grid">
                         {/* COLUMNA IZQUIERDA: PRODUCTOS */}

@@ -1,6 +1,7 @@
 // botones para la cantidad
 
 import Input from '../atoms/Input';
+import Button from '../atoms/Button';
 import Icon from '../atoms/Icon';
 import './QuantitySelector.css'
 
@@ -14,14 +15,14 @@ const QuantitySelector = ({
 }) => {
     return (
         <div className={`cantidad-selector ${className}`.trim()}>
-            <button 
-                className="cantidad-btn"
+            <Button 
+                variant="cantidad"
                 onClick={alDisminuir}
                 disabled={deshabilitarDisminuir}
                 style={deshabilitarDisminuir ? { cursor: 'not-allowed' } : {}}
             >
                 <Icon name="minus" />
-            </button>
+            </Button>
             
             <Input 
                 value={cantidad} 
@@ -29,14 +30,14 @@ const QuantitySelector = ({
                 className="cantidad-input"
             />
             
-            <button 
-                className="cantidad-btn"
+            <Button 
+                variant="cantidad"
                 onClick={alAumentar}
                 disabled={deshabilitarAumentar}
                 style={deshabilitarAumentar ? { cursor: 'not-allowed' } : {}}
             >
                 <Icon name="plus" />
-            </button>
+            </Button>
         </div>
     );
 };

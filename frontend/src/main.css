@@ -29,3 +29,28 @@ main {
     display: flex;
     flex-direction: column;
 }
+
+/* ==================== PAGE LAYOUT GENERAL ==================== */
+.page-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 10px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+}
+
+.page-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}

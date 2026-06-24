@@ -76,16 +76,13 @@
     color: white;
 }
 
-.profile-menu li.logout-btn {
+.profile-menu li.logout-item {
     color: var(--color-rojo, #e74c3c);
     margin-top: 1rem;
     border-top: 1px solid #eee;
     border-radius: 0;
 }
 
-.placeholder-box button {
-    margin-top: 1rem;
-}
 
 .profile-content {
     flex: 1;
@@ -95,14 +92,6 @@
     padding: 2rem 3rem;
 }
 
-.profile-content .placeholder-box {
-    text-align: center;
-    padding: 4rem 2rem;
-    background-color: #f9f9f9;
-    border: 2px dashed #ccc;
-    border-radius: 8px;
-    margin-top: 2rem;
-}
 
 @media (max-width: 768px) {
     .profile-container {

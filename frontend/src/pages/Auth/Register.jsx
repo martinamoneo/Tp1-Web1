@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import apiService from '../../utils/api';
 import Title from '../../components/atoms/Title';
+import Input from '../../components/atoms/Input';
+import Button from '../../components/atoms/Button';
 import Icon from '../../components/atoms/Icon';
 
 const Register = () => { // componente register
@@ -101,7 +103,7 @@ const Register = () => { // componente register
                     
                     <form onSubmit={handleSubmit} className="register-form" noValidate>
                         <div className="form-group">   
-                            <input 
+                            <Input 
                                 type="text" 
                                 name="nombre" 
                                 placeholder="Tu nombre" 
@@ -112,7 +114,7 @@ const Register = () => { // componente register
                             {errors.nombre && <small className="error-msg">{errors.nombre}</small>}
                         </div>
                         <div className="form-group">   
-                            <input 
+                            <Input 
                                 type="text" 
                                 name="apellido" 
                                 placeholder="Tu apellido" 
@@ -123,7 +125,7 @@ const Register = () => { // componente register
                             {errors.apellido && <small className="error-msg">{errors.apellido}</small>}
                         </div>
                         <div className="form-group">
-                            <input 
+                            <Input 
                                 type="email" 
                                 name="email" 
                                 placeholder="Tu mail" 
@@ -135,7 +137,7 @@ const Register = () => { // componente register
                         </div>
 
                         <div className="form-group password-container">
-                            <input 
+                            <Input 
                                 type={showPassword ? "text" : "password"} 
                                 name="password" 
                                 placeholder="Tu contraseña" 
@@ -143,9 +145,9 @@ const Register = () => { // componente register
                                 className={errors.password ? 'invalid' : ''}
                                 onChange={handleChange}
                             />
-                            <button type="button" className="btn-eye" onClick={() => setShowPassword(!showPassword)}>
+                            <Button variant="eye" type="button" onClick={() => setShowPassword(!showPassword)}>
                                 <Icon type="regular" name={showPassword ? 'eye-slash' : 'eye'} className="fa-fw" />
-                            </button>
+                            </Button>
                             {errors.password && (
                                 <div className="register-password-requirements">
                                     {Array.isArray(errors.password) ? (
@@ -159,7 +161,7 @@ const Register = () => { // componente register
                             )}
                         </div>
 
-                        <button type="submit" className="btn-submit">Crear cuenta</button>
+                        <Button variant="submit" type="submit">Crear cuenta</Button>
                     </form>
                 </section> 
                 

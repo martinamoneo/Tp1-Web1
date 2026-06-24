@@ -3,6 +3,8 @@ import { useState } from 'react'; // hook para q react se acuerde de lo q el usu
 import { Link, useNavigate } from 'react-router-dom'; // hook para navegar entre rutas sin recargar página
 import apiService from '../../utils/api'; // para comunicarse con el back
 import Title from '../../components/atoms/Title'; // componente title
+import Input from '../../components/atoms/Input';
+import Button from '../../components/atoms/Button';
 
 const Login = () => { // componente login
     const [email, setEmail] = useState(''); // hook para guardar el email
@@ -54,7 +56,7 @@ const Login = () => { // componente login
                     
                     <form onSubmit={handleSubmit} className="login-form" noValidate>
                         <div className="form-group">
-                            <input 
+                            <Input 
                                 type="email" 
                                 id="email" 
                                 name="email" 
@@ -70,7 +72,7 @@ const Login = () => { // componente login
                         </div>
 
                         <div className="form-group">
-                            <input 
+                            <Input 
                                 type="password" 
                                 id="password" 
                                 name="password" 
@@ -85,7 +87,7 @@ const Login = () => { // componente login
                             {errors.password && <small className="error-msg">{errors.password}</small>}
                         </div>
 
-                        <button type="submit" className="btn-submit">Iniciar Sesión</button>
+                        <Button variant="submit" type="submit">Iniciar Sesión</Button>
                     </form>
                 </section> 
                 <p className="bottom-text">
