@@ -1,0 +1,176 @@
+.admin-page {
+    padding: 1rem;
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-fondo, #f0f0f0);
+}
+
+.admin-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+/* Sidebar */
+.admin-sidebar {
+    width: 250px;
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.admin-brand {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-logo-text {
+    color: var(--color-turquesa, #1abc9c);
+    margin: 0;
+}
+
+.admin-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.admin-menu li {
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+
+.admin-menu a {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: var(--color-gris, #4a4d4e);
+    font-weight: 500;
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.admin-menu a:hover {
+    background-color: #f5f5f5;
+}
+
+.admin-menu a.active-link {
+    background-color: var(--color-turquesa, #1abc9c);
+    color: white;
+}
+
+.admin-user-info {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-avatar-small {
+    width: 30px;
+    height: 30px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 14px;
+}
+
+.admin-name {
+    font-weight: 600;
+    color: var(--color-gris, #4a4d4e);
+}
+
+/* Contenido Principal */
+.admin-content {
+    flex: 1;
+    border-radius: 12px;
+    padding: 2rem 3rem;
+}
+
+.admin-dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Tarjetas */
+.admin-card {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: box-shadow 0.3s ease;
+    background-color: #fafafa;
+}
+
+.admin-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.admin-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.admin-card-icon {
+    font-size: 2.5rem;
+    color: var(--color-turquesa, #1abc9c);
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-card-number {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--color-gris, #4a4d4e);
+}
+
+.admin-card-label {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.admin-card-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.admin-card-actions .btn-primary,
+.admin-card-actions .btn-secondary {
+    box-sizing: border-box;
+    width: 185px; /* Más ancho para que entre todo el texto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap; /* Evita que el texto baje al segundo renglón */
+}
+
+.admin-card-actions .btn-secondary {
+    width: 140px;
+}
+.admin-card-actions button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

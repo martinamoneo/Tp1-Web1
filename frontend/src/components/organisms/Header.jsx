@@ -44,6 +44,10 @@ const Header = () => {
                 )}
 
                 <div className="header-user-actions">
+                    <Link to="/admin" className="header-admin-avatar" title="Panel de Administrador">
+                        <Icon name="user-tie" />
+                    </Link>
+                    
                     <Link to="/cart" className="header-cart">
                         <Icon name="shopping-cart" />
                         <span className="cart-badge" id="cart-badge">

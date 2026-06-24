@@ -58,6 +58,25 @@
 
 
 
+.header-admin-avatar {
+    width: 35px;
+    height: 35px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-gris);
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.header-admin-avatar:hover {
+    background-color: var(--color-turquesa);
+    color: white;
+}
+
 /* carrito y perfil */
 .header-user-actions {
     display: flex;

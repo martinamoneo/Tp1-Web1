@@ -1,5 +1,6 @@
 // contiene todas las rutas y las cosas basicas de la pagina (logo, menu, footer)
 
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // cambiar URL sin recargar pagina
 import Header from './components/organisms/Header';
 import Footer from './components/organisms/Footer';
@@ -18,7 +19,10 @@ import { CartProvider } from './context/CartContext';
 // Nuevas Rutas (Sprint 5)
 import ProductsList from './pages/Products/ProductsList/ProductsList';
 import ProductCreate from './pages/Products/ProductCreate/ProductCreate';
-import Profile from './pages/Profile/Profile';
+import AdminPanel from './pages/Admin/AdminPanel';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import AdminProducts from './pages/Admin/AdminProducts';
+import EmptyState from './components/molecules/EmptyState';
 
 function App() {
   return (
@@ -32,7 +36,12 @@ function App() {
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/products" element={<ProductsList />} />
           <Route path="/products/new" element={<ProductCreate />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<AdminPanel />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="products" element={<AdminProducts />} />
+            <Route path="categories" element={<EmptyState icon="hammer" title="Categorías" description="Página en construcción" />} />
+            <Route path="stores" element={<EmptyState icon="hammer" title="Tiendas" description="Página en construcción" />} />
+          </Route>
           <Route path="/categories/:categoryName" element={<Categories />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
