@@ -21,22 +21,6 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-/* Breadcrumbs (Volver) */
-.product-breadcrumb {
-    margin-bottom: 20px;
-}
-
-.product-breadcrumb a {
-    color: #666;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.product-breadcrumb a:hover {
-    color: var(--color-turquesa);
-}
 
 .product-main {
     display: flex;
@@ -127,17 +111,4 @@
     font-style: italic;
     text-align: center;
     margin: 0;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-    .product-main {
-        flex-direction: column;
-    }
-    .sugeridos-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .sugeridos-grid.pocos-productos .sug-card {
-        width: calc(50% - 15px);
-    }
 }

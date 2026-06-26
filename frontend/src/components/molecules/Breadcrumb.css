@@ -1,0 +1,45 @@
+/* Estilos de la Molécula Breadcrumb */
+
+.breadcrumb-molecule {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espaciado entre elementos */
+    font-size: 1rem;
+    color: var(--color-gris, #4a4d4e);
+    margin-bottom: 1rem;
+}
+
+.breadcrumb-item-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.breadcrumb-link {
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--color-gris, #4a4d4e);
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+    color: var(--color-turquesa, #1abc9c);
+}
+
+.breadcrumb-separator {
+    font-size: 0.85rem;
+    color: #bdc3c7;
+    margin: 0 2px;
+}
+
+.breadcrumb-current {
+    font-weight: 700;
+    color: var(--color-turquesa, #1abc9c);
+    text-transform: capitalize;
+}
+
+.breadcrumb-text {
+    font-weight: 500;
+    color: #7f8c8d;
+}

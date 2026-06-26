@@ -82,12 +82,4 @@
     margin: 0;
 }
 
-@media (max-width: 900px) {
-    .tabs-content {
-        flex-direction: column;
-        gap: 30px;
-    }
-    .tab-pane-right {
-        padding: 20px;
-    }
-}
+

@@ -41,15 +41,4 @@
     margin: 0;
     letter-spacing: -1px;
 }
-
-/* Responsividad para móviles */
-@media (max-width: 768px) {
-    .error-bg-text {
-        font-size: 50vw;
-        letter-spacing: -5px;
-    }
-    .error-main-text {
-        font-size: 2rem;
-        padding: 0 20px;
-    }
-}
+

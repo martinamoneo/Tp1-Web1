@@ -22,13 +22,9 @@ const controller = {
         const query = req.query.query || '';
         const queryLower = query.toLowerCase().trim();
 
-        const allProducts = productsService.getAllProducts();
-
-     const resultados = queryLower === ''
-        ? []
-        : allProducts.filter(p =>
-            p.nombre.toLowerCase().includes(queryLower)
-        );
+        const resultados = queryLower === ''
+            ? []
+            : productsService.searchByName(queryLower);
 
     res.json({
         query: query,

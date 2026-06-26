@@ -20,7 +20,7 @@ const handleResponse = async (response) => {
     return response.json();
 };
 
-export const apiService = {
+const apiService = {
     // obtener productos
     getProducts: (params = {}) => {
         const queryParams = new URLSearchParams(params).toString(); // convierte los parametros en query params
@@ -38,6 +38,11 @@ export const apiService = {
     getCategoryProducts: (categoryName) => {
         // agrega el nombre de la categoría a la URL y llama a la API
         return fetch(`${API_BASE_URL}/categories/${categoryName}`).then(handleResponse);
+    },
+
+    // buscar productos por nombre
+    searchProducts: (query) => {
+        return fetch(`${API_BASE_URL}/search?query=${encodeURIComponent(query)}`).then(handleResponse);
     },
 
     // Auth

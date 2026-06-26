@@ -174,3 +174,17 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+/* Header Compartido */
+.admin-page-header {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 48px;
+}
+
+.admin-page-header .title-section {
+    margin: 0 !important;
+    line-height: 1;
+}

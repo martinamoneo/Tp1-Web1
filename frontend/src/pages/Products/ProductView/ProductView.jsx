@@ -11,6 +11,7 @@ import { useCart } from '../../../context/CartContext';
 import ProductGallery from './components/ProductGallery';
 import ProductInfo from './components/ProductInfo';
 import ProductTabs from './components/ProductTabs';
+import Breadcrumb from '../../../components/molecules/Breadcrumb';
 
 const ProductDetail = () => {
     const { addToCart } = useCart();
@@ -73,15 +74,13 @@ const ProductDetail = () => {
     return (
         <main className="product-page">
             <div className="product-container">
-                <div className="product-breadcrumb">
-                    <Link to="/">Home</Link> 
-                    <Icon name="angle-right" /> 
-                    <Link to={`/categories/${catUrl}`}>{catDisplay}</Link>
-                    <Icon name="angle-right" /> 
-                    <span className="product-category-text">
-                        {producto.nombre.toLowerCase()}
-                    </span>
-                </div>
+                <Breadcrumb 
+                    items={[
+                        { label: 'Home', link: '/' },
+                        { label: catDisplay, link: `/categories/${catUrl}` },
+                        { label: producto.nombre.toLowerCase() }
+                    ]} 
+                />
 
                 <div className="product-main">
                     <ProductGallery 

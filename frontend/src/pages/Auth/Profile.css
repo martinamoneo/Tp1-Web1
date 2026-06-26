@@ -1,0 +1,88 @@
+.profile-page {
+    width: 100%;
+    padding: 2rem 5%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-fondo, #f0f0f0);
+    min-height: 60vh;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 2rem;
+}
+
+.profile-card {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-avatar {
+    font-size: 5rem;
+    color: var(--color-turquesa, #1abc9c);
+    margin-bottom: 20px;
+}
+
+.profile-email {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0 0 10px 0;
+}
+
+.profile-welcome {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.profile-info {
+    width: 100%;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #555;
+}
+
+.info-value {
+    color: #333;
+}
+
+.text-success {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.btn-logout {
+    width: 100%;
+    background-color: var(--color-rojo, #e74c3c);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.btn-logout:hover {
+    background-color: #c0392b;
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}

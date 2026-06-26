@@ -153,23 +153,4 @@
     align-items: stretch;
     padding-bottom: 30px;
 }
-
-/* Responsive */
-@media (max-width: 768px) {
-    .panel-contenido {
-        flex-direction: column;
-        gap: 30px;
-        padding: 25px 25px;
-    }
-
-    .panel-izquierda {
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    .slider-container {
-        width: 100%;
-        max-width: 500px;
-        min-height: 350px;
-    }
-}
+

@@ -36,13 +36,15 @@ const Login = () => { // componente login
             await apiService.login({ email, password }); // intenta iniciar sesión
             
             // Login exitoso
+            localStorage.setItem('user', JSON.stringify({ email }));
             alert('Sesión iniciada con éxito (Simulado)');
-            navigate('/');
+            window.location.href = '/';
         } catch (error) {
             console.error('Error logging in:', error);
             // por mas que haya un error te va a mostrar que se inicio sesion
+            localStorage.setItem('user', JSON.stringify({ email }));
             alert('Sesión iniciada con éxito (Simulado en fallback)');
-            navigate('/');
+            window.location.href = '/';
         }
     };
 

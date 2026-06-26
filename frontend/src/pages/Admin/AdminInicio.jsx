@@ -4,7 +4,7 @@ import Title from '../../components/atoms/Title';
 import Icon from '../../components/atoms/Icon';
 import apiService from '../../utils/api';
 
-const AdminDashboard = () => {
+const AdminInicio = () => {
     const [productsCount, setProductsCount] = useState('...');
     const [categoriesCount, setCategoriesCount] = useState('...');
     
@@ -31,7 +31,7 @@ const AdminDashboard = () => {
 
     return (
         <>
-            <div className="page-header">
+            <div className="page-header admin-page-header">
                 <Title level={1} className="title-section">¡Hola Administrador!</Title>
             </div>
             
@@ -50,7 +50,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="admin-card-actions">
                         <Link to="/admin/products" className="btn-secondary">Ver Listado</Link>
-                        <Link to="/products/new" className="btn-primary">Agregar Producto</Link>
+                        <Link to="/admin/products/new" className="btn-primary">Agregar Producto</Link>
                     </div>
                 </div>
 
@@ -93,4 +93,4 @@ const AdminDashboard = () => {
     );
 };
 
-export default AdminDashboard;
+export default AdminInicio;

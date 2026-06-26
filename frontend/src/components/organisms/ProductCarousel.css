@@ -31,30 +31,4 @@
     min-width: 0;
 }
 
-@media (max-width: 1200px) {
-    .carousel-grid .product-card {
-        flex: 0 0 calc((100% - 90px) / 4);
-        /* 4 cards */
-    }
-}
 
-@media (max-width: 900px) {
-    .carousel-grid .product-card {
-        flex: 0 0 calc((100% - 60px) / 3);
-        /* 3 cards */
-    }
-}
-
-@media (max-width: 600px) {
-    .carousel-grid .product-card {
-        flex: 0 0 calc((100% - 30px) / 2);
-        /* 2 cards */
-    }
-}
-
-@media (max-width: 400px) {
-    .carousel-grid .product-card {
-        flex: 0 0 100%;
-        /* 1 card */
-    }
-}

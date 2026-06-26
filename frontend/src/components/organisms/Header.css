@@ -56,8 +56,6 @@
     outline: none;
 }
 
-
-
 .header-admin-avatar {
     width: 35px;
     height: 35px;
@@ -109,8 +107,7 @@
     align-items: center;
     gap: 10px;
     background-color: var(--color-gris);
-    color: purple;
-    padding: 6px 6px 6px 6px; /* Menos padding a la izquierda para la foto */
+    padding: 8px 10px;
     border-radius: 25px;
     font-family: 'Montserrat', sans-serif;
 }

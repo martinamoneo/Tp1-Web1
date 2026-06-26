@@ -1,5 +1,4 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import Title from '../../components/atoms/Title';
 import Icon from '../../components/atoms/Icon';
 import './AdminPanel.css';
 

@@ -48,19 +48,4 @@
     object-fit: cover;
 }
 
-@media (max-width: 900px) {
-    .product-gallery {
-        max-width: 100%;
-        flex-direction: column-reverse;
-    }
-    .gallery-thumbnails {
-        flex-direction: row;
-        width: 100%;
-        justify-content: center;
-        gap: 10px;
-    }
-    .thumb-img {
-        width: 70px;
-        height: 70px;
-    }
-}
+

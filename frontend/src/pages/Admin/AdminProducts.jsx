@@ -29,7 +29,7 @@ const AdminProducts = () => {
 
     return (
         <div className="admin-products-view">
-            <div className="page-header admin-products-header">
+            <div className="page-header admin-page-header">
                 <Title level={1} className="title-section">Productos</Title>
                 <div className="admin-products-actions">
                     <div className="admin-search-wrapper">
@@ -41,7 +41,7 @@ const AdminProducts = () => {
                         />
                         <Icon name="search" className="admin-search-icon" />
                     </div>
-                    <Link to="/products/new" className="btn-primary">Agregar Producto</Link>
+                    <Link to="/admin/products/new" className="btn-primary">Agregar Producto</Link>
                 </div>
             </div>
 
@@ -50,7 +50,7 @@ const AdminProducts = () => {
                     <div className="admin-loading">Cargando productos...</div>
                 ) : productosFiltrados.length > 0 ? (
                     productosFiltrados.map(producto => (
-                        <div key={producto.id} className="admin-product-row">
+                        <Link to={`/admin/products/${producto.id}`} key={producto.id} className="admin-product-row" style={{ textDecoration: 'none' }}>
                             <div className="admin-row-left">
                                 <div className="admin-product-thumb">
                                     <Image 
@@ -66,7 +66,7 @@ const AdminProducts = () => {
                             <div className="admin-row-right">
                                 <Icon name="chevron-right" />
                             </div>
-                        </div>
+                        </Link>
                     ))
                 ) : (
                     <div className="admin-empty">No se encontraron productos.</div>

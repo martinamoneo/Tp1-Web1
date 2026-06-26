@@ -9,6 +9,10 @@
     margin-top: 1rem;
 }
 
+.products-list-page .title-container .title-section {
+    text-align: center;
+}
+
 .products-list-section {
     min-height: 50vh;
 }

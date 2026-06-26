@@ -32,27 +32,7 @@ body {
     margin: 20px 0 auto;
 }
 
-/* ==================== RESPONSIVE GENERAL ==================== */
-@media (max-width: 576px) {
-    .products-section {
-        padding: 30px 20px 60px 20px;
-    }
 
-    .products-grid {
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 20px;
-    }
-
-    .product-image {
-        height: 180px;
-    }
-}
-
-@media (max-width: 360px) {
-    .products-grid {
-        grid-template-columns: 1fr;
-    }
-}
 
 /* ---------- ORDENAMIENTO PRODUCTOS ---------- */
 .products-section-header {

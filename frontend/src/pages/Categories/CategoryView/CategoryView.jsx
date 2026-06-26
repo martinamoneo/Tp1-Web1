@@ -5,6 +5,7 @@ import CategoryNav from '../../../components/molecules/CategoryNav';
 import apiService from '../../../utils/api'; 
 import Title from '../../../components/atoms/Title';
 import Icon from '../../../components/atoms/Icon';
+import Breadcrumb from '../../../components/molecules/Breadcrumb';
 import ProductCard from '../../../components/molecules/ProductCard';
 
 const Categories = () => {
@@ -40,14 +41,13 @@ const Categories = () => {
 
     return (
         <main className="category-page">
-            <div className="category-breadcrumb-container">
-                <div className="product-breadcrumb category-breadcrumb-left">
-                    <Link to="/">Home</Link> 
-                    <Icon name="angle-right" /> 
-                    <span className="category-breadcrumb-active">
-                        {categoriaNombre}
-                    </span>
-                </div>
+            <div className="category-breadcrumb-wrapper">
+                <Breadcrumb 
+                    items={[
+                        { label: 'Home', link: '/' },
+                        { label: categoriaNombre }
+                    ]} 
+                />
             </div>
 
             <CategoryNav />

@@ -2,21 +2,21 @@ import Title from '../../../components/atoms/Title';
 import Button from '../../../components/atoms/Button';
 import EmptyState from '../../../components/molecules/EmptyState';
 
-const ProductCreate = () => {
+const CategoryCreate = () => {
     return (
-        <main className="product-create-page">
+        <main className="category-create-page">
             <div className="page-wrapper">
                 <div className="page-header">
-                    <Title level={1} className="title-section">Administración</Title>
+                    <Title level={1} className="title-section">Nueva Categoría</Title>
                 </div>
                 
                 <EmptyState 
                     icon="person-digging" 
                     title="Sección en Construcción" 
-                    description="Acá irá el formulario de alta de productos para el panel administrativo."
+                    description="Todavía esta sección no está terminada :("
                 >
                     <Button variant="primary" onClick={() => window.history.back()}>
-                        Volver Atrás
+                        Volver atrás
                     </Button>
                 </EmptyState>
             </div>
@@ -24,4 +24,4 @@ const ProductCreate = () => {
     );
 };
 
-export default ProductCreate;
+export default CategoryCreate;

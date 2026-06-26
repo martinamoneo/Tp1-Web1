@@ -12,6 +12,7 @@ const Header = () => {
     const location = useLocation();
     const [query, setQuery] = useState(''); // se guarda lo q el usuario pone en la busqueda
     const { cartItemCount } = useCart(); // pregunta cuantos productos hay en el carrito
+    const user = JSON.parse(localStorage.getItem('user')); // leemos el usuario simulado
 
     const handleSearch = (e) => {
         e.preventDefault(); // para q la pagina no se recargue
@@ -20,8 +21,8 @@ const Header = () => {
         }
     };
 
-    // si estamos en el inicio muestra la barra de busqueda, si no no
-    const esInicio = location.pathname === '/';
+    // mostramos la barra de busqueda en todas partes excepto en login y register
+    const showSearch = !['/login', '/register'].includes(location.pathname);
 
     return (
         <header className="main-header">
@@ -31,7 +32,7 @@ const Header = () => {
                     <div><span className="logo-light">IDEA </span><span className="logo-bold">3D</span></div>
                 </Link>
 
-                {esInicio && ( // si es inicio muestra la barra de busqueda
+                {showSearch && ( // muestra la barra de busqueda salvo en login/register
                     <form className="header-search" onSubmit={handleSearch}>
                         <Input 
                             name="query" 
@@ -56,7 +57,13 @@ const Header = () => {
                     </Link>
 
                     <div className="user-profile">
-                        <Link to="/login">Iniciar Sesión</Link>
+                        {user ? (
+                            <Link to="/profile" className="profile-link">
+                                <Icon name="user" /> {user.email.split('@')[0]}
+                            </Link>
+                        ) : (
+                            <Link to="/login">Iniciar Sesión</Link>
+                        )}
                     </div>
                 </div>
             </div>
