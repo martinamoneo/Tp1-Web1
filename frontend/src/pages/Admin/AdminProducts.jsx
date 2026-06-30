@@ -28,7 +28,7 @@ const AdminProducts = () => {
     );
 
     return (
-        <div className="admin-products-view">
+        <>
             <div className="page-header admin-page-header">
                 <Title level={1} className="title-section">Productos</Title>
                 <div className="admin-products-actions">
@@ -72,7 +72,7 @@ const AdminProducts = () => {
                     <div className="admin-empty">No se encontraron productos.</div>
                 )}
             </div>
-        </div>
+        </>
     );
 };
 

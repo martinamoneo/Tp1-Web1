@@ -32,6 +32,9 @@ const Button = ({ children, variant, className = '', onClick, type = 'button', .
         case 'secondary':
             variantClass = 'btn-secondary';
             break;
+        case 'eliminar':
+            variantClass = 'btn-eliminar';
+            break;
         case 'submit':
             variantClass = 'btn-submit';
             break;

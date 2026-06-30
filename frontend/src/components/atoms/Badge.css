@@ -1,0 +1,14 @@
+/* Base styles para el Átomo Badge */
+
+.badge-sin-stock {
+    background-color: #e74c3c;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    text-transform: uppercase;
+}

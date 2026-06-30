@@ -6,7 +6,10 @@ import Button from '../../components/atoms/Button';
 import Icon from '../../components/atoms/Icon';
 import Image from '../../components/atoms/Image';
 import Breadcrumb from '../../components/molecules/Breadcrumb';
+import ConfirmModal from '../../components/molecules/ConfirmModal';
+import AlertModal from '../../components/molecules/AlertModal';
 import apiService from '../../utils/api';
+import { formatCategory } from '../../utils/formatters';
 import './AdminProductForm.css';
 
 const mapCategoriaToValue = (catString) => {
@@ -31,12 +34,21 @@ const AdminProductForm = () => {
     const [loading, setLoading] = useState(isEditMode);
     const [saving, setSaving] = useState(false);
     
+    // Estados para los modales
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const [showImageDeleteConfirm, setShowImageDeleteConfirm] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState('success');
+    
     // Estado del formulario
     const [formData, setFormData] = useState({
         nombre: '',
         puntos: '',
         stock: 1,
+        descripcion_corta: '',
         descripcion: '',
+        especificaciones: '',
         categoria: '',
         imagen: ''
     });
@@ -51,14 +63,18 @@ const AdminProductForm = () => {
                         nombre: productData.nombre || '',
                         puntos: productData.puntos || '',
                         stock: productData.stock || 0,
+                        descripcion_corta: productData.descripcionCorta || '',
                         descripcion: productData.descripcion || '',
+                        especificaciones: productData.especificaciones || productData.specifications || '',
                         categoria: mapCategoriaToValue(productData.categoria),
                         imagen: (productData.imagenes && productData.imagenes[0]) ? productData.imagenes[0] : ''
                     });
                 })
                 .catch(err => {
                     console.error("Error al cargar producto", err);
-                    alert("No se pudo cargar el producto.");
+                    setAlertMessage("No se pudo cargar el producto.");
+                    setAlertType("warning");
+                    setShowAlert(true);
                 })
                 .finally(() => setLoading(false));
         }
@@ -72,22 +88,58 @@ const AdminProductForm = () => {
         }));
     };
 
-    const handleStockChange = (amount) => {
-        setFormData(prev => ({
-            ...prev,
-            stock: Math.max(0, prev.stock + amount) // El stock no puede ser negativo
-        }));
-    };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setSaving(true);
-        // Simulamos el guardado
-        setTimeout(() => {
-            alert(isEditMode ? 'Producto modificado exitosamente.' : 'Producto creado exitosamente.');
+        try {
+            if (isEditMode) {
+                await apiService.updateProduct(id, formData);
+                setAlertMessage('Producto modificado exitosamente.');
+            } else {
+                await apiService.createProduct(formData);
+                setAlertMessage('Producto creado exitosamente.');
+            }
+            setAlertType('success');
+            setShowAlert(true);
+        } catch (error) {
+            console.error('Error guardando producto:', error);
+            setAlertMessage('Ocurrió un error al guardar el producto.');
+            setAlertType('warning');
+            setShowAlert(true);
+        } finally {
             setSaving(false);
+        }
+    };
+
+    const closeAlertAndNavigate = () => {
+        setShowAlert(false);
+        // Si fue una operacion de guardado o eliminacion exitosa, redirigir
+        if (alertType === 'success') {
             navigate('/admin/products');
-        }, 800);
+        }
+    };
+
+    const handleDelete = () => {
+        setShowDeleteConfirm(true);
+    };
+
+    const confirmDelete = async () => {
+        setShowDeleteConfirm(false);
+        setSaving(true);
+        try {
+            await apiService.deleteProduct(id);
+            setAlertMessage('Producto eliminado exitosamente.');
+            setAlertType('success');
+            setShowAlert(true);
+        } catch (error) {
+            console.error('Error eliminando producto:', error);
+            setAlertMessage('Ocurrió un error al eliminar el producto.');
+            setAlertType('warning');
+            setShowAlert(true);
+        } finally {
+            setSaving(false);
+        }
     };
 
     if (loading) {
@@ -102,21 +154,23 @@ const AdminProductForm = () => {
     }
 
     return (
-        <div className="admin-product-form-view">
+        <>
+            <div className="admin-breadcrumb-container" style={{ marginBottom: '10px' }}>
+                <Breadcrumb 
+                    items={[
+                        { label: 'Productos', link: '/admin/products' },
+                        { label: isEditMode ? `#${id}` : 'Nuevo Producto' }
+                    ]} 
+                    separatorIcon="chevron-right" 
+                />
+            </div>
+            
             <div className="page-header admin-page-header">
-                <div className="title-section">
-                    <Breadcrumb 
-                        items={[
-                            { label: 'Productos', link: '/admin/products' },
-                            { label: isEditMode ? `#${id}` : 'Nuevo Producto' }
-                        ]} 
-                        separatorIcon="chevron-right" 
-                    />
-                    <Title level={1}>{isEditMode ? 'Editar Producto' : 'Nuevo Producto'}</Title>
-                </div>
+                <Title level={1} className="title-section">{isEditMode ? 'Editar Producto' : 'Nuevo Producto'}</Title>
+                
                 {isEditMode && (
                     <div className="admin-actions">
-                        <Button variant="secondary" className="btn-delete-product">
+                        <Button variant="secondary" className="btn-delete-product" onClick={handleDelete}>
                             Eliminar
                         </Button>
                     </div>
@@ -134,14 +188,14 @@ const AdminProductForm = () => {
                         <div className="summary-stats">
                             <div className="stat">
                                 <span className="stat-value">{formData.puntos}</span>
-                                <span className="stat-label">PUNTOS<br/>SUPERCLUB</span>
+                                <span className="stat-label">PUNTOS</span>
                             </div>
                             <div className="stat">
                                 <span className="stat-value">{formData.stock}</span>
                                 <span className="stat-label">STOCK<br/>DISPONIBLE</span>
                             </div>
                             <div className="stat-badge">
-                                <Icon name="store" /> {formData.categoria || 'Sin Tienda'}
+                                <Icon name="tag" /> {formatCategory(formData.categoria) || 'Sin categoría'}
                             </div>
                         </div>
                     </div>
@@ -149,107 +203,198 @@ const AdminProductForm = () => {
             )}
 
             <form className="admin-product-form" onSubmit={handleSubmit}>
-                <section className="form-section grid-section">
-                    <div className="section-header full-width">
-                        <Title level={3} className="form-section-title">Información</Title>
-                    </div>
+                <div className="admin-form-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
                     
-                    <div className="form-group">
-                        <label>Nombre</label>
-                        <Input 
-                            type="text" 
-                            name="nombre" 
-                            value={formData.nombre} 
-                            onChange={handleChange} 
-                            required 
-                        />
+                    {/* Columna Izquierda (Información General) */}
+                    <div className="admin-form-column-main">
+                        <section className="form-card">
+                            <Title level={3} className="form-section-title">Información General</Title>
+                            
+                            <div className="form-group">
+                                <label>Nombre del Producto</label>
+                                <Input 
+                                    type="text" 
+                                    name="nombre" 
+                                    value={formData.nombre} 
+                                    onChange={handleChange} 
+                                    required 
+                                    placeholder="Ej. Vaso Térmico 3D"
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label>Descripción Corta</label>
+                                <textarea 
+                                    name="descripcion_corta" 
+                                    value={formData.descripcion_corta} 
+                                    onChange={handleChange} 
+                                    className="form-textarea"
+                                    rows="3"
+                                    placeholder="Resumen breve del producto..."
+                                ></textarea>
+                            </div>
+                        </section>
                     </div>
 
-                    <div className="form-group">
-                        <label>Valor (Puntos)</label>
-                        <Input 
-                            type="number" 
-                            name="puntos" 
-                            value={formData.puntos} 
-                            onChange={handleChange} 
-                            required 
-                        />
-                    </div>
+                    {/* Columna Derecha (Organización e Inventario) */}
+                    <div className="admin-form-column-side">
+                        <section className="form-card">
+                            <Title level={3} className="form-section-title">Inventario</Title>
+                            
+                            <div className="form-group">
+                                <label>Categoría</label>
+                                <select name="categoria" value={formData.categoria} onChange={handleChange} className="form-select">
+                                    <option value="">Seleccionar categoría</option>
+                                    <option value="mates">Mates</option>
+                                    <option value="vasos">Vasos</option>
+                                    <option value="llaveros">Llaveros</option>
+                                    <option value="soportes">Soportes</option>
+                                    <option value="premios">Premios</option>
+                                    <option value="munecos">Muñecos</option>
+                                    <option value="lamparas">Lámparas</option>
+                                    <option value="otros">Otros</option>
+                                </select>
+                            </div>
 
-                    <div className="form-group">
-                        <label>Stock</label>
-                        <div className="stock-control">
-                            <button type="button" className="stock-btn" onClick={() => handleStockChange(-1)}>-</button>
-                            <input 
-                                type="number" 
-                                name="stock" 
-                                className="stock-input" 
-                                value={formData.stock} 
-                                onChange={handleChange}
-                                min="0"
-                            />
-                            <button type="button" className="stock-btn" onClick={() => handleStockChange(1)}>+</button>
+                            <div className="form-row">
+                                <div className="form-group" style={{ flex: 1 }}>
+                                    <label>Stock Disponible</label>
+                                    <Input 
+                                        type="number" 
+                                        name="stock" 
+                                        value={formData.stock} 
+                                        onChange={handleChange} 
+                                        required 
+                                        min="0"
+                                        step="1"
+                                        placeholder="1"
+                                    />
+                                </div>
+                                <div className="form-group" style={{ flex: 1 }}>
+                                    <label>Valor en Puntos</label>
+                                    <div className="input-with-icon">
+                                        <Input 
+                                            type="number" 
+                                            name="puntos" 
+                                            value={formData.puntos} 
+                                            onChange={handleChange} 
+                                            required 
+                                            min="0"
+                                            step="1"
+                                            placeholder="Puntos"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                {/* Detalles del Producto (Full width) */}
+                <div className="admin-form-column-full">
+                    <section className="form-card">
+                        <Title level={3} className="form-section-title">Detalles del Producto</Title>
+                        
+                        <div className="form-row">
+                            <div className="form-group" style={{ flex: 1 }}>
+                                <label>Especificaciones Técnicas</label>
+                                <textarea 
+                                    name="especificaciones" 
+                                    value={formData.especificaciones} 
+                                    onChange={handleChange} 
+                                    className="form-textarea"
+                                    rows="4"
+                                    placeholder="Materiales, dimensiones, peso..."
+                                ></textarea>
+                            </div>
+                            <div className="form-group" style={{ flex: 1 }}>
+                                <label>Descripción Completa</label>
+                                <textarea 
+                                    name="descripcion" 
+                                    value={formData.descripcion} 
+                                    onChange={handleChange} 
+                                    className="form-textarea"
+                                    rows="4"
+                                    placeholder="Detalles completos del producto..."
+                                ></textarea>
+                            </div>
                         </div>
-                    </div>
+                    </section>
+                </div>
 
-                    <div className="form-group">
-                        <label>Categoría</label>
-                        <select name="categoria" value={formData.categoria} onChange={handleChange} className="form-select">
-                            <option value="">Seleccionar categoría...</option>
-                            <option value="mates">Mates</option>
-                            <option value="vasos">Vasos</option>
-                            <option value="llaveros">Llaveros</option>
-                            <option value="soportes">Soportes</option>
-                            <option value="premios">Premios</option>
-                            <option value="munecos">Muñecos</option>
-                            <option value="lamparas">Lámparas</option>
-                            <option value="otros">Otros</option>
-                        </select>
-                    </div>
-
-                    <div className="form-group full-width">
-                        <label>Descripción</label>
-                        <textarea 
-                            name="descripcion" 
-                            value={formData.descripcion} 
-                            onChange={handleChange} 
-                            className="form-textarea"
-                            rows="4"
-                        ></textarea>
-                    </div>
-                </section>
-
-                <section className="form-section full-width">
-                    <div className="section-header">
-                        <Title level={3} className="form-section-title">Galería de Imágenes</Title>
-                    </div>
-                    <div className="form-group">
-                        <label>URL de la Imagen</label>
-                        <Input 
-                            type="text" 
-                            name="imagen" 
-                            value={formData.imagen} 
-                            onChange={handleChange} 
-                            placeholder="https://ejemplo.com/imagen.jpg"
-                        />
-                    </div>
-                    {formData.imagen && (
-                        <div className="image-preview">
-                            <img src={formData.imagen} alt="Vista previa" onError={(e) => { e.target.style.display = 'none'; }} onLoad={(e) => { e.target.style.display = 'block'; }} />
+                {/* Columna Ancha Inferior (Multimedia) */}
+                <div className="admin-form-column-full">
+                    <section className="form-card">
+                        <Title level={3} className="form-section-title">Multimedia</Title>
+                        
+                        <div className="image-upload-area">
+                            {formData.imagen ? (
+                                <div className="image-preview-large">
+                                    <Image src={formData.imagen} alt="Vista previa" />
+                                    <button type="button" className="btn-remove-image" onClick={() => setShowImageDeleteConfirm(true)}>
+                                        <Icon name="times" /> Quitar imagen
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="image-placeholder">
+                                    <Icon name="image" className="placeholder-icon" />
+                                    <p>Pegá la URL de la imagen aquí</p>
+                                </div>
+                            )}
+                            
+                            <div className="form-group" style={{ marginTop: '1rem' }}>
+                                <Input 
+                                    type="text" 
+                                    name="imagen" 
+                                    value={formData.imagen} 
+                                    onChange={handleChange} 
+                                    placeholder="https://ejemplo.com/imagen.jpg"
+                                />
+                            </div>
                         </div>
-                    )}
-                </section>
+                    </section>
+                </div>
 
-                <div className="form-actions">
+                <div className="form-actions sticky-actions">
                     <Button variant="secondary" type="button" onClick={() => navigate('/admin/products')}>
-                        Cancelar
+                        Descartar
                     </Button>
                     <Button variant="primary" type="submit" disabled={saving}>
-                        {saving ? 'Guardando...' : (isEditMode ? 'Guardar Cambios' : 'Crear Producto')}
+                        {saving ? 'Guardando...' : (isEditMode ? 'Guardar Cambios' : 'Publicar Producto')}
                     </Button>
                 </div>
             </form>
-        </div>
+
+            <ConfirmModal 
+                isOpen={showDeleteConfirm}
+                title="¿Eliminar producto?"
+                message="Estás a punto de borrar permanentemente este producto del catálogo. Esta acción no se puede deshacer."
+                onConfirm={confirmDelete}
+                onCancel={() => setShowDeleteConfirm(false)}
+                confirmText="Sí, eliminar"
+                type="warning"
+            />
+            
+            <ConfirmModal 
+                isOpen={showImageDeleteConfirm}
+                title="¿Quitar imagen?"
+                message="¿Estás seguro que deseas quitar la imagen principal de este producto?"
+                onConfirm={() => {
+                    setFormData(prev => ({...prev, imagen: ''}));
+                    setShowImageDeleteConfirm(false);
+                }}
+                onCancel={() => setShowImageDeleteConfirm(false)}
+                confirmText="Sí, quitar"
+            />
+
+            <AlertModal 
+                isOpen={showAlert}
+                title={alertType === 'success' ? '¡Éxito!' : 'Aviso'}
+                message={alertMessage}
+                onConfirm={closeAlertAndNavigate}
+                type={alertType}
+            />
+        </>
     );
 };
 

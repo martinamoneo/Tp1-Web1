@@ -1,5 +1,5 @@
 import './cart.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import Title from '../../components/atoms/Title';
@@ -8,9 +8,10 @@ import Button from '../../components/atoms/Button';
 import CartItem from '../../components/molecules/CartItem';
 import CartSummary from '../../components/molecules/CartSummary';
 import EmptyState from '../../components/molecules/EmptyState';
+import apiService from '../../utils/api';
 
 const Cart = () => {
-    const { cart: carrito, updateQuantity, clearCart, removeFromCart } = useCart(); 
+    const { cart: carrito, updateQuantity, clearCart, removeFromCart, syncCart } = useCart(); 
     const [mensaje, setMensaje] = useState(null); 
 
     const handleQuantityChange = (productId, action) => {
@@ -18,7 +19,28 @@ const Cart = () => {
         setMensaje(resultMsg); 
     };
 
-    const total = carrito.reduce((acc, item) => acc + (item.puntos * item.quantity), 0);
+    // Sincronizar carrito con la base de datos al abrir la página
+    useEffect(() => {
+        if (carrito.length === 0) return;
+
+        apiService.getProducts()
+            .then(data => {
+                const dbProducts = data.productos || [];
+                const changed = syncCart(dbProducts);
+
+                if (changed) {
+                    setMensaje("Atención: Algunos productos de tu carrito se han agotado, cambiado de precio o fueron eliminados. Tu carrito fue actualizado automáticamente.");
+                }
+            })
+            .catch(error => {
+                console.error("Error validando el carrito contra la BD:", error);
+            });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Se ejecuta una sola vez al montar el componente
+
+    const total = carrito
+        .filter(item => !item.outOfStock)
+        .reduce((acc, item) => acc + (item.puntos * item.quantity), 0);
 
     return (
         <main className="cart-container">

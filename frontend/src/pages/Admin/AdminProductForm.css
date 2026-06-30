@@ -1,35 +1,7 @@
-.admin-product-form-view {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding-bottom: 3rem;
-}
-
-.page-header.admin-page-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start; /* Alinea arriba */
-    border-bottom: 1px solid #eee;
-    padding-bottom: 20px; /* Más espacio abajo */
-    margin-bottom: 0;
-}
-
-.page-header.admin-page-header .title-section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Espacio entre Breadcrumb y Título */
-}
-
-.page-header.admin-page-header .title-section h1 {
-    margin: 0; /* Quitar margen por defecto del h1 */
-}
-
 .admin-actions {
     display: flex;
     align-items: flex-start; /* Alinea el botón arriba */
 }
-
 
 .btn-delete-product {
     border-color: #e74c3c !important;
@@ -43,7 +15,7 @@
     color: white !important;
 }
 
-/* Summary Card */
+/* tarjeta de resumen */
 .admin-product-summary-card {
     display: flex;
     align-items: center;
@@ -53,6 +25,8 @@
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
     border: 1px solid #eee;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .summary-image {
@@ -91,7 +65,7 @@
 .stat-value {
     font-size: 1.5rem;
     font-weight: 800;
-    color: #333;
+    color: var(--color-turquesa);
 }
 
 .stat-label {
@@ -111,41 +85,87 @@
     font-size: 0.8rem;
     font-weight: 600;
     color: #555;
+    text-transform: capitalize;
 }
 
-/* Form Styles */
+/* Form Layout (Grid) */
 .admin-product-form {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.admin-form-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 992px) {
+    .admin-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.admin-form-column-main,
+.admin-form-column-side {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.admin-form-column-full {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Form Cards (Individual Sections) */
+.form-card {
     background-color: white;
-    padding: 0 2rem;
+    padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
     border: 1px solid #eee;
-    position: relative; /* For sticky actions context if needed */
-}
-
-.form-section {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.section-header, .full-width {
-    grid-column: 1 / -1;
+.admin-form-column-main .form-card,
+.admin-form-column-side .form-card {
+    flex: 1; /* Hace que la tarjeta ocupe toda la altura disponible */
+}
+
+/* Hacemos que el último form-group (Descripción Completa) absorba el espacio vacío */
+.admin-form-column-main .form-card .form-group:last-child {
+    flex: 1;
+}
+
+.admin-form-column-main .form-card .form-group:last-child textarea {
+    flex: 1; /* El textarea se estira para llenar la tarjeta, eliminando el blanco feo */
 }
 
 .form-section-title {
     margin: 0;
     font-size: 1.2rem;
     color: #333;
-    border-bottom: 2px solid var(--color-turquesa);
+    border-bottom: 2px solid var(--color-turquesa, #1abc9c);
     padding-bottom: 8px;
     display: inline-block;
     align-self: flex-start;
 }
 
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+/* Form Groups and Inputs */
 .form-group {
     display: flex;
     flex-direction: column;
@@ -159,111 +179,152 @@
     color: #555;
 }
 
-.form-textarea, .form-select {
+.form-textarea, .form-select, .form-group input:not([type="checkbox"]):not([type="radio"]) {
     width: 100%;
     padding: 12px 15px;
     border: 1px solid #ddd;
-    border-radius: 25px;
+    border-radius: 12px;
     font-family: inherit;
     font-size: 0.95rem;
     color: #333;
     background-color: #fafafa;
     transition: all 0.3s;
+    box-sizing: border-box; /* Previene que el padding haga que el ancho supere el 100% */
 }
 
-.form-textarea {
-    border-radius: 15px;
-    resize: vertical;
+/* Input overrides to ensure consistency with existing generic inputs if there are any */
+.form-group > input {
+    background-color: #fafafa;
+    border-radius: 12px;
 }
 
-.form-textarea:focus, .form-select:focus {
+.form-textarea:focus, .form-select:focus, .form-group input:focus {
     outline: none;
     border-color: var(--color-turquesa, #1abc9c);
     box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.1);
     background-color: #fff;
 }
 
-/* Stock Control */
-.stock-control {
+.form-textarea {
+    resize: none;
+    min-height: 80px;
+    line-height: 1.5;
+}
+
+/* Icons within inputs */
+.input-with-icon {
+    position: relative;
     display: flex;
     align-items: center;
-    background-color: #fafafa;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    width: fit-content;
-    overflow: hidden;
 }
 
-.stock-btn {
-    background: none;
-    border: none;
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-    color: #555;
-    cursor: pointer;
-    transition: background-color 0.2s;
+.input-icon-left {
+    position: absolute;
+    left: 15px;
+    z-index: 2;
+    pointer-events: none;
 }
 
-.stock-btn:hover {
-    background-color: #eee;
-}
-
-.stock-input {
-    width: 60px;
-    text-align: center;
-    font-weight: 600;
-    color: #333;
-    border: none;
-    background: transparent;
-    font-size: 1rem;
-    padding: 5px 0;
-}
-
-/* Hide arrow controls on number input */
-.stock-input::-webkit-outer-spin-button,
-.stock-input::-webkit-inner-spin-button {
+/* Hide arrow controls on number inputs */
+.form-group input[type="number"]::-webkit-outer-spin-button,
+.form-group input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Quitar flechas del input de stock */
-.stock-input[type=number] {
+.form-group input[type="number"] {
   appearance: textfield;
 }
 
-/* Image Preview */
-.image-preview {
-    margin-top: 10px;
-    width: 150px;
-    height: 150px;
+/* Image Upload Area */
+.image-upload-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fafafa;
+    color: #999;
+    transition: all 0.3s;
+}
+
+.image-placeholder:hover {
+    border-color: var(--color-turquesa, #1abc9c);
+    color: var(--color-turquesa, #1abc9c);
+    background-color: rgba(26, 188, 156, 0.02);
+}
+
+.placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.image-preview-large {
+    width: 100%;
+    height: 300px;
     border-radius: 12px;
     overflow: hidden;
     background-color: #f8f9fa;
-    border: 1px dashed #ccc;
+    border: 1px solid #ddd;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.image-preview img {
+.image-preview-large img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+}
+
+.btn-remove-image {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #e74c3c;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-remove-image:hover {
+    background-color: #e74c3c;
+    color: white;
 }
 
 /* Form Actions - Sticky */
-.form-actions {
+.form-actions.sticky-actions {
     display: flex;
     justify-content: flex-end;
     gap: 15px;
     padding: 1.5rem 2rem;
     background-color: white;
     border-top: 1px solid #eee;
-    border-radius: 0 0 12px 12px;
+    border-radius: 12px;
     position: sticky;
-    bottom: 0;
+    bottom: 2rem;
     z-index: 10;
-    margin: 0 -2rem -2rem -2rem; /* Negate parent padding to stretch full width */
-    box-shadow: 0 -4px 10px rgba(0,0,0,0.02);
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
 }
+
+

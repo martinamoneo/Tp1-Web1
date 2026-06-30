@@ -45,6 +45,35 @@ const apiService = {
         return fetch(`${API_BASE_URL}/search?query=${encodeURIComponent(query)}`).then(handleResponse);
     },
 
+    // Actualizar producto (PUT)
+    updateProduct: (id, productData) => {
+        return fetch(`${API_BASE_URL}/products/${id}/edit`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(productData),
+        }).then(handleResponse);
+    },
+
+    // Crear producto (POST)
+    createProduct: (productData) => {
+        return fetch(`${API_BASE_URL}/products/new`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(productData),
+        }).then(handleResponse);
+    },
+
+    // Eliminar producto (DELETE)
+    deleteProduct: (id) => {
+        return fetch(`${API_BASE_URL}/products/${id}/delete`, {
+            method: 'DELETE'
+        }).then(handleResponse);
+    },
+
     // Auth
     login: (credentials) => {
         // llama a la ruta /login con los datos del usuario

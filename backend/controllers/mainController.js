@@ -115,6 +115,42 @@ const controller = {
             productos: productosFiltrados
         });
     },
+    
+    // -------------------------------------------------------------
+    // CONTROLADORES CRUD ADMIN
+    // -------------------------------------------------------------
+    createProduct: (req, res) => {
+        try {
+            const newId = productsService.createProduct(req.body);
+            res.status(201).json({ success: true, message: 'Producto creado exitosamente', id: newId });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Error al crear el producto' });
+        }
+    },
+    
+    updateProduct: (req, res) => {
+        try {
+            const productId = req.productId; // Gracias al middleware normalizeId
+            productsService.updateProduct(productId, req.body);
+            res.json({ success: true, message: 'Producto actualizado exitosamente' });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Error al actualizar el producto' });
+        }
+    },
+    
+    deleteProduct: (req, res) => {
+        try {
+            const productId = req.productId; // Gracias al middleware normalizeId
+            productsService.deleteProduct(productId);
+            res.json({ success: true, message: 'Producto eliminado exitosamente' });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Error al eliminar el producto' });
+        }
+    },
+
     error500: (req, res) => { // error 500
         res.status(500).json({ error: 'Error interno del servidor' });
     }

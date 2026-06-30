@@ -1,12 +1,13 @@
 import Title from '../../../../components/atoms/Title';
 import Button from '../../../../components/atoms/Button';
 import QuantitySelector from '../../../../components/molecules/QuantitySelector';
+import { formatCategory } from '../../../../utils/formatters';
 import './ProductInfo.css';
 
-const ProductInfo = ({ producto, cantidad, onQuantityChange, onAddToCart }) => {
+const ProductInfo = ({ producto, cantidad, onQuantityChange, onAddToCart, isAdded }) => {
     return (
         <div className="detail-info">
-            <p className="detail-category">{producto.categoria || 'Sin categoría'}</p>
+            <p className="detail-category">{formatCategory(producto.categoria) || 'Sin categoría'}</p>
             <Title level={1} className="detail-title">{producto.nombre}</Title>
             <p className="detail-price">{producto.puntos} PUNTOS</p>
             
@@ -29,10 +30,13 @@ const ProductInfo = ({ producto, cantidad, onQuantityChange, onAddToCart }) => {
                 />
                 <Button variant="carrito" 
                     onClick={onAddToCart}
-                    disabled={producto.stock === 0}
-                    style={producto.stock === 0 ? { backgroundColor: '#aaa', cursor: 'not-allowed' } : {}}
+                    disabled={producto.stock === 0 || isAdded}
+                    style={{
+                        ...(producto.stock === 0 ? { backgroundColor: '#aaa', cursor: 'not-allowed' } : {}),
+                        ...(isAdded ? { backgroundColor: '#1abc9c', color: 'white', borderColor: '#1abc9c' } : {})
+                    }}
                 >
-                    {producto.stock > 0 ? 'AGREGAR AL CARRITO' : 'SIN STOCK'}
+                    {producto.stock === 0 ? 'SIN STOCK' : (isAdded ? '¡AGREGADO!' : 'AGREGAR AL CARRITO')}
                 </Button>
             </div>
         </div>

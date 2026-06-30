@@ -37,13 +37,11 @@ const Login = () => { // componente login
             
             // Login exitoso
             localStorage.setItem('user', JSON.stringify({ email }));
-            alert('Sesión iniciada con éxito (Simulado)');
             window.location.href = '/';
         } catch (error) {
             console.error('Error logging in:', error);
             // por mas que haya un error te va a mostrar que se inicio sesion
             localStorage.setItem('user', JSON.stringify({ email }));
-            alert('Sesión iniciada con éxito (Simulado en fallback)');
             window.location.href = '/';
         }
     };

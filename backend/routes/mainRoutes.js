@@ -21,4 +21,9 @@ router.get('/categories/:categoryName', mainController.category);
 router.get('/500', mainController.error500);
 router.get('/search', mainController.search);
 
+// Rutas Admin CRUD (Productos)
+router.post('/products/new', mainController.createProduct);
+router.put('/products/:id/edit', normalizeId, mainController.updateProduct);
+router.delete('/products/:id/delete', normalizeId, mainController.deleteProduct);
+
 module.exports = router; 

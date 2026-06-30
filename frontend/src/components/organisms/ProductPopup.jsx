@@ -2,16 +2,20 @@ import { useState } from 'react'; // memoria a corto plazo de react
 import { Link } from 'react-router-dom'; // para poder navegar entre paginas
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon'; 
-import Image from '../atoms/Image'; 
+import Image from '../atoms/Image';
 import Title from '../atoms/Title'; 
 import QuantitySelector from '../molecules/QuantitySelector';
 import { useCart } from '../../context/CartContext'; // para poder usar el carrito
+import { formatCategory } from '../../utils/formatters';
 import './ProductPopup.css'; 
 
 // funcion q recibe producto, si esta abierto y si esta cerrado
 const ProductPopup = ({ producto, isOpen, onClose }) => {
     const { addToCart } = useCart(); // constante para usar el carrito
     const [cantidad, setCantidad] = useState(1); // constante para guardar la cantidad
+    
+    // Estado para feedback visual en el botón
+    const [isAdded, setIsAdded] = useState(false);
 
     if (!producto) return null; // si el producto no existe no se muestra nada del popup
 
@@ -40,7 +44,7 @@ const ProductPopup = ({ producto, isOpen, onClose }) => {
                     </div>
                     
                     <div className="panel-derecha">
-                        <p className="panel-categoria">{producto.categoria || 'Categoría'}</p>
+                        <p className="panel-categoria">{formatCategory(producto.categoria) || 'Categoría'}</p>
                         <Title level={2}>{producto.nombre}</Title>
                         <p className="panel-puntos">{producto.puntos} PUNTOS</p>
                         <p className="panel-descripcion"> {/* descripcion corta y descripcion fallback */}
@@ -64,12 +68,14 @@ const ProductPopup = ({ producto, isOpen, onClose }) => {
                             <Button 
                                 variant="carrito" 
                                 onClick={() => {
-                                    const result = addToCart(producto, cantidad);
-                                    alert(result.message);
+                                    addToCart(producto, cantidad);
+                                    setIsAdded(true);
+                                    setTimeout(() => setIsAdded(false), 2000);
                                 }}
-                                disabled={producto.stock === 0}
+                                disabled={producto.stock === 0 || isAdded}
+                                style={isAdded ? { backgroundColor: '#1abc9c', color: 'white', borderColor: '#1abc9c' } : {}}
                             >
-                                {producto.stock === 0 ? 'SIN STOCK' : 'AGREGAR AL CARRITO'}
+                                {producto.stock === 0 ? 'SIN STOCK' : (isAdded ? '¡AGREGADO!' : 'AGREGAR AL CARRITO')}
                             </Button>
                         </div>
                     </div>

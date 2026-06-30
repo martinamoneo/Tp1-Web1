@@ -29,10 +29,17 @@ const AdminInicio = () => {
             });
     }, []);
 
+    const user = JSON.parse(localStorage.getItem('user'));
+    let userName = 'Administrador';
+    if (user && user.email) {
+        const namePart = user.email.split('@')[0];
+        userName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+    }
+
     return (
         <>
             <div className="page-header admin-page-header">
-                <Title level={1} className="title-section">¡Hola Administrador!</Title>
+                <Title level={1} className="title-section">¡Hola {userName}!</Title>
             </div>
             
             <div className="admin-dashboard-grid">

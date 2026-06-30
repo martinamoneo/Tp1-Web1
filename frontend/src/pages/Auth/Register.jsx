@@ -83,13 +83,10 @@ const Register = () => { // componente register
         // try catch para manejar errores, aunq el inicio sucede igual
         try {
             await apiService.register(formData); // llamo al servicio de registro
-            
-            alert('Cuenta creada exitosamente'); // muestro alerta de exito
-            navigate('/login'); // navego al login
+            navigate('/login');
         } catch (error) {
             console.error('Error registering:', error); // muestro error en consola
-            alert('Cuenta creada exitosamente (Simulado en fallback)'); // muestro alerta de exito
-            navigate('/login'); // navego al login
+            navigate('/login');
         }
     };
 

@@ -49,16 +49,42 @@
     margin: 0;
 }
 
+/* Estilos para productos sin stock o eliminados */
+.item-out-of-stock {
+    background-color: #fdfdfd;
+    border-style: dashed;
+}
+
+.item-out-of-stock .item-img-box,
+.item-out-of-stock .item-main-info {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+
+.item-out-of-stock .btn-remove-item {
+    opacity: 1;
+    filter: none;
+}
+
+
+.btn-remove-item {
+    background: none;
+    border: none;
+    color: #a4b0be;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+
+.btn-remove-item:hover {
+    color: #ff4757;
+}
+
+/* Modificar el flex para los actions cuando tengan el boton extra */
 .item-actions-wrapper {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row;
+    align-items: center;
     gap: 15px;
 }
-
-.item-controls {
-    display: flex;
-    align-items: center;
-}
-
-

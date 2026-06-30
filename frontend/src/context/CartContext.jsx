@@ -103,15 +103,50 @@ export const CartProvider = ({ children }) => {
         setCart([]); // vacia el carrito
     };
 
-    // funcion para calcular la cantidad total de productos en el carrito
-    const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0); 
+    // funcion para remover un producto especifico del carrito
+    const removeFromCart = (productId) => {
+        setCart(prevCart => prevCart.filter(item => item.id !== productId));
+    };
+
+    // funcion para sincronizar el carrito con la BD (stock y eliminaciones)
+    const syncCart = (activeProducts) => {
+        let changed = false;
+        setCart(prevCart => {
+            const newCart = prevCart.map(item => {
+                const dbProduct = activeProducts.find(p => p.id === item.id);
+                // Si ya no existe, o si su stock llego a 0
+                if (!dbProduct || dbProduct.stock <= 0) {
+                    if (!item.outOfStock) changed = true;
+                    return { ...item, ...(dbProduct || {}), outOfStock: true };
+                }
+
+                // Si existe y tiene stock, actualizamos datos invisibles
+                const updatedItem = { ...item, ...dbProduct, quantity: item.quantity, outOfStock: false };
+                
+                // Si el usuario queria mas de lo que ahora hay en stock
+                if (updatedItem.quantity > dbProduct.stock) {
+                    updatedItem.quantity = dbProduct.stock;
+                    changed = true;
+                }
+                
+                return updatedItem;
+            });
+            return newCart;
+        });
+        return changed; // Retornamos true si hubo algun cambio importante (fuera de stock, reduccion de cantidad)
+    };
+
+    // funcion para calcular la cantidad total de productos en el carrito (solo los que tienen stock)
+    const cartItemCount = cart.filter(item => !item.outOfStock).reduce((total, item) => total + item.quantity, 0); 
 
     const value = {
         cart, // estado del carrito 
         cartItemCount, // cantidad de productos en el carrito 
         addToCart, // funcion para agregar productos al carrito 
         updateQuantity, // funcion para actualizar la cantidad de productos en el carrito 
-        clearCart // funcion para vaciar el carrito 
+        clearCart, // funcion para vaciar el carrito 
+        removeFromCart, // funcion para remover un producto especifico
+        syncCart // funcion para sincronizar estado con la BD
     };
 
     return (

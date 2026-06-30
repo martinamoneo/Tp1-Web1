@@ -12,6 +12,7 @@ import ProductGallery from './components/ProductGallery';
 import ProductInfo from './components/ProductInfo';
 import ProductTabs from './components/ProductTabs';
 import Breadcrumb from '../../../components/molecules/Breadcrumb';
+import { formatCategory } from '../../../utils/formatters';
 
 const ProductDetail = () => {
     const { addToCart } = useCart();
@@ -22,6 +23,9 @@ const ProductDetail = () => {
     const [sugeridos, setSugeridos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [cantidad, setCantidad] = useState(1);
+    
+    // Estado para feedback visual en el botón
+    const [isAdded, setIsAdded] = useState(false);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -57,8 +61,9 @@ const ProductDetail = () => {
     };
 
     const handleAddToCart = () => {
-        const result = addToCart(producto, cantidad);
-        alert(result.message);
+        addToCart(producto, cantidad);
+        setIsAdded(true);
+        setTimeout(() => setIsAdded(false), 2000);
     };
 
     if (loading) {
@@ -67,8 +72,7 @@ const ProductDetail = () => {
 
     if (!producto) return null;
 
-    let catDisplay = producto.categoria ? producto.categoria.replace(/colecci[oó]n/gi, '').trim() : ''; 
-    catDisplay = catDisplay ? catDisplay.charAt(0).toUpperCase() + catDisplay.slice(1).toLowerCase() : '';
+    let catDisplay = formatCategory(producto.categoria); 
     let catUrl = catDisplay.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     return (
@@ -93,6 +97,7 @@ const ProductDetail = () => {
                         cantidad={cantidad} 
                         onQuantityChange={handleQuantityChange} 
                         onAddToCart={handleAddToCart} 
+                        isAdded={isAdded}
                     />
                 </div>
 

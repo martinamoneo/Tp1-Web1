@@ -57,11 +57,15 @@ const Header = () => {
                     </Link>
 
                     <div className="user-profile">
-                        {user ? (
-                            <Link to="/profile" className="profile-link">
-                                <Icon name="user" /> {user.email.split('@')[0]}
-                            </Link>
-                        ) : (
+                        {user ? (() => {
+                            const namePart = user.email.split('@')[0];
+                            const userName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+                            return (
+                                <Link to="/profile" className="profile-link">
+                                    <Icon name="user" /> {userName}
+                                </Link>
+                            );
+                        })() : (
                             <Link to="/login">Iniciar Sesión</Link>
                         )}
                     </div>
