@@ -1,7 +1,7 @@
 // intermediario entre el front y el back
 // recibe las solicitudes del front y las manda al back
 
-export const SERVER_URL = 'http://localhost:3000'; // se guarda la url del servidor en una variable
+export const SERVER_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'; // se guarda la url del servidor en una variable
 const API_BASE_URL = `${SERVER_URL}/api`; // se guarda la url de la API para usarla en las funciones
 
 // Si no es exitosa la respuesta de la API, manda a la pantalla de error 500
