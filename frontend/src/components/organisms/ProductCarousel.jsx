@@ -40,7 +40,6 @@ const ProductCarousel = ({ title, products, onCardClick, loading = false }) => {
                 <Button variant="carousel" className="derecha" onClick={() => scrollCarousel('right')}>
                     <Icon name="chevron-right" />
                 </Button>
-                </Button>
             </div>
             )}
         </section>
