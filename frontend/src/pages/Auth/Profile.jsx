@@ -21,32 +21,25 @@ const Profile = () => {
 
     return (
         <main className="profile-page">
-            <div className="profile-container">
-                <Title level={1} className="title-hero">Mi Perfil</Title>
+            <div className="page-wrapper">
+                <div className="page-header">
+                    <Title level={1} className="title-section">Mi Perfil</Title>
+                </div>
                 
-                <section className="profile-card">
+                <div className="profile-container">
+                    <section className="profile-card">
                     <div className="profile-avatar">
                         <Icon type="regular" name="user-circle" />
                     </div>
                     
                     <h2 className="profile-email">{user.email}</h2>
-                    <p className="profile-welcome">¡Bienvenido a tu panel de usuario!</p>
-                    
-                    <div className="profile-info">
-                        <div className="info-item">
-                            <span className="info-label">Estado:</span>
-                            <span className="info-value text-success">Activo (Simulado)</span>
-                        </div>
-                        <div className="info-item">
-                            <span className="info-label">Rol:</span>
-                            <span className="info-value">Cliente</span>
-                        </div>
-                    </div>
+                    <p className="profile-welcome">Sesión iniciada</p>
 
                     <Button variant="submit" onClick={handleLogout} className="btn-logout">
                         <Icon name="sign-out-alt" /> Cerrar Sesión
                     </Button>
                 </section>
+                </div>
             </div>
         </main>
     );

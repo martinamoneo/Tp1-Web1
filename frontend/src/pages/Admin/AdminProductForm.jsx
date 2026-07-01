@@ -3,8 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Title from '../../components/atoms/Title';
 import Input from '../../components/atoms/Input';
 import Button from '../../components/atoms/Button';
-import Icon from '../../components/atoms/Icon';
 import Image from '../../components/atoms/Image';
+import Loader from '../../components/atoms/Loader';
+import useDelayedLoading from '../../hooks/useDelayedLoading';
 import Breadcrumb from '../../components/molecules/Breadcrumb';
 import ConfirmModal from '../../components/molecules/ConfirmModal';
 import AlertModal from '../../components/molecules/AlertModal';
@@ -32,6 +33,7 @@ const AdminProductForm = () => {
     const isEditMode = Boolean(id);
 
     const [loading, setLoading] = useState(isEditMode);
+    const showLoading = useDelayedLoading(loading, 200);
     const [saving, setSaving] = useState(false);
     
     // Estados para los modales
@@ -142,13 +144,13 @@ const AdminProductForm = () => {
         }
     };
 
-    if (loading) {
+    if (showLoading) {
         return (
             <div className="admin-product-form-view">
-                <div className="admin-loading">
-                    <Icon name="spinner" className="fa-spin" style={{ marginRight: '10px' }} />
-                    Cargando información del producto...
-                </div>
+                <Loader 
+                    text="Cargando" 
+                    words={['información', 'categorías', 'imágenes', 'detalles']} 
+                />
             </div>
         );
     }

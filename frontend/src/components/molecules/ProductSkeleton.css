@@ -1,0 +1,66 @@
+/* Skeleton animation base */
+.skeleton-pulse {
+    animation: skeleton-loading 1.5s infinite ease-in-out;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: #e0e0e0;
+    }
+    50% {
+        background-color: #f0f0f0;
+    }
+    100% {
+        background-color: #e0e0e0;
+    }
+}
+
+/* Skeleton Product Card Structure (matches ProductCard.css layout) */
+.product-card.skeleton-card {
+    cursor: default;
+    box-shadow: none;
+    border: 1px solid #eaeaea;
+}
+
+.product-card.skeleton-card:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.skeleton-image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.skeleton-title {
+    height: 18px;
+    width: 80%;
+    margin-bottom: 8px;
+}
+
+.skeleton-title:first-child {
+    margin-top: 15px;
+}
+
+.skeleton-title.short {
+    width: 50%;
+}
+
+.skeleton-price {
+    height: 20px;
+    width: 40%;
+    margin-top: 12px;
+}
+
+/* Grid Wrapper for multiple skeletons (matches products-grid exactly) */
+.skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 50px 30px;
+    width: 100%;
+}

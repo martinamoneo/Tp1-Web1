@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import CategoryNav from '../../components/molecules/CategoryNav'; 
 import ProductCard from '../../components/molecules/ProductCard';
+import { SkeletonGrid } from '../../components/molecules/ProductSkeleton';
 import ProductPopup from '../../components/organisms/ProductPopup';
 import Button from '../../components/atoms/Button';
 import Title from '../../components/atoms/Title';
@@ -10,6 +11,7 @@ import Icon from '../../components/atoms/Icon';
 import apiService from '../../utils/api';
 import HeroBanners from '../../components/organisms/HeroBanners';
 import ProductCarousel from '../../components/organisms/ProductCarousel';
+import useDelayedLoading from '../../hooks/useDelayedLoading';
 
 const Home = () => {
     const [productos, setProductos] = useState([]);
@@ -24,6 +26,7 @@ const Home = () => {
     };
 
     const [loading, setLoading] = useState(true);
+    const showLoading = useDelayedLoading(loading, 200);
     const [searchParams, setSearchParams] = useSearchParams();
     
     const sortParam = searchParams.get('sort');
@@ -59,9 +62,7 @@ const Home = () => {
         }
     };
 
-    if (loading && productos.length === 0) {
-        return <div className="home-loading"><Title level={2} className="title-hero">Cargando productos...</Title></div>;
-    }
+    // Eliminamos el if de "loading" global temprano para dejar que cada sección maneje sus skeletons
 
     return (
         <main>
@@ -73,16 +74,21 @@ const Home = () => {
                 title="Lo más pedido" 
                 products={productosMasPedidos} 
                 onCardClick={handleCardClick} 
+                loading={showLoading}
             />
 
             {/* Te puede interesar */}
             <section className="products-section home-products-section">
                 <Title level={2} className="title-section">Te puede interesar</Title>
-                <div className="products-grid">
-                    {productosInteres.map(producto => (
-                        <ProductCard key={`interes-${producto.id}`} producto={producto} onCardClick={handleCardClick} />
-                    ))}
-                </div>
+                {showLoading && productos.length === 0 ? (
+                    <SkeletonGrid count={5} />
+                ) : (
+                    <div className="products-grid">
+                        {productosInteres.map(producto => (
+                            <ProductCard key={`interes-${producto.id}`} producto={producto} onCardClick={handleCardClick} />
+                        ))}
+                    </div>
+                )}
             </section>
 
             {/* Todos los Productos */}
@@ -104,11 +110,15 @@ const Home = () => {
                         )}
                     </div>
                 </div>
-                <div className="products-grid">
-                    {productos.map(producto => (
-                        <ProductCard key={producto.id} producto={producto} onCardClick={handleCardClick} />
-                    ))}
-                </div>
+                {showLoading && productos.length === 0 ? (
+                    <SkeletonGrid count={10} />
+                ) : (
+                    <div className="products-grid">
+                        {productos.map(producto => (
+                            <ProductCard key={producto.id} producto={producto} onCardClick={handleCardClick} />
+                        ))}
+                    </div>
+                )}
             </section>
 
             <ProductPopup 

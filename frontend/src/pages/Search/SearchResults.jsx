@@ -3,6 +3,8 @@ import { useSearchParams, Link } from 'react-router-dom';
 import Title from '../../components/atoms/Title';
 import Icon from '../../components/atoms/Icon';
 import ProductCard from '../../components/molecules/ProductCard';
+import { SkeletonGrid } from '../../components/molecules/ProductSkeleton';
+import useDelayedLoading from '../../hooks/useDelayedLoading';
 import CategoryNav from '../../components/molecules/CategoryNav';
 import Breadcrumb from '../../components/molecules/Breadcrumb';
 import apiService from '../../utils/api';
@@ -15,6 +17,7 @@ const SearchResults = () => {
     
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
+    const showLoading = useDelayedLoading(loading, 200);
 
     useEffect(() => {
         const fetchResults = async () => {
@@ -58,8 +61,8 @@ const SearchResults = () => {
                     {query ? `Resultados para: "${query}"` : "Búsqueda vacía"}
                 </Title>
                 
-                {loading ? (
-                    <div className="category-loading"><Title level={2} className="title-hero">Buscando productos...</Title></div>
+                {showLoading ? (
+                    <SkeletonGrid count={8} />
                 ) : productos.length > 0 ? (
                     <div className="products-grid">
                         {productos.map(producto => (

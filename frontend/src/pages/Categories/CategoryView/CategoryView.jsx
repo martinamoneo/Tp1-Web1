@@ -5,6 +5,8 @@ import CategoryNav from '../../../components/molecules/CategoryNav';
 import apiService from '../../../utils/api'; 
 import Title from '../../../components/atoms/Title';
 import Icon from '../../../components/atoms/Icon';
+import { SkeletonGrid } from '../../../components/molecules/ProductSkeleton';
+import useDelayedLoading from '../../../hooks/useDelayedLoading';
 import Breadcrumb from '../../../components/molecules/Breadcrumb';
 import ProductCard from '../../../components/molecules/ProductCard';
 
@@ -13,6 +15,7 @@ const Categories = () => {
     const [productos, setProductos] = useState([]); // estado q guarda los productos de esa categoria
     const [categoriaNombre, setCategoriaNombre] = useState(''); // estado q guarda el nombre de la categoria
     const [loading, setLoading] = useState(true); // estado q indica si se esta cargando
+    const showLoading = useDelayedLoading(loading, 200);
 
     useEffect(() => { // hook q se ejecuta cuando cambia la categoriaName
         const fetchCategory = async () => { // funcion asincrona q obtiene los productos de la categoria
@@ -58,8 +61,8 @@ const Categories = () => {
                 <Title level={2} className="title-section category-title-section">Categoría: {categoriaNombre}</Title>
                 
                 {/* si esta cargando muestra un mensaje */}
-                {loading ? (
-                    <div className="category-loading"><Title level={2} className="title-hero">Cargando categoría...</Title></div>
+                {showLoading ? (
+                    <SkeletonGrid count={8} />
                 ) : productos.length > 0 ? (
                     <div className="products-grid">
                         {/* recorre los productos y muestra cada uno */}

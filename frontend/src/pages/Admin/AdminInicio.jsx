@@ -5,8 +5,8 @@ import Icon from '../../components/atoms/Icon';
 import apiService from '../../utils/api';
 
 const AdminInicio = () => {
-    const [productsCount, setProductsCount] = useState('...');
-    const [categoriesCount, setCategoriesCount] = useState('...');
+    const [productsCount, setProductsCount] = useState(<Icon name="spinner" className="fa-spin" />);
+    const [categoriesCount, setCategoriesCount] = useState(<Icon name="spinner" className="fa-spin" />);
     
     useEffect(() => {
         // Obtenemos los productos reales de la API para mostrar la cantidad

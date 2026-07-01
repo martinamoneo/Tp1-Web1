@@ -4,12 +4,15 @@ import Title from '../../components/atoms/Title';
 import Input from '../../components/atoms/Input';
 import Icon from '../../components/atoms/Icon';
 import Image from '../../components/atoms/Image';
+import Loader from '../../components/atoms/Loader';
+import useDelayedLoading from '../../hooks/useDelayedLoading';
 import apiService from '../../utils/api';
 import './AdminProducts.css';
 
 const AdminProducts = () => {
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
+    const showLoading = useDelayedLoading(loading, 200);
     const [busqueda, setBusqueda] = useState('');
 
     useEffect(() => {
@@ -46,8 +49,11 @@ const AdminProducts = () => {
             </div>
 
             <div className="admin-products-list">
-                {loading ? (
-                    <div className="admin-loading">Cargando productos...</div>
+                {showLoading ? (
+                    <Loader 
+                        text="Buscando" 
+                        words={['productos', 'precios', 'stock', 'imágenes']} 
+                    />
                 ) : productosFiltrados.length > 0 ? (
                     productosFiltrados.map(producto => (
                         <Link to={`/admin/products/${producto.id}`} key={producto.id} className="admin-product-row" style={{ textDecoration: 'none' }}>

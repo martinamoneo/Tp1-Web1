@@ -4,8 +4,9 @@ import Title from '../atoms/Title';
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon';
 import ProductCard from '../molecules/ProductCard';
+import { SkeletonGrid } from '../molecules/ProductSkeleton';
 
-const ProductCarousel = ({ title, products, onCardClick }) => {
+const ProductCarousel = ({ title, products, onCardClick, loading = false }) => {
     const carouselRef = useRef(null);
 
     const scrollCarousel = (direction) => {
@@ -24,7 +25,10 @@ const ProductCarousel = ({ title, products, onCardClick }) => {
     return (
         <section className="products-section lo-mas-pedido-section home-products-section">
             {title && <Title level={2} className="title-section">{title}</Title>}
-            <div className="carousel-wrapper">
+            {loading ? (
+                <SkeletonGrid count={5} />
+            ) : (
+                <div className="carousel-wrapper">
                 <Button variant="carousel" className="izquierda" onClick={() => scrollCarousel('left')}>
                     <Icon name="chevron-left" />
                 </Button>
@@ -36,7 +40,9 @@ const ProductCarousel = ({ title, products, onCardClick }) => {
                 <Button variant="carousel" className="derecha" onClick={() => scrollCarousel('right')}>
                     <Icon name="chevron-right" />
                 </Button>
+                </Button>
             </div>
+            )}
         </section>
     );
 };

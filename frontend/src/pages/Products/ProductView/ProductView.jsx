@@ -6,6 +6,8 @@ import Title from '../../../components/atoms/Title';
 import ProductCard from '../../../components/molecules/ProductCard';
 import apiService from '../../../utils/api';
 import { useCart } from '../../../context/CartContext';
+import useDelayedLoading from '../../../hooks/useDelayedLoading';
+import ProductDetailSkeleton from '../../../components/organisms/ProductDetailSkeleton';
 
 // Importamos los nuevos componentes
 import ProductGallery from './components/ProductGallery';
@@ -22,6 +24,7 @@ const ProductDetail = () => {
     const [producto, setProducto] = useState(null);
     const [sugeridos, setSugeridos] = useState([]);
     const [loading, setLoading] = useState(true);
+    const showLoading = useDelayedLoading(loading, 200);
     const [cantidad, setCantidad] = useState(1);
     
     // Estado para feedback visual en el botón
@@ -66,8 +69,8 @@ const ProductDetail = () => {
         setTimeout(() => setIsAdded(false), 2000);
     };
 
-    if (loading) {
-        return <div className="product-loading"><Title level={2}>Cargando detalle...</Title></div>;
+    if (showLoading) {
+        return <ProductDetailSkeleton />;
     }
 
     if (!producto) return null;

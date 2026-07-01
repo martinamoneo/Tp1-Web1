@@ -3,11 +3,14 @@ import { useState, useEffect } from 'react';
 import Title from '../../../components/atoms/Title';
 import Icon from '../../../components/atoms/Icon';
 import ProductCard from '../../../components/molecules/ProductCard';
+import { SkeletonGrid } from '../../../components/molecules/ProductSkeleton';
+import useDelayedLoading from '../../../hooks/useDelayedLoading';
 import apiService from '../../../utils/api';
 
 const ProductsList = () => {
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
+    const showLoading = useDelayedLoading(loading, 200);
 
     useEffect(() => {
         const fetchAllProducts = async () => {
@@ -37,10 +40,8 @@ const ProductsList = () => {
             </div>
             
             <section className="products-section products-list-section">
-                {loading ? (
-                    <div className="loading-state">
-                        <Title level={2}>Cargando productos...</Title>
-                    </div>
+                {showLoading ? (
+                    <SkeletonGrid count={8} />
                 ) : productos.length > 0 ? (
                     <div className="products-grid">
                         {productos.map(producto => (
