@@ -103,11 +103,7 @@
     gap: 2rem;
 }
 
-@media (max-width: 992px) {
-    .admin-form-grid {
-        grid-template-columns: 1fr;
-    }
-}
+
 
 .admin-form-column-main,
 .admin-form-column-side {

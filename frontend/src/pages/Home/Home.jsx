@@ -1,5 +1,5 @@
 import './Home.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'; 
 import { useSearchParams } from 'react-router-dom';
 import CategoryNav from '../../components/molecules/CategoryNav'; 
 import ProductCard from '../../components/molecules/ProductCard';
@@ -14,6 +14,7 @@ import ProductCarousel from '../../components/organisms/ProductCarousel';
 import useDelayedLoading from '../../hooks/useDelayedLoading';
 
 const Home = () => {
+    // cada variable va a usar useState y set para guardar y modificar el estado
     const [productos, setProductos] = useState([]);
     const [productosMasPedidos, setProductosMasPedidos] = useState([]);
     const [productosInteres, setProductosInteres] = useState([]);
@@ -31,10 +32,10 @@ const Home = () => {
     
     const sortParam = searchParams.get('sort');
 
-    useEffect(() => {
+    useEffect(() => { // hook para buscar los productos apenas se abre la pagina
         const fetchProducts = async () => {
             try {
-                setLoading(true);
+                setLoading(true); // mientras carga, se muestra el skeleton
                 const params = sortParam ? { sort: sortParam } : {};
                 const data = await apiService.getProducts(params);
                 
@@ -52,7 +53,8 @@ const Home = () => {
         };
 
         fetchProducts();
-    }, [sortParam]);
+
+    }, [sortParam]); // se ejecuta cada vez que cambia sortParam
 
     const handleSort = (type) => {
         if (type) {
@@ -61,8 +63,6 @@ const Home = () => {
             setSearchParams({});
         }
     };
-
-    // Eliminamos el if de "loading" global temprano para dejar que cada sección maneje sus skeletons
 
     return (
         <main>

@@ -3,20 +3,22 @@ const productsService = require('../services/productsService');
 
 const controller = {
     home: (req, res) => { // home, ordena los productos (asc/desc)
-    const sort = req.query.sort || null;
-    let productos = productsService.getAllProducts();
+    const sort = req.query.sort || null; // si no hay orden, se muestran normal
+    let productos = productsService.getAllProducts(); // obtengo todos los productos
 
-    if (sort === 'asc') {
+    if (sort === 'asc') { // si hay orden ascendente, se ordenan
         productos = [...productos].sort((a, b) => a.puntos - b.puntos);
-    } else if (sort === 'desc') {
+    } else if (sort === 'desc') { // si hay orden descendente, se ordenan
         productos = [...productos].sort((a, b) => b.puntos - a.puntos);
     }
 
+    // le mando los productos en JSON al frontend
     res.json({
         productos: productos,
         sort: sort
     });
     },
+
     search: (req, res) => { // busqueda por nombre
         const query = req.query.query || '';
         const queryLower = query.toLowerCase().trim();
