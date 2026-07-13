@@ -16,7 +16,7 @@ export const useCart = () => {
 // funcion q le da la info del carrito y los metodos a los hijos.
 export const CartProvider = ({ children }) => {
     // estado para guardar el carrito 
-    const [cart, setCart] = useState(() => {
+    const [cart, setCart] = useState(() => { // el estado del carrito se guarda en el localStorage para q no se pierda si cerramos la pagina
         try {
             const storedCart = localStorage.getItem('cart');
             return storedCart ? JSON.parse(storedCart) : [];
