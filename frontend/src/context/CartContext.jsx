@@ -1,19 +1,21 @@
-// hace de nube o espacio global para guardar la info del carrito 
+// nube o espacio global para guardar la info del carrito 
 // y que la puedan leer desde cualq lado usando useCart
 
 import { createContext, useState, useContext, useEffect } from 'react';
 
-const CartContext = createContext(); // se crea el contexto para q los hijos se puedan conectar 
+// contexto o nube donde se guarda la info del carrito
+const CartContext = createContext();
 
 // hay 2 funciones q se exportan en este codigo, a vite no le gusta eso y tira error 
 // asi q se usa esta linea para decirle a vite q ignore el error
 
 // eslint-disable-next-line react-refresh/only-export-components
+// hook q devuelve la info del carrito
 export const useCart = () => {
     return useContext(CartContext);
 };
 
-// funcion q le da la info del carrito y los metodos a los hijos.
+// funcion q le da la info del carrito y los metodos a componentes q estan dentro de CartProvider
 export const CartProvider = ({ children }) => {
     // estado para guardar el carrito 
     const [cart, setCart] = useState(() => { // el estado del carrito se guarda en el localStorage para q no se pierda si cerramos la pagina
@@ -21,7 +23,7 @@ export const CartProvider = ({ children }) => {
             const storedCart = localStorage.getItem('cart');
             return storedCart ? JSON.parse(storedCart) : [];
         } catch (error) { // si hay un error al leer el carrito del localStorage
-            console.error('Error reading cart from localStorage', error);
+            console.error('Error leyendo carrito de localStorage', error);
             return [];
         }
     });
@@ -35,7 +37,7 @@ export const CartProvider = ({ children }) => {
             window.dispatchEvent(new Event('cartUpdated'));
         } catch (error) { // si hay un error al guardar el carrito en el localStorage
             // muestra el error en la consola, el usuario no se entera
-            console.error('Error saving cart to localStorage', error);
+            console.error('Error guardando carrito en localStorage', error);
         }
     }, [cart]);
 

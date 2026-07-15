@@ -1,11 +1,14 @@
+// producto en el carrito
 import './CartItem.css';
 import Image from '../atoms/Image';
 import Icon from '../atoms/Icon';
 import Badge from '../atoms/Badge';
 import QuantitySelector from './QuantitySelector';
 
+// recibe el producto, la cantidad y las funciones para cambiar la cantidad y eliminar
 const CartItem = ({ item, onQuantityChange, onRemove }) => {
     return (
+        // si no tiene stock se muestra sin stock y no se puede cambiar la cantidad
         <div className={`cart-item ${item.outOfStock ? 'item-out-of-stock' : ''}`}>
             <div className="item-img-box">
                 <Image 

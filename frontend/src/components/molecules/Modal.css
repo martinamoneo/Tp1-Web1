@@ -1,4 +1,4 @@
-/* Custom Modal Styles */
+/* estilo unico para los modales */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -36,7 +36,7 @@
     font-size: 1.8rem;
 }
 
-/* Modifiers for different types of alerts */
+/* modificadores para los distintos tipos de alertas */
 .modal-icon-container.warning {
     background-color: #fef0f0;
     color: #e74c3c;
@@ -74,6 +74,7 @@
     flex: 1;
 }
 
+/* animaciones para cuando aparece y desaparece */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }

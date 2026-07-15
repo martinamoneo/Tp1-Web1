@@ -39,7 +39,7 @@ const Login = () => { // componente login
             localStorage.setItem('user', JSON.stringify({ email }));
             window.location.href = '/';
         } catch (error) {
-            console.error('Error logging in:', error);
+            console.error('Error al iniciar sesión:', error);
             // por mas que haya un error te va a mostrar que se inicio sesion
             localStorage.setItem('user', JSON.stringify({ email }));
             window.location.href = '/';

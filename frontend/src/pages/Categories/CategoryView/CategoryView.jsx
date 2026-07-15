@@ -32,7 +32,7 @@ const Categories = () => {
                     setCategoriaNombre(categoryName); // guarda el nombre de la categoria de la URL
                 }
             } catch (error) {
-                console.error('Error fetching category:', error);
+                console.error('Error trayendo categoría:', error);
                 setProductos([]); // guarda vacio en el estado
             } finally {
                 setLoading(false); // deja de cargar

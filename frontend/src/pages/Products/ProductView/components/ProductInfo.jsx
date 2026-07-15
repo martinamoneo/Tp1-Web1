@@ -31,10 +31,7 @@ const ProductInfo = ({ producto, cantidad, onQuantityChange, onAddToCart, isAdde
                 <Button variant="carrito" 
                     onClick={onAddToCart}
                     disabled={producto.stock === 0 || isAdded}
-                    style={{
-                        ...(producto.stock === 0 ? { backgroundColor: '#aaa', cursor: 'not-allowed' } : {}),
-                        ...(isAdded ? { backgroundColor: '#1abc9c', color: 'white', borderColor: '#1abc9c' } : {})
-                    }}
+                    className={isAdded ? 'btn-agregado' : ''}
                 >
                     {producto.stock === 0 ? 'SIN STOCK' : (isAdded ? '¡AGREGADO!' : 'AGREGAR AL CARRITO')}
                 </Button>

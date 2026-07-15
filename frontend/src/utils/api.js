@@ -11,13 +11,13 @@ const handleResponse = async (response) => {
             window.location.href = '/500'; // manda a la pantalla de error 500
             return;
         }
-        // se guarda la respuesta de la API en una variable
+        // intenta convertir la respuesta a JSON, si hay un error, devuelve un objeto vacío
         const errorData = await response.json().catch(() => ({})); 
-        // se lanza un error con el mensaje de la API
+        // lanza un error con el mensaje de la API
         throw new Error(errorData.message || `API error: ${response.status}`);
     }
-    // se retorna la respuesta de la API en formato JSON
-    return response.json();
+    // retorna la respuesta de la API en formato JSON
+    return response.json(); 
 };
 
 const apiService = {

@@ -1,14 +1,11 @@
-/**
- * Utilidades para formatear textos y datos en la interfaz
- */
+// formatea las categorias para que se vean bonitas en la interfaz
 
 export const formatCategory = (categoria) => {
     if (!categoria) return '';
     
-    // Limpiamos la categoría base
-    let cat = categoria.toLowerCase().replace(/colecci[oó]n/gi, '').trim();
+    let cat = categoria.toLowerCase().trim();
     
-    // Diccionario de categorías conocidas para agregar tildes y eñes correctamente
+    // Diccionario de categorías conocidas para agregar tildes y eñes
     const dictionary = {
         'lamparas': 'Lámparas',
         'lampara': 'Lámparas',

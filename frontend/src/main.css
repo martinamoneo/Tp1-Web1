@@ -30,7 +30,6 @@ main {
     flex-direction: column;
 }
 
-/* ==================== PAGE LAYOUT GENERAL ==================== */
 .page-wrapper {
     width: 100%;
     max-width: 1200px;

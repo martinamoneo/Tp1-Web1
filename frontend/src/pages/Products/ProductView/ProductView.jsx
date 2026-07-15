@@ -44,7 +44,7 @@ const ProductDetail = () => {
                     navigate('/404');
                 }
             } catch (error) {
-                console.error('Error fetching product:', error);
+                console.error('Error trayendo producto:', error);
                 navigate('/404');
             } finally {
                 setLoading(false);

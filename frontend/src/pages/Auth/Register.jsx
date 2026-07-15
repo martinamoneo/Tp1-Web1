@@ -85,7 +85,7 @@ const Register = () => { // componente register
             await apiService.register(formData); // llamo al servicio de registro
             navigate('/login');
         } catch (error) {
-            console.error('Error registering:', error); // muestro error en consola
+            console.error('Error al registrarse:', error); // muestro error en consola
             navigate('/login');
         }
     };

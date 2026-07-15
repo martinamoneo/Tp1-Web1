@@ -1,7 +1,9 @@
+// estado para cuando la pagina no tiene nada para mostrar
 import Title from '../atoms/Title';
 import Icon from '../atoms/Icon';
 import './EmptyState.css';
 
+// recibe icono, titulo, descripcion e hijos (botones, links, etc)
 const EmptyState = ({ icon, title, description, children }) => {
     return (
         <div className="empty-state">

@@ -19,7 +19,6 @@ const QuantitySelector = ({
                 variant="cantidad"
                 onClick={alDisminuir}
                 disabled={deshabilitarDisminuir}
-                style={deshabilitarDisminuir ? { cursor: 'not-allowed' } : {}}
             >
                 <Icon name="minus" />
             </Button>
@@ -34,7 +33,6 @@ const QuantitySelector = ({
                 variant="cantidad"
                 onClick={alAumentar}
                 disabled={deshabilitarAumentar}
-                style={deshabilitarAumentar ? { cursor: 'not-allowed' } : {}}
             >
                 <Icon name="plus" />
             </Button>

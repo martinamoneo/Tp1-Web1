@@ -21,4 +21,9 @@
 .cantidad-input:focus {
     outline: none;
 }
+
+.cantidad-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
 

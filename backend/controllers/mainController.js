@@ -1,6 +1,7 @@
 // recibe las peticiones del front y decide que info enviar (no manipula datos)
 // declaro productoService para que el controlador pueda usarlo para acceder a los datos
 const productsService = require('../services/productsService');
+const { categoryMap } = require('../services/productsService');
 
 // funciones de la API juntas en un objeto para exportarlas más fácil
 const controller = {
@@ -62,18 +63,8 @@ const controller = {
             return res.status(404).json({ error: 'Categoría no encontrada' });
         }
 
-        const formatCategoryName = {
-            'mates': 'Mates',
-            'vasos': 'Vasos',
-            'llaveros': 'Llaveros',
-            'soportes': 'Soportes',
-            'premios': 'Premios',
-            'munecos': 'Muñecos',
-            'lamparas': 'Lámparas',
-            'otros': 'Otros'
-        };
-        // le pongo mayuscula a la primer letra de la categoria
-        const displayCategoryName = formatCategoryName[categoryName] || categoryName;
+        // usamos el diccionario del servicio para mostrar el nombre con tildes y eñes
+        const displayCategoryName = categoryMap[categoryName] || categoryName;
 
         // mando los productos al front
         res.json({

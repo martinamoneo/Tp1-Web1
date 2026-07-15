@@ -1,4 +1,4 @@
-// bara de categorias q se muestra en el home
+// barra de categorias
 
 import './CategoryNav.css';
 import { useNavigate } from 'react-router-dom'; // hook para q la pag no se recarge cuando cambias

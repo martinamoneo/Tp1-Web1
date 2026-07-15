@@ -46,7 +46,7 @@ const Home = () => {
                     setProductosInteres(prev => prev.length > 0 ? prev : [...data.productos].sort(() => 0.5 - Math.random()).slice(0, 5));
                 }
             } catch (error) {
-                console.error('Error fetching products:', error);
+                console.error('Error trayendo productos:', error);
             } finally {
                 setLoading(false);
             }

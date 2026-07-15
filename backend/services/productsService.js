@@ -68,13 +68,6 @@ const productsService = {
         return rows.map(mapRowToProduct); // convierte los productos a como los espera el código
     },
 
-    // Ordenar por precio
-    sortByPrice: (order = 'ASC') => {
-        const sortOrder = order.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
-        const rows = db.prepare(`${baseQuery} ORDER BY p.price ${sortOrder}`).all();
-        return rows.map(mapRowToProduct);
-    },
-
     // Productos sugeridos (misma categoría, distinto id)
     getSuggestedProducts: (productId, category) => {
         const rows = db.prepare(`${baseQuery} WHERE p.id != ? AND c.name = ? ORDER BY RANDOM() LIMIT 4`).all(productId, category);
@@ -154,3 +147,4 @@ const productsService = {
 };
 
 module.exports = productsService;
+module.exports.categoryMap = categoryMap;

@@ -1,6 +1,8 @@
-import './ProductCard.css'; // Reutilizamos layout base
+// skeleton de la tarjeta de producto
+import './ProductCard.css';
 import './ProductSkeleton.css';
 
+// componente que crea un skeleton con la misma logica de product card
 const ProductSkeleton = () => {
     return (
         <article className="product-card skeleton-card">
@@ -18,9 +20,10 @@ const ProductSkeleton = () => {
     );
 };
 
-// Componente helper para renderizar múltiples skeletons fácilmente en una grilla
+// sirve para crear una cantidad determinada de skeletons dependiendo de lo que se necesite
 export const SkeletonGrid = ({ count = 4 }) => {
     return (
+        // elijo que cantidad de skeletons se muestren
         <div className="skeleton-grid">
             {Array.from({ length: count }).map((_, index) => (
                 <ProductSkeleton key={index} />

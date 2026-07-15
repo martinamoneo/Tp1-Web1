@@ -1,10 +1,10 @@
-/* Skeleton animation base */
 .skeleton-pulse {
     animation: skeleton-loading 1.5s infinite ease-in-out;
     background-color: #e0e0e0;
     border-radius: 4px;
 }
 
+/* animacion para que cambie el color */
 @keyframes skeleton-loading {
     0% {
         background-color: #e0e0e0;
@@ -17,7 +17,6 @@
     }
 }
 
-/* Skeleton Product Card Structure (matches ProductCard.css layout) */
 .product-card.skeleton-card {
     cursor: default;
     box-shadow: none;
@@ -57,7 +56,6 @@
     margin-top: 12px;
 }
 
-/* Grid Wrapper for multiple skeletons (matches products-grid exactly) */
 .skeleton-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));

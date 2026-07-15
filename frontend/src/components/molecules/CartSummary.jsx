@@ -1,3 +1,4 @@
+// tarjeta que muestra el total del carrito y un botón para ir a pagar
 import { Link } from 'react-router-dom';
 import Title from '../atoms/Title';
 import './CartSummary.css';

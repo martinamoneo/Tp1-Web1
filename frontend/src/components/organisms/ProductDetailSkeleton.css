@@ -1,0 +1,78 @@
+/* Estilos específicos para el esqueleto de la vista de detalle de producto */
+
+.skeleton-breadcrumb {
+    width: 250px;
+    height: 18px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+}
+
+.gallery-thumbnails .thumb-img.skeleton-pulse {
+    border: none;
+}
+
+.gallery-main-img.skeleton-gallery-main {
+    border: none;
+    box-shadow: none;
+}
+
+.skeleton-main-img-inner {
+    min-width: 400px;
+    min-height: 500px;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.skeleton-category {
+    width: 100px;
+    height: 14px;
+    border-radius: 2px;
+    margin-bottom: 15px;
+}
+
+.skeleton-title-1 {
+    width: 90%;
+    height: 48px;
+    border-radius: 4px;
+    margin: 0 0 10px 0;
+}
+
+.skeleton-title-2 {
+    width: 60%;
+    height: 48px;
+    border-radius: 4px;
+    margin: 0 0 25px 0;
+}
+
+.skeleton-price {
+    width: 250px;
+    height: 38px;
+    border-radius: 4px;
+    margin: 0 0 30px 0;
+}
+
+.skeleton-stock-info {
+    width: 180px;
+    height: 18px;
+    border-radius: 2px;
+    margin: 0 0 25px 0;
+}
+
+.skeleton-divider {
+    width: 70%;
+    height: 4px;
+    margin: 0 0 30px 0;
+}
+
+.skeleton-action-btn-1 {
+    width: 130px;
+    height: 45px;
+    border-radius: 25px;
+}
+
+.skeleton-action-btn-2 {
+    flex: 1;
+    height: 45px;
+    border-radius: 25px;
+}
