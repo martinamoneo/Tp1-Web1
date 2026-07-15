@@ -84,6 +84,12 @@ const controller = {
 
     createProduct: (req, res) => { // crear un producto (admin)
         try {
+            const { nombre, puntos, categoria, descripcion_corta, imagen } = req.body;
+            // Validación de campos obligatorios (UX Real)
+            if (!nombre || !puntos || !categoria || !descripcion_corta || !imagen) {
+                return res.status(400).json({ error: 'Faltan campos obligatorios: nombre, precio (puntos), categoría, descripción corta o imagen' });
+            }
+
             const newId = productsService.createProduct(req.body); // tomo el nuevo id
             res.status(201).json({ success: true, message: 'Producto creado exitosamente', id: newId }); // mando el nuevo id
         } catch (error) { // si hay error, devuelvo error 500
@@ -94,6 +100,12 @@ const controller = {
     
     updateProduct: (req, res) => { // actualizar un producto (admin)
         try { 
+            const { nombre, puntos, categoria, descripcion_corta, imagen } = req.body;
+            // Validación de campos obligatorios (UX Real)
+            if (!nombre || !puntos || !categoria || !descripcion_corta || !imagen) {
+                return res.status(400).json({ error: 'Faltan campos obligatorios: nombre, precio (puntos), categoría, descripción corta o imagen' });
+            }
+
             const productId = req.productId; // tomo el id del producto del request
             productsService.updateProduct(productId, req.body); // actualizo el producto
             res.json({ success: true, message: 'Producto actualizado exitosamente' }); // mando mensaje de exito

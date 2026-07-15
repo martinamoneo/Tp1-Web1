@@ -26,6 +26,18 @@ const baseQuery = `
     LEFT JOIN categories c ON p.category_id = c.id
 `;
 
+// Diccionario - traduce URL del front a como está guardado en la BD
+const categoryMap = {
+    'mates': 'Mates',
+    'vasos': 'Vasos',
+    'llaveros': 'Llaveros',
+    'soportes': 'Soportes',
+    'premios': 'Premios',
+    'munecos': 'Muñecos',
+    'lamparas': 'Lámparas',
+    'otros': 'Otros'
+};
+
 const productsService = {
     // le pide a la BD la lista de productos
     getAllProducts: () => {
@@ -39,29 +51,21 @@ const productsService = {
         return mapRowToProduct(row);
     },
 
-    // recibe la categoria del código y la traduce a como está guardado en la BD
+    // busca productos por categoria
     getProductsByCategoryName: (categoryName) => {
-        const mapCategory = {
-            'mates': 'COLECCIÓN MATES',
-            'vasos': 'COLECCIÓN VASOS',
-            'llaveros': 'COLECCIÓN LLAVEROS',
-            'soportes': 'COLECCIÓN SOPORTES',
-            'premios': 'COLECCIÓN PREMIOS',
-            'munecos': 'COLECCIÓN MUÑECOS',
-            'lamparas': 'COLECCIÓN LÁMPARAS',
-            'otros': 'COLECCIÓN OTROS'
-        };
-        const mappedCategory = mapCategory[categoryName];
+        const mappedCategory = categoryMap[categoryName];
+        // si no existe la categoría, devuelve null
         if (!mappedCategory) return null;
-
+        // busca todos los productos de esa categoría
         const rows = db.prepare(`${baseQuery} WHERE c.name = ?`).all(mappedCategory);
+        // convierte los productos a como los espera el código
         return rows.map(mapRowToProduct);
     },
 
-    // Buscar por nombre
+    // Buscar producto por nombre (barra de busqueda)
     searchByName: (query) => {
         const rows = db.prepare(`${baseQuery} WHERE p.name LIKE ?`).all(`%${query}%`);
-        return rows.map(mapRowToProduct);
+        return rows.map(mapRowToProduct); // convierte los productos a como los espera el código
     },
 
     // Ordenar por precio
@@ -76,67 +80,63 @@ const productsService = {
         const rows = db.prepare(`${baseQuery} WHERE p.id != ? AND c.name = ? ORDER BY RANDOM() LIMIT 4`).all(productId, category);
         return rows.map(mapRowToProduct);
     },
+
+    // busca ID de categoria para crear producto (admin)
     getCategoryId: (frontendCategory) => {
         if (!frontendCategory) return null;
         
-        // Mapeo inverso: frontend envía "mates", buscamos en DB "COLECCIÓN MATES"
-        const mapCategory = {
-            'mates': 'COLECCIÓN MATES',
-            'vasos': 'COLECCIÓN VASOS',
-            'llaveros': 'COLECCIÓN LLAVEROS',
-            'soportes': 'COLECCIÓN SOPORTES',
-            'premios': 'COLECCIÓN PREMIOS',
-            'munecos': 'COLECCIÓN MUÑECOS',
-            'lamparas': 'COLECCIÓN LÁMPARAS',
-            'otros': 'COLECCIÓN OTROS'
-        };
-        
-        const dbCategoryName = mapCategory[frontendCategory.toLowerCase()];
+        const dbCategoryName = categoryMap[frontendCategory.toLowerCase()];
         if (!dbCategoryName) return null;
 
         const row = db.prepare('SELECT id FROM categories WHERE name = ?').get(dbCategoryName);
         return row ? row.id : null;
     },
 
+    // agregar producto (admin)
     createProduct: (data) => {
         const categoryId = productsService.getCategoryId(data.categoria);
         
+        // inserta el producto en la BD
         const stmt = db.prepare(`
             INSERT INTO products (name, price, stock, short_description, description, specifications, image, category_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         `);
         
+        // inserta los datos del producto en la BD
         const info = stmt.run(
-            data.nombre || 'Nuevo Producto',
-            data.puntos || 0,
+            data.nombre,
+            data.puntos,
             data.stock || 0,
-            data.descripcion_corta || '',
+            data.descripcion_corta,
             data.descripcion || '',
             data.especificaciones || '',
-            data.imagen || '',
+            data.imagen,
             categoryId
         );
         
-        return info.lastInsertRowid;
+        return info.lastInsertRowid; // devuelve el id del nuevo producto
     },
 
+    // actualizar producto (admin)
     updateProduct: (id, data) => {
         const categoryId = productsService.getCategoryId(data.categoria);
         
+        // prepara la consulta para actualizar el producto
         const stmt = db.prepare(`
             UPDATE products 
             SET name = ?, price = ?, stock = ?, short_description = ?, description = ?, specifications = ?, image = ?, category_id = ?
             WHERE id = ?
         `);
         
+        // ejecuta la consulta con las modificaciones 
         stmt.run(
-            data.nombre || '',
-            data.puntos || 0,
-            data.stock || 0,
-            data.descripcion_corta || '',
+            data.nombre,
+            data.puntos,
+            data.stock || 0, // permitimos 0 para marcar "sin stock"
+            data.descripcion_corta,
             data.descripcion || '',
             data.especificaciones || '',
-            data.imagen || '',
+            data.imagen,
             categoryId,
             id
         );
@@ -144,10 +144,11 @@ const productsService = {
         return true;
     },
 
+    // eliminar producto (admin)
     deleteProduct: (id) => {
-        // Borrado físico directo (según el sprint actual)
+        // Borrado físico (se borra por completo de la BD)
         const stmt = db.prepare('DELETE FROM products WHERE id = ?');
-        stmt.run(id);
+        stmt.run(id); // ejecuta la consulta con el id
         return true;
     }
 };

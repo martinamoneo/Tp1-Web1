@@ -1,4 +1,4 @@
-// controla las rutas, es decir segun el / que llegue llama a la pagina
+// controla las rutas, es decir segun el / que llegue llama a la función
 // que corresponda del mainController
 
 const express = require('express'); // importo express

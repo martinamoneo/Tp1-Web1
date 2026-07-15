@@ -2,7 +2,7 @@
 const productsService = require('../services/productsService');
 
 const normalizeId = (req, res, next) => {
-    // se fija de donde viene el id (params (pagina individual) o body (carrito))
+    // se fija de donde viene el id si de la URL o de la pagina 
     const rawId = req.params.id || req.body.productId;
 
     // si es null o no existe -> error 400
