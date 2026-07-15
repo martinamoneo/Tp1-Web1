@@ -76,12 +76,6 @@ const productsService = {
         const rows = db.prepare(`${baseQuery} WHERE p.id != ? AND c.name = ? ORDER BY RANDOM() LIMIT 4`).all(productId, category);
         return rows.map(mapRowToProduct);
     },
-
-    // -------------------------------------------------------------
-    // OPERACIONES CRUD ADMIN
-    // -------------------------------------------------------------
-
-    // Helper interno para obtener el category_id a partir del string del frontend
     getCategoryId: (frontendCategory) => {
         if (!frontendCategory) return null;
         

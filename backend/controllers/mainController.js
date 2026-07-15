@@ -1,6 +1,8 @@
 // recibe las peticiones del front y decide que info enviar (no manipula datos)
+// declaro productoService para que el controlador pueda usarlo para acceder a los datos
 const productsService = require('../services/productsService');
 
+// funciones de la API juntas en un objeto para exportarlas más fácil
 const controller = {
     home: (req, res) => { // home, ordena los productos (asc/desc)
     const sort = req.query.sort || null; // si no hay orden, se muestran normal
@@ -20,41 +22,43 @@ const controller = {
     },
 
     search: (req, res) => { // busqueda por nombre
-        const query = req.query.query || '';
-        const queryLower = query.toLowerCase().trim();
+        const query = req.query.query || ''; // si no hay query, es string vacío
+        const queryLower = query.toLowerCase().trim(); // convierto a minúsculas y quito espacios
 
-        const resultados = queryLower === ''
+        const resultados = queryLower === '' // si está vacío, devuelve array vacío
             ? []
-            : productsService.searchByName(queryLower);
+            : productsService.searchByName(queryLower); // si no, busco por nombre
 
     res.json({
         query: query,
         resultados: resultados
     });
     },
-    registerProcess: (req, res) => { // registro de usuario, toma los datos del form y los muestra
-        const { nombre, apellido, email, password } = req.body;
-        console.log(nombre, apellido, email, password);
-        res.json({ success: true, message: 'Usuario registrado exitosamente' });
+    registerProcess: (req, res) => { // registro de usuario, toma los datos del form y los muestra en consola
+        const { nombre, apellido, email, password } = req.body; // declaro las variables con los datos del form
+        console.log(nombre, apellido, email, password); // muestro en consola
+        res.json({ success: true, message: 'Usuario registrado exitosamente' }); // mando respuesta al front
     },
 
     productDetail: (req, res) => { // detalle de producto, muestra el producto y productos sugeridos
-        const productId = req.productId;
-        const producto = req.producto;
+        const productId = req.productId; // tomo el id del producto del request
+        const producto = req.producto; // tomo el producto del request
 
-        const sugeridos = productsService.getSuggestedProducts(productId, producto.categoria);
+        // obtengo productos sugeridos por categoria
+        const sugeridos = productsService.getSuggestedProducts(productId, producto.categoria); 
 
+        // mando los productos al front
         res.json({ 
             producto: producto,
             productosSugeridos: sugeridos
         });
     },
     category: (req, res) => { // categoria, muestra productos de una categoria especifica
-        const categoryName = req.params.categoryName.toLowerCase();
+        const categoryName = req.params.categoryName.toLowerCase(); // tomo la categoria de los parámetros
         
-        const productosFiltrados = productsService.getProductsByCategoryName(categoryName);
+        const productosFiltrados = productsService.getProductsByCategoryName(categoryName); // filtro los productos por categoria
 
-        if (!productosFiltrados) {
+        if (!productosFiltrados) { // si no hay productos, devuelvo error 404
             return res.status(404).json({ error: 'Categoría no encontrada' });
         }
 
@@ -68,44 +72,43 @@ const controller = {
             'lamparas': 'Lámparas',
             'otros': 'Otros'
         };
+        // le pongo mayuscula a la primer letra de la categoria
         const displayCategoryName = formatCategoryName[categoryName] || categoryName;
 
+        // mando los productos al front
         res.json({
             categoriaNombre: displayCategoryName,
             productos: productosFiltrados
         });
     },
-    
-    // -------------------------------------------------------------
-    // CONTROLADORES CRUD ADMIN
-    // -------------------------------------------------------------
-    createProduct: (req, res) => {
+
+    createProduct: (req, res) => { // crear un producto (admin)
         try {
-            const newId = productsService.createProduct(req.body);
-            res.status(201).json({ success: true, message: 'Producto creado exitosamente', id: newId });
-        } catch (error) {
+            const newId = productsService.createProduct(req.body); // tomo el nuevo id
+            res.status(201).json({ success: true, message: 'Producto creado exitosamente', id: newId }); // mando el nuevo id
+        } catch (error) { // si hay error, devuelvo error 500
             console.error(error);
             res.status(500).json({ error: 'Error al crear el producto' });
         }
     },
     
-    updateProduct: (req, res) => {
-        try {
-            const productId = req.productId; // Gracias al middleware normalizeId
-            productsService.updateProduct(productId, req.body);
-            res.json({ success: true, message: 'Producto actualizado exitosamente' });
-        } catch (error) {
+    updateProduct: (req, res) => { // actualizar un producto (admin)
+        try { 
+            const productId = req.productId; // tomo el id del producto del request
+            productsService.updateProduct(productId, req.body); // actualizo el producto
+            res.json({ success: true, message: 'Producto actualizado exitosamente' }); // mando mensaje de exito
+        } catch (error) { // si hay error, devuelvo error 500
             console.error(error);
             res.status(500).json({ error: 'Error al actualizar el producto' });
         }
     },
     
-    deleteProduct: (req, res) => {
+    deleteProduct: (req, res) => { // eliminar un producto (admin)
         try {
-            const productId = req.productId; // Gracias al middleware normalizeId
-            productsService.deleteProduct(productId);
-            res.json({ success: true, message: 'Producto eliminado exitosamente' });
-        } catch (error) {
+            const productId = req.productId; // tomo el id del producto del request
+            productsService.deleteProduct(productId); // elimino el producto
+            res.json({ success: true, message: 'Producto eliminado exitosamente' }); // mando mensaje de exito
+        } catch (error) { // si hay error, devuelvo error 500
             console.error(error);
             res.status(500).json({ error: 'Error al eliminar el producto' });
         }
