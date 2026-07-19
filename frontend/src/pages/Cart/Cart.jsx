@@ -43,7 +43,7 @@ const Cart = () => {
         .reduce((acc, item) => acc + (item.puntos * item.quantity), 0);
 
     return (
-        <main className="cart-container">
+        <div className="cart-container">
             <div className="page-wrapper">
                 
                 <div className="page-header">
@@ -99,7 +99,7 @@ const Cart = () => {
                     </div>
                 )}
             </div>
-        </main>
+        </div>
     );
 };
 

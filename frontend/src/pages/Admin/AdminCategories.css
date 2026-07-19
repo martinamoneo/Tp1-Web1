@@ -1,0 +1,108 @@
+/* Estilos de la vista de Categorías del Admin */
+/* Reutiliza las mismas clases que AdminProducts ya que comparten la misma estructura visual (tabla con filas) */
+
+.admin-products-actions {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.admin-search-wrapper {
+    position: relative;
+    width: 300px;
+}
+
+.admin-search-wrapper input {
+    width: 100%;
+    padding-right: 40px;
+    box-sizing: border-box;
+}
+
+.admin-search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-gris, #bdc3c7);
+}
+
+.admin-products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.admin-product-row {
+    background-color: var(--color-white, #fff);
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.admin-product-row:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-color: #ddd;
+}
+
+.admin-row-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.admin-product-thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-product-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.admin-product-title {
+    margin: 0 0 0.3rem 0;
+    font-size: 1.1rem;
+    color: var(--color-gris, #4a4d4e);
+    font-weight: 600;
+}
+
+.admin-product-id {
+    color: #95a5a6;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.admin-row-right {
+    color: #bdc3c7;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+
+.admin-product-row:hover .admin-row-right {
+    color: var(--color-turquesa, #1abc9c);
+}
+
+.admin-loading,
+.admin-empty {
+    text-align: center;
+    padding: 3rem;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    background-color: #fafafa;
+    border-radius: 12px;
+    border: 1px dashed #ccc;
+}

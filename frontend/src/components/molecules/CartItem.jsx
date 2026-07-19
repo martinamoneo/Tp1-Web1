@@ -3,6 +3,7 @@ import './CartItem.css';
 import Image from '../atoms/Image';
 import Icon from '../atoms/Icon';
 import Badge from '../atoms/Badge';
+import Button from '../atoms/Button';
 import QuantitySelector from './QuantitySelector';
 
 // recibe el producto, la cantidad y las funciones para cambiar la cantidad y eliminar
@@ -33,9 +34,9 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
                         />
                     )}
                 </div>
-                <button className="btn-remove-item" onClick={() => onRemove(item.id)} title="Eliminar del carrito">
+                <Button variant="remove" onClick={() => onRemove(item.id)} title="Eliminar del carrito">
                     <Icon name="trash" />
-                </button>
+                </Button>
             </div>
         </div>
     );

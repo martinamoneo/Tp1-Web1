@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import Title from '../../components/atoms/Title';
 import Button from '../../components/atoms/Button';
 import Icon from '../../components/atoms/Icon';
@@ -9,10 +10,11 @@ const Profile = () => {
     const user = JSON.parse(localStorage.getItem('user'));
 
     // Si alguien entra a /profile por la URL sin estar logueado, lo mandamos al login
-    if (!user) {
-        navigate('/login');
-        return null;
-    }
+    useEffect(() => {
+        if (!user) navigate('/login');
+    }, [user, navigate]);
+
+    if (!user) return null;
 
     const handleLogout = () => {
         localStorage.removeItem('user'); // Borramos el usuario guardado
@@ -20,7 +22,7 @@ const Profile = () => {
     };
 
     return (
-        <main className="profile-page">
+        <div className="profile-page">
             <div className="page-wrapper">
                 <div className="page-header">
                     <Title level={1} className="title-section">Mi Perfil</Title>
@@ -41,7 +43,7 @@ const Profile = () => {
                 </section>
                 </div>
             </div>
-        </main>
+        </div>
     );
 };
 

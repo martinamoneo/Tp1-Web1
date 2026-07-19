@@ -4,6 +4,7 @@ import Title from '../../components/atoms/Title';
 import Input from '../../components/atoms/Input';
 import Button from '../../components/atoms/Button';
 import Image from '../../components/atoms/Image';
+import Icon from '../../components/atoms/Icon';
 import Loader from '../../components/atoms/Loader';
 import useDelayedLoading from '../../hooks/useDelayedLoading';
 import Breadcrumb from '../../components/molecules/Breadcrumb';
@@ -233,6 +234,7 @@ const AdminProductForm = () => {
                                     className="form-textarea"
                                     rows="3"
                                     placeholder="Resumen breve del producto..."
+                                    required
                                 ></textarea>
                             </div>
                         </section>
@@ -245,7 +247,7 @@ const AdminProductForm = () => {
                             
                             <div className="form-group">
                                 <label>Categoría</label>
-                                <select name="categoria" value={formData.categoria} onChange={handleChange} className="form-select">
+                                <select name="categoria" value={formData.categoria} onChange={handleChange} className="form-select" required>
                                     <option value="">Seleccionar categoría</option>
                                     <option value="mates">Mates</option>
                                     <option value="vasos">Vasos</option>
@@ -351,6 +353,7 @@ const AdminProductForm = () => {
                                     value={formData.imagen} 
                                     onChange={handleChange} 
                                     placeholder="https://ejemplo.com/imagen.jpg"
+                                    required
                                 />
                             </div>
                         </div>

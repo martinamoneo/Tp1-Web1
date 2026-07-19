@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Title from '../../components/atoms/Title';
 import Input from '../../components/atoms/Input';
 import Icon from '../../components/atoms/Icon';
-import Loader from '../../components/atoms/Loader';
-import useDelayedLoading from '../../hooks/useDelayedLoading';
-import './AdminProducts.css';
+import './AdminCategories.css';
 
 // Simulamos las categorías ya que el backend aún no tiene endpoint para listarlas solas con imagen
 const mockCategorias = [
@@ -20,15 +18,8 @@ const mockCategorias = [
 ];
 
 const AdminCategories = () => {
-    const [categorias, setCategorias] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const showLoading = useDelayedLoading(loading, 200);
+    const [categorias] = useState(mockCategorias); // datos mock, no cambian
     const [busqueda, setBusqueda] = useState('');
-
-    useEffect(() => {
-        setCategorias(mockCategorias);
-        setLoading(false);
-    }, []);
 
     const categoriasFiltradas = categorias.filter(c => 
         c.nombre.toLowerCase().includes(busqueda.toLowerCase()) || 
@@ -54,12 +45,7 @@ const AdminCategories = () => {
             </div>
 
             <div className="admin-products-list">
-                {showLoading ? (
-                    <Loader 
-                        text="Buscando" 
-                        words={['categorías', 'íconos', 'detalles', 'productos']} 
-                    />
-                ) : categoriasFiltradas.length > 0 ? (
+                {categoriasFiltradas.length > 0 ? (
                     categoriasFiltradas.map(categoria => (
                         <div key={categoria.id} className="admin-product-row">
                             <div className="admin-row-left">

@@ -1,4 +1,4 @@
-import { useState } from 'react'; // memoria a corto plazo de react
+import { useState, useEffect } from 'react'; // memoria a corto plazo de react
 import { Link } from 'react-router-dom'; // para poder navegar entre paginas
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon'; 
@@ -16,6 +16,12 @@ const ProductPopup = ({ producto, isOpen, onClose }) => {
     
     // Estado para feedback visual en el botón
     const [isAdded, setIsAdded] = useState(false);
+
+    // Resetear cantidad y estado al cambiar de producto
+    useEffect(() => {
+        setCantidad(1);
+        setIsAdded(false);
+    }, [producto]);
 
     if (!producto) return null; // si el producto no existe no se muestra nada del popup
 

@@ -6,6 +6,7 @@ import Input from '../atoms/Input';
 import Button from '../atoms/Button';
 import LogoSVG from '../atoms/LogoSVG';
 import { useCart } from '../../context/CartContext';
+import { getUserName } from '../../utils/formatters';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -21,9 +22,8 @@ const Header = () => {
         }
     };
 
-    // mostramos la barra de busqueda en todas partes excepto en login y register
-    const showSearch = !['/login', '/register'].includes(location.pathname);
-
+    // Identificamos si estamos en una página de autenticación
+    const isAuthPage = ['/login', '/register'].includes(location.pathname);
     return (
         <header className="main-header">
             <div className="header-container">
@@ -32,44 +32,42 @@ const Header = () => {
                     <div><span className="logo-light">IDEA </span><span className="logo-bold">3D</span></div>
                 </Link>
 
-                {showSearch && ( // muestra la barra de busqueda salvo en login/register
-                    <form className="header-search" onSubmit={handleSearch}>
-                        <Input 
-                            name="query" 
-                            placeholder="Buscar productos..."
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                        />
-                        <Button variant="search" type="submit"><Icon name="search" /></Button>
-                    </form>
+                {!isAuthPage && (
+                    <>
+                        <form className="header-search" onSubmit={handleSearch}>
+                            <Input 
+                                name="query" 
+                                placeholder="Buscar productos..."
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                            />
+                            <Button variant="search" type="submit"><Icon name="search" /></Button>
+                        </form>
+
+                        <div className="header-user-actions">
+                            <Link to="/admin" className="header-admin-avatar" title="Panel de Administrador">
+                                <Icon name="user-tie" />
+                            </Link>
+                            
+                            <Link to="/cart" className="header-cart">
+                                <Icon name="shopping-cart" />
+                                <span className="cart-badge" id="cart-badge">
+                                    {cartItemCount}
+                                </span>
+                            </Link>
+
+                            <div className="user-profile">
+                                {user ? (
+                                    <Link to="/profile" className="profile-link">
+                                        <Icon name="user" /> {getUserName(user)}
+                                    </Link>
+                                ) : (
+                                    <Link to="/login">Iniciar Sesión</Link>
+                                )}
+                            </div>
+                        </div>
+                    </>
                 )}
-
-                <div className="header-user-actions">
-                    <Link to="/admin" className="header-admin-avatar" title="Panel de Administrador">
-                        <Icon name="user-tie" />
-                    </Link>
-                    
-                    <Link to="/cart" className="header-cart">
-                        <Icon name="shopping-cart" />
-                        <span className="cart-badge" id="cart-badge">
-                            {cartItemCount}
-                        </span>
-                    </Link>
-
-                    <div className="user-profile">
-                        {user ? (() => {
-                            const namePart = user.email.split('@')[0];
-                            const userName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
-                            return (
-                                <Link to="/profile" className="profile-link">
-                                    <Icon name="user" /> {userName}
-                                </Link>
-                            );
-                        })() : (
-                            <Link to="/login">Iniciar Sesión</Link>
-                        )}
-                    </div>
-                </div>
             </div>
         </header>
     );

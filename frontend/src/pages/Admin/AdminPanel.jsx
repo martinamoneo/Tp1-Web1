@@ -1,14 +1,11 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import Icon from '../../components/atoms/Icon';
+import { getUserName } from '../../utils/formatters';
 import './AdminPanel.css';
 
 const AdminPanel = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    let userName = 'Administrador';
-    if (user && user.email) {
-        const namePart = user.email.split('@')[0];
-        userName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
-    }
+    const userName = getUserName(user);
 
     return (
         <main className="admin-page">

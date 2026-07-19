@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import Title from '../../components/atoms/Title';
 import Icon from '../../components/atoms/Icon';
 import apiService from '../../utils/api';
+import { getUserName } from '../../utils/formatters';
 
 const AdminInicio = () => {
-    const [productsCount, setProductsCount] = useState(<Icon name="spinner" className="fa-spin" />);
-    const [categoriesCount, setCategoriesCount] = useState(<Icon name="spinner" className="fa-spin" />);
+    const [productsCount, setProductsCount] = useState(null);
+    const [categoriesCount, setCategoriesCount] = useState(null);
     
     useEffect(() => {
         // Obtenemos los productos reales de la API para mostrar la cantidad
@@ -30,11 +31,7 @@ const AdminInicio = () => {
     }, []);
 
     const user = JSON.parse(localStorage.getItem('user'));
-    let userName = 'Administrador';
-    if (user && user.email) {
-        const namePart = user.email.split('@')[0];
-        userName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
-    }
+    const userName = getUserName(user);
 
     return (
         <>
@@ -51,7 +48,7 @@ const AdminInicio = () => {
                             <Icon name="box-open" />
                         </div>
                         <div>
-                            <Title level={2} className="admin-card-number">{productsCount}</Title>
+                            <Title level={2} className="admin-card-number">{productsCount === null ? <Icon name="spinner" className="fa-spin" /> : productsCount}</Title>
                             <span className="admin-card-label">Productos</span>
                         </div>
                     </div>
@@ -68,30 +65,13 @@ const AdminInicio = () => {
                             <Icon name="tags" />
                         </div>
                         <div>
-                            <Title level={2} className="admin-card-number">{categoriesCount}</Title>
+                            <Title level={2} className="admin-card-number">{categoriesCount === null ? <Icon name="spinner" className="fa-spin" /> : categoriesCount}</Title>
                             <span className="admin-card-label">Categorías</span>
                         </div>
                     </div>
                     <div className="admin-card-actions">
                         <Link to="/admin/categories" className="btn-secondary">Ver Listado</Link>
-                        <button className="btn-primary">Agregar Categoría</button>
-                    </div>
-                </div>
-
-                {/* Tarjeta Tiendas */}
-                <div className="admin-card">
-                    <div className="admin-card-header">
-                        <div className="admin-card-icon">
-                            <Icon name="shop" />
-                        </div>
-                        <div>
-                            <Title level={2} className="admin-card-number">3</Title>
-                            <span className="admin-card-label">Tiendas</span>
-                        </div>
-                    </div>
-                    <div className="admin-card-actions">
-                        <Link to="/admin/stores" className="btn-secondary">Ver Listado</Link>
-                        <button className="btn-primary">Agregar Tienda</button>
+                        <Link to="/admin/categories/new" className="btn-primary">Agregar Categoría</Link>
                     </div>
                 </div>
 

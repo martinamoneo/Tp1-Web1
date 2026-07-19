@@ -5,28 +5,25 @@ export const formatCategory = (categoria) => {
     
     let cat = categoria.toLowerCase().trim();
     
-    // Diccionario de categorías conocidas para agregar tildes y eñes
+    // Diccionario de categorías principales en plural
     const dictionary = {
         'lamparas': 'Lámparas',
-        'lampara': 'Lámparas',
         'llaveros': 'Llaveros',
-        'llavero': 'Llaveros',
         'mates': 'Mates',
-        'mate': 'Mates',
         'munecos': 'Muñecos',
-        'muñecos': 'Muñecos',
-        'muñeco': 'Muñecos',
-        'muneco': 'Muñecos',
         'soportes': 'Soportes',
-        'soporte': 'Soportes',
         'vasos': 'Vasos',
-        'vaso': 'Vasos',
         'premios': 'Premios',
-        'premio': 'Premios',
-        'otros': 'Otros',
-        'otro': 'Otros'
+        'otros': 'Otros'
     };
     
     // Si está en el diccionario, la devolvemos bonita. Si no, capitalizamos la primera letra.
     return dictionary[cat] || (cat.charAt(0).toUpperCase() + cat.slice(1));
+};
+
+// extrae el nombre del usuario desde el email guardado en localStorage
+export const getUserName = (user) => {
+    if (!user?.email) return 'Administrador';
+    const name = user.email.split('@')[0];
+    return name.charAt(0).toUpperCase() + name.slice(1);
 };

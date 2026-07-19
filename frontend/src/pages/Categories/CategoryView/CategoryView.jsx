@@ -43,7 +43,7 @@ const Categories = () => {
     }, [categoryName]); // se ejecuta cuando cambia la categoriaName
 
     return (
-        <main className="category-page">
+        <div className="category-page">
             <div className="category-breadcrumb-wrapper">
                 <Breadcrumb 
                     items={[
@@ -77,7 +77,7 @@ const Categories = () => {
                     </div>
                 )}
             </section>
-        </main>
+        </div>
     );
 };
 

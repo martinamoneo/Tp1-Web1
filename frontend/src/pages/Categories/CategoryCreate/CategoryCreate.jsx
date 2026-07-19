@@ -4,7 +4,7 @@ import EmptyState from '../../../components/molecules/EmptyState';
 
 const CategoryCreate = () => {
     return (
-        <main className="category-create-page">
+        <div className="category-create-page">
             <div className="page-wrapper">
                 <div className="page-header">
                     <Title level={1} className="title-section">Nueva Categoría</Title>
@@ -20,7 +20,7 @@ const CategoryCreate = () => {
                     </Button>
                 </EmptyState>
             </div>
-        </main>
+        </div>
     );
 };
 

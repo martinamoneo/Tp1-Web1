@@ -7,7 +7,7 @@ import Home from './pages/Home/Home';
 import ProductDetail from './pages/Products/ProductView/ProductView';
 import Categories from './pages/Categories/CategoryView/CategoryView';
 import Cart from './pages/Cart/Cart';
-import Checkout from './pages/Checkout/checkout';
+import Checkout from './pages/Checkout/Checkout';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import Profile from './pages/Auth/Profile';
@@ -24,7 +24,6 @@ import AdminProducts from './pages/Admin/AdminProducts';
 import AdminProductForm from './pages/Admin/AdminProductForm';
 import AdminCategories from './pages/Admin/AdminCategories';
 import CategoryCreate from './pages/Categories/CategoryCreate/CategoryCreate';
-import EmptyState from './components/molecules/EmptyState';
 import SearchResults from './pages/Search/SearchResults';
 
 function App() {
@@ -33,7 +32,7 @@ function App() {
     <CartProvider>
       <Router>  { /* router me permite cambiar la URL sin recargar pagina */} 
       <Header />
-      <main>
+      <div className="app-content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products/:id" element={<ProductDetail />} />
@@ -45,7 +44,6 @@ function App() {
             <Route path="products/:id" element={<AdminProductForm />} />
             <Route path="categories/new" element={<CategoryCreate />} />
             <Route path="categories" element={<AdminCategories />} />
-            <Route path="stores" element={<EmptyState icon="hammer" title="Tiendas" description="Página en construcción" />} />
           </Route>
           <Route path="/categories/:categoryName" element={<Categories />} />
           <Route path="/search" element={<SearchResults />} />
@@ -58,7 +56,7 @@ function App() {
           <Route path="/500" element={<Error500 />} />
           <Route path="*" element={<NotFound404 />} />
         </Routes>
-      </main>
+      </div>
       <Footer />
     </Router>
     </CartProvider>

@@ -44,7 +44,7 @@ const SearchResults = () => {
     }, [query]);
 
     return (
-        <main className="category-page">
+        <div className="category-page">
             <div className="category-breadcrumb-wrapper search-breadcrumb-wrapper">
                 <Breadcrumb 
                     items={[
@@ -77,7 +77,7 @@ const SearchResults = () => {
                     </div>
                 )}
             </section>
-        </main>
+        </div>
     );
 };
 

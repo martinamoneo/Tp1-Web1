@@ -91,7 +91,7 @@ const Register = () => { // componente register
     };
 
     return (
-        <main className="register-container">
+        <div className="register-container">
             <div className="top-banner"></div>
 
             <div className="register-wrapper">
@@ -166,7 +166,7 @@ const Register = () => { // componente register
                     ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
                 </p>
             </div>
-        </main>
+        </div>
     );
 };
 

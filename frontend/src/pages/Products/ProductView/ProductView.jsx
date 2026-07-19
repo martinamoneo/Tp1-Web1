@@ -79,7 +79,7 @@ const ProductDetail = () => {
     let catUrl = catDisplay.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     return (
-        <main className="product-page">
+        <div className="product-page">
             <div className="product-container">
                 <Breadcrumb 
                     items={[
@@ -125,7 +125,7 @@ const ProductDetail = () => {
                     )}
                 </div>
             </div>
-        </main>
+        </div>
     );
 };
 

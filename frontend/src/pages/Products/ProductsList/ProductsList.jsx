@@ -16,9 +16,7 @@ const ProductsList = () => {
         const fetchAllProducts = async () => {
             try {
                 setLoading(true);
-                // Si tienen un endpoint getAllProducts o listProducts lo ideal seria usarlo.
-                // Como placeholder, usamos el de sugeridos del home que trae productos aleatorios.
-                const data = await apiService.getSuggestedProducts();
+                const data = await apiService.getProducts();
                 if (data.productos) {
                     setProductos(data.productos);
                 }
@@ -33,7 +31,7 @@ const ProductsList = () => {
     }, []);
 
     return (
-        <main className="products-list-page">
+        <div className="products-list-page">
             <div className="title-container">
                 <Title level={1} className="title-section">Nuestro Catálogo</Title>
                 <p>Explorá todos nuestros productos.</p>
@@ -55,7 +53,7 @@ const ProductsList = () => {
                     </div>
                 )}
             </section>
-        </main>
+        </div>
     );
 };
 

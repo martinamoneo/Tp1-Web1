@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import Title from '../../components/atoms/Title';
 import EmptyState from '../../components/molecules/EmptyState';
 
 const Checkout = () => {

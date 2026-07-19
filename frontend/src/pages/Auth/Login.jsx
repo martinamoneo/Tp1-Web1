@@ -47,7 +47,7 @@ const Login = () => { // componente login
     };
 
     return (
-        <main className="login-container">
+        <div className="login-container">
             <div className="top-banner"></div>
 
             <div className="login-wrapper">
@@ -94,7 +94,7 @@ const Login = () => { // componente login
                     ¿No tienes cuenta? <Link to="/register">Regístrate</Link>
                 </p>
             </div>
-        </main>
+        </div>
     );
 };
 

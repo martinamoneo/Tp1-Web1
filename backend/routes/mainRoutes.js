@@ -9,6 +9,10 @@ const normalizeId = require('../utils/normalizeId'); // importo el middleware no
 
 router.get('/', mainController.home);
 router.post('/register', mainController.registerProcess);
+router.post('/login', (req, res) => {
+    // Login simulado
+    res.json({ success: true, message: 'Login simulado' });
+});
 
 router.get('/product/:id', normalizeId, mainController.productDetail);
 router.get('/categories/:categoryName', mainController.category);

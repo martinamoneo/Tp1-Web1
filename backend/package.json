@@ -2,7 +2,7 @@
   "name": "tp1-web1",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
@@ -22,8 +22,7 @@
     "better-sqlite3": "^12.10.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "express-session": "^1.19.0"
+    "express": "^5.2.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

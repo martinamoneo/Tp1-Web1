@@ -65,7 +65,7 @@ const Home = () => {
     };
 
     return (
-        <main>
+        <div>
             <CategoryNav />
 
             <HeroBanners />
@@ -126,7 +126,7 @@ const Home = () => {
                 isOpen={isPopupOpen} 
                 onClose={() => setIsPopupOpen(false)} 
             />
-        </main>
+        </div>
     );
 };
 

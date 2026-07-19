@@ -7,7 +7,7 @@ import './ProductDetailSkeleton.css';
 
 const ProductDetailSkeleton = () => {
     return (
-        <main className="product-page">
+        <div className="product-page">
             <div className="product-container">
                 <div className="skeleton-pulse skeleton-breadcrumb"></div>
 
@@ -42,7 +42,7 @@ const ProductDetailSkeleton = () => {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 };
 
