@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS categories (
     id INTEGER PRIMARY KEY AUTOINCREMENT, -- integer = numero entero
-    name TEXT NOT NULL 
+    name TEXT NOT NULL,
+    icon TEXT
 );
 
 CREATE TABLE IF NOT EXISTS products (

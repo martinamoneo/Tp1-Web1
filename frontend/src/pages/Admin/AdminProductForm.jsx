@@ -56,7 +56,14 @@ const AdminProductForm = () => {
         imagen: ''
     });
 
+    const [categoriasList, setCategoriasList] = useState([]);
+
     useEffect(() => {
+        // Cargar categorías disponibles desde la API
+        apiService.getCategories()
+            .then(data => setCategoriasList(Array.isArray(data) ? data : []))
+            .catch(err => console.error("Error cargando categorías", err));
+
         if (isEditMode) {
             // "La lista de productos tiene un estado “Cargando…” cuando la app está esperando datos desde la API."
             apiService.getProductById(id)
@@ -69,7 +76,7 @@ const AdminProductForm = () => {
                         descripcion_corta: productData.descripcionCorta || '',
                         descripcion: productData.descripcion || '',
                         especificaciones: productData.especificaciones || productData.specifications || '',
-                        categoria: mapCategoriaToValue(productData.categoria),
+                        categoria: productData.categoria || '', // Ahora usamos el nombre exacto de la categoría
                         imagen: (productData.imagenes && productData.imagenes[0]) ? productData.imagenes[0] : ''
                     });
                 })
@@ -249,14 +256,9 @@ const AdminProductForm = () => {
                                 <label>Categoría</label>
                                 <select name="categoria" value={formData.categoria} onChange={handleChange} className="form-select" required>
                                     <option value="">Seleccionar categoría</option>
-                                    <option value="mates">Mates</option>
-                                    <option value="vasos">Vasos</option>
-                                    <option value="llaveros">Llaveros</option>
-                                    <option value="soportes">Soportes</option>
-                                    <option value="premios">Premios</option>
-                                    <option value="munecos">Muñecos</option>
-                                    <option value="lamparas">Lámparas</option>
-                                    <option value="otros">Otros</option>
+                                    {categoriasList.map(cat => (
+                                        <option key={cat.id} value={cat.name}>{cat.name}</option>
+                                    ))}
                                 </select>
                             </div>
 

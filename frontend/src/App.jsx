@@ -23,7 +23,7 @@ import AdminInicio from './pages/Admin/AdminInicio';
 import AdminProducts from './pages/Admin/AdminProducts';
 import AdminProductForm from './pages/Admin/AdminProductForm';
 import AdminCategories from './pages/Admin/AdminCategories';
-import CategoryCreate from './pages/Categories/CategoryCreate/CategoryCreate';
+import AdminCategoryForm from './pages/Admin/AdminCategoryForm';
 import SearchResults from './pages/Search/SearchResults';
 
 function App() {
@@ -42,8 +42,9 @@ function App() {
             <Route path="products" element={<AdminProducts />} />
             <Route path="products/new" element={<AdminProductForm />} />
             <Route path="products/:id" element={<AdminProductForm />} />
-            <Route path="categories/new" element={<CategoryCreate />} />
             <Route path="categories" element={<AdminCategories />} />
+            <Route path="categories/new" element={<AdminCategoryForm />} />
+            <Route path="categories/:id" element={<AdminCategoryForm />} />
           </Route>
           <Route path="/categories/:categoryName" element={<Categories />} />
           <Route path="/search" element={<SearchResults />} />

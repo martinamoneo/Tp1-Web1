@@ -1,28 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Title from '../../components/atoms/Title';
 import Input from '../../components/atoms/Input';
 import Icon from '../../components/atoms/Icon';
+import Loader from '../../components/atoms/Loader';
+import useDelayedLoading from '../../hooks/useDelayedLoading';
+import apiService from '../../utils/api';
 import './AdminCategories.css';
 
-// Simulamos las categorías ya que el backend aún no tiene endpoint para listarlas solas con imagen
-const mockCategorias = [
-    { id: 1, nombre: 'Mates', icon: 'whiskey-glass' },
-    { id: 2, nombre: 'Vasos', icon: 'beer' },
-    { id: 3, nombre: 'Llaveros', icon: 'key' },
-    { id: 4, nombre: 'Soportes', icon: 'crop-simple' },
-    { id: 5, nombre: 'Premios', icon: 'trophy' },
-    { id: 6, nombre: 'Muñecos', icon: 'snowman' },
-    { id: 7, nombre: 'Lámparas', icon: 'lightbulb' },
-    { id: 8, nombre: 'Otros', icon: 'gift' }
-];
-
 const AdminCategories = () => {
-    const [categorias] = useState(mockCategorias); // datos mock, no cambian
+    const [categorias, setCategorias] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const showLoading = useDelayedLoading(loading, 200);
     const [busqueda, setBusqueda] = useState('');
 
+    useEffect(() => {
+        apiService.getCategories()
+            .then(data => setCategorias(Array.isArray(data) ? data : []))
+            .catch(err => console.error("Error cargando categorías", err))
+            .finally(() => setLoading(false));
+    }, []);
+
     const categoriasFiltradas = categorias.filter(c => 
-        c.nombre.toLowerCase().includes(busqueda.toLowerCase()) || 
+        c.name.toLowerCase().includes(busqueda.toLowerCase()) || 
         c.id.toString().includes(busqueda)
     );
 
@@ -45,22 +45,24 @@ const AdminCategories = () => {
             </div>
 
             <div className="admin-products-list">
-                {categoriasFiltradas.length > 0 ? (
+                {showLoading ? (
+                    <Loader text="Buscando" words={['categorías', 'íconos', 'nombres']} />
+                ) : categoriasFiltradas.length > 0 ? (
                     categoriasFiltradas.map(categoria => (
-                        <div key={categoria.id} className="admin-product-row">
+                        <Link to={`/admin/categories/${categoria.id}`} key={categoria.id} className="admin-product-row" style={{ textDecoration: 'none' }}>
                             <div className="admin-row-left">
                                 <div className="admin-product-thumb" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f0f0f0', borderRadius: '8px' }}>
-                                    <Icon name={categoria.icon} type={categoria.icon === 'lightbulb' ? 'regular' : 'solid'} style={{ fontSize: '24px', color: 'var(--color-turquesa)' }} />
+                                    <Icon name={categoria.icon || 'tags'} type={categoria.icon === 'lightbulb' ? 'regular' : 'solid'} style={{ fontSize: '24px', color: 'var(--color-turquesa)' }} />
                                 </div>
                                 <div className="admin-product-info">
-                                    <h3 className="admin-product-title">{categoria.nombre}</h3>
+                                    <h3 className="admin-product-title">{categoria.name}</h3>
                                     <span className="admin-product-id">#{categoria.id}</span>
                                 </div>
                             </div>
                             <div className="admin-row-right">
                                 <Icon name="chevron-right" />
                             </div>
-                        </div>
+                        </Link>
                     ))
                 ) : (
                     <div className="admin-empty">No se encontraron categorías.</div>

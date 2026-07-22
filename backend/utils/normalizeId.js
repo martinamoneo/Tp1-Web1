@@ -21,7 +21,7 @@ const normalizeId = (req, res, next) => {
     // busca el id en la BD, si no existe -> error 404
     const producto = productsService.getProductById(parsedId);
     if (!producto) {
-        return res.status(404).json({ success: false, message: 'Producto no encontrado' });
+        return res.status(404).json({ error: 'Producto no encontrado' });
     }
 
     // Si pasamos todas las validaciones, guardamos el id y el producto 

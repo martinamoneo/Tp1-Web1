@@ -24,14 +24,14 @@ const apiService = {
     // obtener productos
     getProducts: (params = {}) => {
         const queryParams = new URLSearchParams(params).toString(); // convierte los parametros en query params
-        const url = queryParams ? `${API_BASE_URL}/?${queryParams}` : `${API_BASE_URL}/`; // crea la url con los query params si existen
+        const url = queryParams ? `${API_BASE_URL}/products?${queryParams}` : `${API_BASE_URL}/products`; // crea la url con los query params si existen
         return fetch(url).then(handleResponse); // retorna la respuesta de la API
     },
     
     // obtener producto por id
     getProductById: (id) => {
         // agrega el ID a la URL y llama a la API
-        return fetch(`${API_BASE_URL}/product/${id}`).then(handleResponse);
+        return fetch(`${API_BASE_URL}/products/${id}`).then(handleResponse);
     },
 
     // obtener productos por categoría
@@ -45,9 +45,41 @@ const apiService = {
         return fetch(`${API_BASE_URL}/search?query=${encodeURIComponent(query)}`).then(handleResponse);
     },
 
+    // --- CATEGORY CRUD (Sprint 4) ---
+    getCategories: () => {
+        return fetch(`${API_BASE_URL}/categories`).then(handleResponse);
+    },
+    getCategoryById: (id) => {
+        return fetch(`${API_BASE_URL}/categories/${id}`).then(handleResponse);
+    },
+    createCategory: (categoryData) => {
+        return fetch(`${API_BASE_URL}/categories`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(categoryData)
+        }).then(handleResponse);
+    },
+    updateCategory: (id, categoryData) => {
+        return fetch(`${API_BASE_URL}/categories/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(categoryData)
+        }).then(handleResponse);
+    },
+    deleteCategory: (id) => {
+        return fetch(`${API_BASE_URL}/categories/${id}`, { method: 'DELETE' }).then(handleResponse);
+    },
+    // --------------------------------
+
+    // --- ESTADÍSTICAS (Sprint 4) ---
+    getStats: () => {
+        return fetch(`${API_BASE_URL}/stats`).then(handleResponse);
+    },
+    // --------------------------------
+
     // Actualizar producto (PUT)
     updateProduct: (id, productData) => {
-        return fetch(`${API_BASE_URL}/products/${id}/edit`, {
+        return fetch(`${API_BASE_URL}/products/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -58,7 +90,7 @@ const apiService = {
 
     // Crear producto (POST)
     createProduct: (productData) => {
-        return fetch(`${API_BASE_URL}/products/new`, {
+        return fetch(`${API_BASE_URL}/products`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +101,7 @@ const apiService = {
 
     // Eliminar producto (DELETE)
     deleteProduct: (id) => {
-        return fetch(`${API_BASE_URL}/products/${id}/delete`, {
+        return fetch(`${API_BASE_URL}/products/${id}`, {
             method: 'DELETE'
         }).then(handleResponse);
     },

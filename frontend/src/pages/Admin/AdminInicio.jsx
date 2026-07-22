@@ -10,18 +10,11 @@ const AdminInicio = () => {
     const [categoriesCount, setCategoriesCount] = useState(null);
     
     useEffect(() => {
-        // Obtenemos los productos reales de la API para mostrar la cantidad
-        apiService.getProducts()
+        // Ahora usamos el endpoint dedicado de estadísticas, que es muchísimo más rápido
+        apiService.getStats()
             .then(data => {
-                const productsArray = data.productos || (Array.isArray(data) ? data : []);
-                if (productsArray.length > 0) {
-                    setProductsCount(productsArray.length);
-                    const uniqueCategories = new Set(productsArray.map(p => p.categoria).filter(Boolean));
-                    setCategoriesCount(uniqueCategories.size);
-                } else {
-                    setProductsCount(0);
-                    setCategoriesCount(0);
-                }
+                setProductsCount(data.totalProducts);
+                setCategoriesCount(data.totalCategories);
             })
             .catch(error => {
                 console.error("Error al obtener productos:", error);

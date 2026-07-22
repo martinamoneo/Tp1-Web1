@@ -26,23 +26,19 @@ const baseQuery = `
     LEFT JOIN categories c ON p.category_id = c.id
 `;
 
-// Diccionario - traduce URL del front a como está guardado en la BD
-const categoryMap = {
-    'mates': 'Mates',
-    'vasos': 'Vasos',
-    'llaveros': 'Llaveros',
-    'soportes': 'Soportes',
-    'premios': 'Premios',
-    'munecos': 'Muñecos',
-    'lamparas': 'Lámparas',
-    'otros': 'Otros'
-};
+// Diccionario eliminado: ahora consultamos la BD dinámicamente
 
 const productsService = {
     // le pide a la BD la lista de productos
     getAllProducts: () => {
         const rows = db.prepare(baseQuery).all();
         return rows.map(mapRowToProduct);
+    },
+
+    // obtiene la cantidad total de productos
+    getCount: () => {
+        const row = db.prepare('SELECT COUNT(*) as count FROM products').get();
+        return row.count;
     },
 
     // recibe el ID y te devuelve el producto q corresponde
@@ -53,11 +49,12 @@ const productsService = {
 
     // busca productos por categoria
     getProductsByCategoryName: (categoryName) => {
-        const mappedCategory = categoryMap[categoryName];
-        // si no existe la categoría, devuelve null
-        if (!mappedCategory) return null;
+        // busca la categoría en la BD ignorando mayúsculas/minúsculas
+        const catRow = db.prepare('SELECT name FROM categories WHERE LOWER(name) = ?').get(categoryName.toLowerCase());
+        if (!catRow) return null;
+        
         // busca todos los productos de esa categoría
-        const rows = db.prepare(`${baseQuery} WHERE c.name = ?`).all(mappedCategory);
+        const rows = db.prepare(`${baseQuery} WHERE c.name = ?`).all(catRow.name);
         // convierte los productos a como los espera el código
         return rows.map(mapRowToProduct);
     },
@@ -78,10 +75,7 @@ const productsService = {
     getCategoryId: (frontendCategory) => {
         if (!frontendCategory) return null;
         
-        const dbCategoryName = categoryMap[frontendCategory.toLowerCase()];
-        if (!dbCategoryName) return null;
-
-        const row = db.prepare('SELECT id FROM categories WHERE name = ?').get(dbCategoryName);
+        const row = db.prepare('SELECT id FROM categories WHERE LOWER(name) = ?').get(frontendCategory.toLowerCase());
         return row ? row.id : null;
     },
 
@@ -147,4 +141,3 @@ const productsService = {
 };
 
 module.exports = productsService;
-module.exports.categoryMap = categoryMap;
