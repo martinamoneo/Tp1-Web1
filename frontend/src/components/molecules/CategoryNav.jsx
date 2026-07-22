@@ -1,29 +1,51 @@
 // barra de categorias
 
 import './CategoryNav.css';
-import { useNavigate } from 'react-router-dom'; // hook para q la pag no se recarge cuando cambias
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Icon from '../atoms/Icon';
+import apiService from '../../utils/api';
 
 const CategoryNav = () => {
-    const navigate = useNavigate(); // constante para navegar entre rutas 
+    const navigate = useNavigate();
+    const [categorias, setCategorias] = useState([]);
+    const [isPeeking, setIsPeeking] = useState(false);
 
-    const goToCategory = (category) => { // funcion para q cambie la url
-        navigate(`/categories/${category}`);
+    useEffect(() => {
+        apiService.getCategories()
+            .then(data => {
+                setCategorias(Array.isArray(data) ? data : []);
+                
+                // Dispara la animación CSS después de cargar
+                setTimeout(() => {
+                    setIsPeeking(true);
+                    
+                    // Removemos la clase después de 2 segundos (cuando termina la animación)
+                    setTimeout(() => {
+                        setIsPeeking(false);
+                    }, 2000);
+                }, 800);
+            })
+            .catch(err => console.error("Error cargando categorías", err));
+    }, []);
+
+    const goToCategory = (categoryName) => {
+        navigate(`/categories/${categoryName.toLowerCase()}`);
     };
 
     return (
         <section className="categories-container">
             <nav className="categories-nav">
-                <ul className="categories-list">
-                    <li onClick={() => goToCategory('mates')}><Icon name="whiskey-glass" /><span>Mates</span></li>
-                    <li onClick={() => goToCategory('vasos')}><Icon name="beer" /><span>Vasos</span></li>
-                    <li onClick={() => goToCategory('llaveros')}><Icon name="key" /><span>Llaveros</span></li>
-                    <li onClick={() => goToCategory('soportes')}><Icon name="crop-simple" /><span>Soportes</span></li>
-                    <li onClick={() => goToCategory('premios')}><Icon name="trophy" /><span>Premios</span></li>
-                    <li onClick={() => goToCategory('munecos')}><Icon name="snowman" /><span>Muñecos</span></li>
-                    <li onClick={() => goToCategory('lamparas')}><Icon type="regular" name="lightbulb" /><span>Lámparas</span></li>
-                    <li onClick={() => goToCategory('otros')}><Icon name="gift" /><span>Otros</span></li>
-                </ul>
+                <div className="categories-list">
+                    <ul className={`categories-track ${isPeeking ? 'sneak-peek-anim' : ''}`}>
+                        {categorias.map(cat => (
+                            <li key={cat.id} onClick={() => goToCategory(cat.name)}>
+                                <Icon name={cat.icon || 'tags'} type={cat.icon === 'lightbulb' ? 'regular' : 'solid'} />
+                                <span>{cat.name}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </nav>
         </section>
     );

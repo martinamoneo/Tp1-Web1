@@ -7,19 +7,33 @@
 
 .categories-list {
     background-color: #2c3e50;
-    display: flex;
-    list-style: none;
     padding: 15px 20px;
     border-radius: 30px;
     width: 100%;
     max-width: 1100px;
     overflow-x: auto;
-    gap: 8px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.categories-list li {
-    flex: 1;
+.categories-list::-webkit-scrollbar {
+    display: none;
+}
+
+.categories-track {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    gap: 8px;
+}
+
+.categories-track li {
+    flex: 0 0 calc((100% - (15px * 7)) / 8);
     min-width: 75px;
     display: flex;
     flex-direction: column;
@@ -33,19 +47,41 @@
     text-align: center;
 }
 
-.categories-list li:last-child {
+.categories-track li:last-child {
     border-right: none;
 }
 
-.categories-list li i {
+.categories-track li i {
     font-size: 26px;
 }
 
-.categories-list li span {
+.categories-track li span {
     font-size: 13px;
     font-weight: 500;
 }
 
-.categories-list li:hover {
+.categories-track li:hover {
     color: #1abc9c;
+}
+
+/* ==========================================
+   ANIMACIÓN SNEAK PEEK (SÚPER SUAVE)
+   ========================================== */
+.sneak-peek-anim {
+    /* 1.5s = Duración total. 
+       cubic-bezier = Curva de aceleración (arranca y frena muuuuy suave) */
+    animation: sneakPeek 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes sneakPeek {
+    0% {
+        transform: translateX(0);
+    }
+    40% {
+        /* Desplaza la barra 80px a la izquierda, mostrando lo de la derecha */
+        transform: translateX(-80px);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
