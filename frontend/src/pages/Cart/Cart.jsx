@@ -1,4 +1,4 @@
-import './cart.css';
+import './Cart.css';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';

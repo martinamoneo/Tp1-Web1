@@ -1,4 +1,4 @@
-import './login-register.css';
+import './Auth.css';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import apiService from '../../utils/api';
@@ -133,18 +133,20 @@ const Register = () => { // componente register
                             {errors.email && <small className="error-msg">{errors.email}</small>}
                         </div>
 
-                        <div className="form-group password-container">
-                            <Input 
-                                type={showPassword ? "text" : "password"} 
-                                name="password" 
-                                placeholder="Tu contraseña" 
-                                value={formData.password}
-                                className={errors.password ? 'invalid' : ''}
-                                onChange={handleChange}
-                            />
-                            <Button variant="eye" type="button" onClick={() => setShowPassword(!showPassword)}>
-                                <Icon type="regular" name={showPassword ? 'eye-slash' : 'eye'} className="fa-fw" />
-                            </Button>
+                        <div className="form-group">
+                            <div className="password-container">
+                                <Input 
+                                    type={showPassword ? "text" : "password"} 
+                                    name="password" 
+                                    placeholder="Tu contraseña" 
+                                    value={formData.password}
+                                    className={errors.password ? 'invalid' : ''}
+                                    onChange={handleChange}
+                                />
+                                <Button variant="eye" type="button" onClick={() => setShowPassword(!showPassword)}>
+                                    <Icon type="regular" name={showPassword ? 'eye-slash' : 'eye'} className="fa-fw" />
+                                </Button>
+                            </div>
                             {errors.password && (
                                 <div className="register-password-requirements">
                                     {Array.isArray(errors.password) ? (

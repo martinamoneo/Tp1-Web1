@@ -1,13 +1,15 @@
-import './login-register.css';
+import './Auth.css';
 import { useState } from 'react'; // hook para q react se acuerde de lo q el usuario escribe
 import { Link } from 'react-router-dom'; // para crear enlaces sin recargar
 import Title from '../../components/atoms/Title'; // componente title
 import Input from '../../components/atoms/Input';
 import Button from '../../components/atoms/Button';
+import Icon from '../../components/atoms/Icon';
 
 const Login = () => { // componente login
     const [email, setEmail] = useState(''); // hook para guardar el email
     const [password, setPassword] = useState(''); // hook para guardar la contraseña
+    const [showPassword, setShowPassword] = useState(false); // hook para mostrar/ocultar contraseña
     const [errors, setErrors] = useState({}); // hook para guardar los errores
 
     const validate = () => {
@@ -61,18 +63,23 @@ const Login = () => { // componente login
                         </div>
 
                         <div className="form-group">
-                            <Input 
-                                type="password" 
-                                id="password" 
-                                name="password" 
-                                placeholder="Tu contraseña" 
-                                value={password}
-                                className={errors.password ? 'invalid' : ''}
-                                onChange={(e) => {
-                                    setPassword(e.target.value);
-                                    if (errors.password) setErrors(prev => ({ ...prev, password: null }));
-                                }}
-                            />
+                            <div className="password-container">
+                                <Input 
+                                    type={showPassword ? "text" : "password"} 
+                                    id="password" 
+                                    name="password" 
+                                    placeholder="Tu contraseña" 
+                                    value={password}
+                                    className={errors.password ? 'invalid' : ''}
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                        if (errors.password) setErrors(prev => ({ ...prev, password: null }));
+                                    }}
+                                />
+                                <Button variant="eye" type="button" onClick={() => setShowPassword(!showPassword)}>
+                                    <Icon type="regular" name={showPassword ? 'eye-slash' : 'eye'} className="fa-fw" />
+                                </Button>
+                            </div>
                             {errors.password && <small className="error-msg">{errors.password}</small>}
                         </div>
 

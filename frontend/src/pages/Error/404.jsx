@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import './error.css';
+import './Error.css';
 
 const NotFound404 = () => {
     return (
