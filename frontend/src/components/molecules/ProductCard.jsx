@@ -25,7 +25,6 @@ const ProductCard = ({ producto, onCardClick }) => {
     return (
         <article 
             className={`product-card ${isOutOfStock ? 'sin-stock' : ''}`}
-            onClick={handleClick}
         >
             <div className="product-image">
                 <Image 
@@ -42,6 +41,9 @@ const ProductCard = ({ producto, onCardClick }) => {
                     <p className="product-price">{producto.puntos} PUNTOS</p>
                 </div>
             </div>
+            
+            {/* Botón que aparece en hover */}
+            <button className="product-card-btn" onClick={handleClick}>Ver detalle</button>
         </article>
     );
 };

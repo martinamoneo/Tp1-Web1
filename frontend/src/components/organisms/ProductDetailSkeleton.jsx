@@ -1,8 +1,4 @@
 // pagina de carga
-import '../../pages/Products/ProductView/ProductView.css';
-import '../../pages/Products/ProductView/components/ProductGallery.css';
-import '../../pages/Products/ProductView/components/ProductInfo.css';
-import '../molecules/ProductSkeleton.css';
 import './ProductDetailSkeleton.css';
 
 const ProductDetailSkeleton = () => {

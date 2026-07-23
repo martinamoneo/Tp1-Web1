@@ -12,7 +12,8 @@ const Profile = () => {
     // Si alguien entra a /profile por la URL sin estar logueado, lo mandamos al login
     useEffect(() => {
         if (!user) navigate('/login');
-    }, [user, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Solo al montar el componente
 
     if (!user) return null;
 

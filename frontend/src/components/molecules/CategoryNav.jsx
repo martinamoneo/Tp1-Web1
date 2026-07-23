@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from '../atoms/Icon';
 import apiService from '../../utils/api';
+import { createSlug } from '../../utils/formatters';
 
 const CategoryNav = () => {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ const CategoryNav = () => {
     }, []);
 
     const goToCategory = (categoryName) => {
-        navigate(`/categories/${categoryName.toLowerCase()}`);
+        navigate(`/categories/${createSlug(categoryName)}`);
     };
 
     return (

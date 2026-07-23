@@ -20,12 +20,12 @@ router.get('/stats', statsApiController.getStats);
 
 // Rutas Categories
 router.get('/categories', categoriesApiController.getAll);
-router.get('/categories/:id', categoriesApiController.getById); // Usamos next() en el controlador si no es número
+router.get('/categories/id/:id', categoriesApiController.getById); // Administrador busca categoría por ID
 router.post('/categories', categoriesApiController.create);
-router.put('/categories/:id', categoriesApiController.update);
-router.delete('/categories/:id', categoriesApiController.delete);
+router.put('/categories/id/:id', categoriesApiController.update);
+router.delete('/categories/id/:id', categoriesApiController.delete);
 
-router.get('/categories/:categoryName', productsApiController.category);
+router.get('/categories/:categoryName', productsApiController.category); // productos de una categoría por nombre
 router.get('/500', productsApiController.error500);
 router.get('/search', productsApiController.search);
 

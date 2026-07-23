@@ -8,7 +8,6 @@ import useDelayedLoading from '../../hooks/useDelayedLoading';
 import CategoryNav from '../../components/molecules/CategoryNav';
 import Breadcrumb from '../../components/molecules/Breadcrumb';
 import apiService from '../../utils/api';
-import '../Categories/CategoryView/CategoryView.css';
 import './SearchResults.css';
 
 const SearchResults = () => {

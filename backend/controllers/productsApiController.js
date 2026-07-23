@@ -1,6 +1,5 @@
 // Controlador dedicado a la API, siempre responde con JSON
 const productsService = require('../services/productsService');
-const { categoryMap } = require('../services/productsService');
 
 const apiController = {
     home: (req, res) => {
@@ -34,8 +33,7 @@ const apiController = {
     },
     
     registerProcess: (req, res) => {
-        const { nombre, apellido, email, password } = req.body;
-        console.log(nombre, apellido, email, password);
+        // Registro simulado: no se guarda en la BD por ahora
         res.status(201).json({ success: true, message: 'Usuario registrado exitosamente' });
     },
 
@@ -54,17 +52,15 @@ const apiController = {
     category: (req, res) => {
         const categoryName = req.params.categoryName.toLowerCase();
         
-        const productosFiltrados = productsService.getProductsByCategoryName(categoryName);
+        const result = productsService.getProductsByCategoryName(categoryName);
 
-        if (!productosFiltrados) {
+        if (!result) {
             return res.status(404).json({ error: 'Categoría no encontrada' });
         }
 
-        const displayCategoryName = categoryMap[categoryName] || categoryName;
-
         res.json({
-            categoriaNombre: displayCategoryName,
-            productos: productosFiltrados
+            categoriaNombre: result.categoriaNombre,
+            productos: result.productos
         });
     },
 

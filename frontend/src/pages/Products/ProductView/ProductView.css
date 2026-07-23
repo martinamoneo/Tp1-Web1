@@ -2,6 +2,11 @@
     background-color: var(--color-fondo);
 }
 
+/* Acercar el breadcrumb al producto achicando su margen inferior por defecto */
+.product-container .breadcrumb-molecule {
+    margin-bottom: 1rem; /* El original es 1.5rem, lo achicamos para juntarlo */
+}
+
 .product-loading {
     min-height: 60vh;
     padding: 2rem;
@@ -17,7 +22,7 @@
 .product-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 155px;
+    padding: 70px 155px;
     font-family: 'Montserrat', sans-serif;
 }
 

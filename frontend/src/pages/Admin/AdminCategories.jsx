@@ -5,8 +5,9 @@ import Input from '../../components/atoms/Input';
 import Icon from '../../components/atoms/Icon';
 import Loader from '../../components/atoms/Loader';
 import useDelayedLoading from '../../hooks/useDelayedLoading';
+
 import apiService from '../../utils/api';
-import './AdminCategories.css';
+import './AdminTable.css';
 
 const AdminCategories = () => {
     const [categorias, setCategorias] = useState([]);
@@ -30,7 +31,7 @@ const AdminCategories = () => {
         <div className="admin-products-view">
             <div className="page-header admin-page-header">
                 <Title level={1} className="title-section">Categorías</Title>
-                <div className="admin-products-actions">
+                <div className="admin-table-actions">
                     <div className="admin-search-wrapper">
                         <Input 
                             type="text" 
@@ -44,19 +45,19 @@ const AdminCategories = () => {
                 </div>
             </div>
 
-            <div className="admin-products-list">
+            <div className="admin-table-list">
                 {showLoading ? (
                     <Loader text="Buscando" words={['categorías', 'íconos', 'nombres']} />
                 ) : categoriasFiltradas.length > 0 ? (
                     categoriasFiltradas.map(categoria => (
-                        <Link to={`/admin/categories/${categoria.id}`} key={categoria.id} className="admin-product-row" style={{ textDecoration: 'none' }}>
+                        <Link to={`/admin/categories/${categoria.id}`} key={categoria.id} className="admin-table-row" style={{ textDecoration: 'none' }}>
                             <div className="admin-row-left">
-                                <div className="admin-product-thumb" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f0f0f0', borderRadius: '8px' }}>
+                                <div className="admin-table-thumb" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f0f0f0', borderRadius: '8px' }}>
                                     <Icon name={categoria.icon || 'tags'} type={categoria.icon === 'lightbulb' ? 'regular' : 'solid'} style={{ fontSize: '24px', color: 'var(--color-turquesa)' }} />
                                 </div>
                                 <div className="admin-product-info">
-                                    <h3 className="admin-product-title">{categoria.name}</h3>
-                                    <span className="admin-product-id">#{categoria.id}</span>
+                                    <h3 className="admin-table-title">{categoria.name}</h3>
+                                    <span className="admin-table-id">#{categoria.id}</span>
                                 </div>
                             </div>
                             <div className="admin-row-right">

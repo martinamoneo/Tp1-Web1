@@ -12,21 +12,7 @@ import ConfirmModal from '../../components/molecules/ConfirmModal';
 import AlertModal from '../../components/molecules/AlertModal';
 import apiService from '../../utils/api';
 import { formatCategory } from '../../utils/formatters';
-import './AdminProductForm.css';
-
-const mapCategoriaToValue = (catString) => {
-    if (!catString) return '';
-    const str = catString.toLowerCase();
-    if (str.includes('mate')) return 'mates';
-    if (str.includes('vaso')) return 'vasos';
-    if (str.includes('llavero')) return 'llaveros';
-    if (str.includes('soporte')) return 'soportes';
-    if (str.includes('premio')) return 'premios';
-    if (str.includes('muñeco') || str.includes('muneco')) return 'munecos';
-    if (str.includes('lámpara') || str.includes('lampara')) return 'lamparas';
-    if (str.includes('otro')) return 'otros';
-    return '';
-};
+import './AdminForm.css';
 
 const AdminProductForm = () => {
     const { id } = useParams(); // Si hay id, estamos editando. Si no hay, estamos creando.

@@ -18,6 +18,11 @@ body {
     margin: 0;
 }
 
+/* Fuerza a los elementos de formulario a heredar la fuente del body en toda la web */
+input, button, select, textarea {
+    font-family: inherit;
+}
+
 #root {
     display: flex;
     flex-direction: column;

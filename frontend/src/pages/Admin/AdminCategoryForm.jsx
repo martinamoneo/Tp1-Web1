@@ -10,7 +10,7 @@ import Breadcrumb from '../../components/molecules/Breadcrumb';
 import ConfirmModal from '../../components/molecules/ConfirmModal';
 import AlertModal from '../../components/molecules/AlertModal';
 import apiService from '../../utils/api';
-import './AdminProductForm.css'; // Usamos el mismo CSS para aprovechar la grilla
+import './AdminForm.css'; // CSS compartido para formularios de admin
 
 const AdminCategoryForm = () => {
     const { id } = useParams();

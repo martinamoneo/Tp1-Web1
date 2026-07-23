@@ -14,7 +14,7 @@ import ProductGallery from './components/ProductGallery';
 import ProductInfo from './components/ProductInfo';
 import ProductTabs from './components/ProductTabs';
 import Breadcrumb from '../../../components/molecules/Breadcrumb';
-import { formatCategory } from '../../../utils/formatters';
+import { formatCategory, createSlug } from '../../../utils/formatters';
 
 const ProductDetail = () => {
     const { addToCart } = useCart();
@@ -76,18 +76,18 @@ const ProductDetail = () => {
     if (!producto) return null;
 
     let catDisplay = formatCategory(producto.categoria); 
-    let catUrl = catDisplay.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    let catUrl = createSlug(catDisplay);
 
     return (
         <div className="product-page">
             <div className="product-container">
-                <Breadcrumb 
-                    items={[
-                        { label: 'Home', link: '/' },
-                        { label: catDisplay, link: `/categories/${catUrl}` },
-                        { label: producto.nombre.toLowerCase() }
-                    ]} 
-                />
+                    <Breadcrumb 
+                        items={[
+                            { label: 'Home', link: '/' },
+                            { label: catDisplay, link: `/categories/${catUrl}` },
+                            { label: producto.nombre.toLowerCase() }
+                        ]} 
+                    />
 
                 <div className="product-main">
                     <ProductGallery 

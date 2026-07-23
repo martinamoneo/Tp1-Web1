@@ -2,6 +2,14 @@
 // es el unico archivo que lo hace
 const db = require('../db/database');
 
+// crea un slug seguro para URLs (sin tildes, minúsculas, espacios por guiones)
+const toSlug = (text) => {
+    if (!text) return '';
+    return text.toString().toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .trim().replace(/\s+/g, '-').replace(/[^\w-]+/g, '').replace(/--+/g, '-');
+};
+
 // traduce lo q que está en la BD a lo que el código espera
 const mapRowToProduct = (row) => {
     if (!row) return null;
@@ -48,15 +56,20 @@ const productsService = {
     },
 
     // busca productos por categoria
-    getProductsByCategoryName: (categoryName) => {
-        // busca la categoría en la BD ignorando mayúsculas/minúsculas
-        const catRow = db.prepare('SELECT name FROM categories WHERE LOWER(name) = ?').get(categoryName.toLowerCase());
+    getProductsByCategoryName: (categorySlug) => {
+        // busca todas las categorías para encontrar la que coincide con el slug
+        const categorias = db.prepare('SELECT name FROM categories').all();
+        const catRow = categorias.find(c => toSlug(c.name) === categorySlug);
+        
         if (!catRow) return null;
         
         // busca todos los productos de esa categoría
         const rows = db.prepare(`${baseQuery} WHERE c.name = ?`).all(catRow.name);
-        // convierte los productos a como los espera el código
-        return rows.map(mapRowToProduct);
+        // devuelve los productos y el nombre real de la categoría (como está en la BD)
+        return {
+            categoriaNombre: catRow.name,
+            productos: rows.map(mapRowToProduct)
+        };
     },
 
     // Buscar producto por nombre (barra de busqueda)

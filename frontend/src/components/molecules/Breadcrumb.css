@@ -6,7 +6,7 @@
     gap: 8px; /* Espaciado entre elementos */
     font-size: 1rem;
     color: var(--color-gris, #4a4d4e);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .breadcrumb-item-container {

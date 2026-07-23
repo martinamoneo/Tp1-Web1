@@ -8,8 +8,8 @@ const API_BASE_URL = `${SERVER_URL}/api`; // se guarda la url de la API para usa
 const handleResponse = async (response) => {
     if (!response.ok) { // si la respuesta no es exitosa
         if (response.status === 500) { // si el error es 500
-            window.location.href = '/500'; // manda a la pantalla de error 500
-            return;
+            window.dispatchEvent(new CustomEvent('server-error')); // dispara un evento personalizado para que el enrutador de react maneje la redireccion sin recargar la pagina
+            throw new Error('Error interno del servidor'); // corta la cadena de promesas
         }
         // intenta convertir la respuesta a JSON, si hay un error, devuelve un objeto vacío
         const errorData = await response.json().catch(() => ({})); 
@@ -50,7 +50,7 @@ const apiService = {
         return fetch(`${API_BASE_URL}/categories`).then(handleResponse);
     },
     getCategoryById: (id) => {
-        return fetch(`${API_BASE_URL}/categories/${id}`).then(handleResponse);
+        return fetch(`${API_BASE_URL}/categories/id/${id}`).then(handleResponse);
     },
     createCategory: (categoryData) => {
         return fetch(`${API_BASE_URL}/categories`, {
@@ -60,14 +60,14 @@ const apiService = {
         }).then(handleResponse);
     },
     updateCategory: (id, categoryData) => {
-        return fetch(`${API_BASE_URL}/categories/${id}`, {
+        return fetch(`${API_BASE_URL}/categories/id/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(categoryData)
         }).then(handleResponse);
     },
     deleteCategory: (id) => {
-        return fetch(`${API_BASE_URL}/categories/${id}`, { method: 'DELETE' }).then(handleResponse);
+        return fetch(`${API_BASE_URL}/categories/id/${id}`, { method: 'DELETE' }).then(handleResponse);
     },
     // --------------------------------
 

@@ -1,6 +1,7 @@
 // contiene todas las rutas
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // cambiar URL sin recargar pagina
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'; // cambiar URL sin recargar pagina
+import { useEffect } from 'react';
 import Header from './components/organisms/Header';
 import Footer from './components/organisms/Footer';
 import Home from './pages/Home/Home';
@@ -26,11 +27,23 @@ import AdminCategories from './pages/Admin/AdminCategories';
 import AdminCategoryForm from './pages/Admin/AdminCategoryForm';
 import SearchResults from './pages/Search/SearchResults';
 
+// Componente para escuchar el evento de error 500 de la api
+const GlobalErrorHandler = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const handler = () => navigate('/500');
+    window.addEventListener('server-error', handler);
+    return () => window.removeEventListener('server-error', handler);
+  }, [navigate]);
+  return null;
+};
+
 function App() {
   return (
     /* se envuelve en un cartprovider para q cualquier componente pueda pedir/mandar datos al carrito */ 
     <CartProvider>
       <Router>  { /* router me permite cambiar la URL sin recargar pagina */} 
+      <GlobalErrorHandler />
       <Header />
       <div className="app-content">
         <Routes>

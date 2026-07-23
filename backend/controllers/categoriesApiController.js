@@ -10,12 +10,9 @@ const categoriesApiController = {
             res.status(500).json({ error: 'Error interno del servidor' });
         }
     },
-    getById: (req, res, next) => {
+    getById: (req, res) => {
         try {
-            const id = parseInt(req.params.id);
-            if (isNaN(id)) {
-                return next(); // Si no es un número, pasamos a la siguiente ruta (que es /:categoryName)
-            }
+            const id = parseInt(req.params.id, 10);
             const category = categoriesService.getById(id);
             if (!category) {
                 return res.status(404).json({ error: 'Categoría no encontrada' });

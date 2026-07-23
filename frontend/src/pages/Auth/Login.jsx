@@ -1,7 +1,6 @@
 import './login-register.css';
 import { useState } from 'react'; // hook para q react se acuerde de lo q el usuario escribe
-import { Link, useNavigate } from 'react-router-dom'; // hook para navegar entre rutas sin recargar página
-import apiService from '../../utils/api'; // para comunicarse con el back
+import { Link } from 'react-router-dom'; // para crear enlaces sin recargar
 import Title from '../../components/atoms/Title'; // componente title
 import Input from '../../components/atoms/Input';
 import Button from '../../components/atoms/Button';
@@ -10,7 +9,6 @@ const Login = () => { // componente login
     const [email, setEmail] = useState(''); // hook para guardar el email
     const [password, setPassword] = useState(''); // hook para guardar la contraseña
     const [errors, setErrors] = useState({}); // hook para guardar los errores
-    const navigate = useNavigate(); // hook para navegar entre rutas sin recargar página
 
     const validate = () => {
         const newErrors = {};
@@ -23,7 +21,7 @@ const Login = () => { // componente login
         return newErrors;
     };
 
-    const handleSubmit = async (e) => { // función que se ejecuta cuando se presiona enviar
+    const handleSubmit = (e) => { // función que se ejecuta cuando se presiona enviar
         e.preventDefault(); // evita que el formulario se envíe solo
         
         const validationErrors = validate(); // valida que los campos esten llenos y que el email sea valido
@@ -32,18 +30,9 @@ const Login = () => { // componente login
             return; // no continua
         }
         
-        try { // inicio de sesion simulado, en realidad no va a llegar nunca al back 
-            await apiService.login({ email, password }); // intenta iniciar sesión
-            
-            // Login exitoso
-            localStorage.setItem('user', JSON.stringify({ email }));
-            window.location.href = '/';
-        } catch (error) {
-            console.error('Error al iniciar sesión:', error);
-            // por mas que haya un error te va a mostrar que se inicio sesion
-            localStorage.setItem('user', JSON.stringify({ email }));
-            window.location.href = '/';
-        }
+        // Login simulado: siempre exitoso
+        localStorage.setItem('user', JSON.stringify({ email }));
+        window.location.href = '/'; // recarga la pagina para que el header se entere del cambio de usuario
     };
 
     return (

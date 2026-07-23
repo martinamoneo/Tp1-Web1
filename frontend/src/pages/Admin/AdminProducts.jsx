@@ -7,7 +7,7 @@ import Image from '../../components/atoms/Image';
 import Loader from '../../components/atoms/Loader';
 import useDelayedLoading from '../../hooks/useDelayedLoading';
 import apiService from '../../utils/api';
-import './AdminProducts.css';
+import './AdminTable.css';
 
 const AdminProducts = () => {
     const [productos, setProductos] = useState([]);
@@ -34,7 +34,7 @@ const AdminProducts = () => {
         <>
             <div className="page-header admin-page-header">
                 <Title level={1} className="title-section">Productos</Title>
-                <div className="admin-products-actions">
+                <div className="admin-table-actions">
                     <div className="admin-search-wrapper">
                         <Input 
                             type="text" 
@@ -48,7 +48,7 @@ const AdminProducts = () => {
                 </div>
             </div>
 
-            <div className="admin-products-list">
+            <div className="admin-table-list">
                 {showLoading ? (
                     <Loader 
                         text="Buscando" 
@@ -56,17 +56,17 @@ const AdminProducts = () => {
                     />
                 ) : productosFiltrados.length > 0 ? (
                     productosFiltrados.map(producto => (
-                        <Link to={`/admin/products/${producto.id}`} key={producto.id} className="admin-product-row" style={{ textDecoration: 'none' }}>
+                        <Link to={`/admin/products/${producto.id}`} key={producto.id} className="admin-table-row" style={{ textDecoration: 'none' }}>
                             <div className="admin-row-left">
-                                <div className="admin-product-thumb">
+                                <div className="admin-table-thumb">
                                     <Image 
                                         src={producto.imagenes && producto.imagenes[0] ? producto.imagenes[0] : null} 
                                         alt={producto.nombre} 
                                     />
                                 </div>
                                 <div className="admin-product-info">
-                                    <h3 className="admin-product-title">{producto.nombre}</h3>
-                                    <span className="admin-product-id">#{producto.id}</span>
+                                    <h3 className="admin-table-title">{producto.nombre}</h3>
+                                    <span className="admin-table-id">#{producto.id}</span>
                                 </div>
                             </div>
                             <div className="admin-row-right">

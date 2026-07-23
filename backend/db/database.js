@@ -3,7 +3,7 @@ const path = require('path'); // importa path para manejar las rutas de los arch
 const fs = require('fs'); // importa filesystem para leer archivos desde el disco
 
 const dbPath = path.join(__dirname, 'ecommerce.db'); // hace la ruta completa hacia el archivo de la base de datos
-const db = new Database(dbPath, { verbose: console.log }); // abre el archivo ecommerce.db y muestra las conusltas con verbose: console.log
+const db = new Database(dbPath); // abre el archivo ecommerce.db
 
 // inicializa la base de datos usando schema.sql
 const schemaPath = path.join(__dirname, 'schema.sql'); // hace la ruta hacia el archivo schema.sql
