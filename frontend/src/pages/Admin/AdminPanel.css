@@ -50,25 +50,26 @@
 }
 
 .admin-menu a {
-    padding: 0.8rem 1rem;
-    border-radius: 8px;
-    transition: all 0.2s ease;
+    padding: 1rem; /* p-4 */
+    border-radius: 9999px; /* rounded-full */
+    transition: all 0.2s linear; /* transition-all ease-linear */
     display: flex;
-    gap: 12px;
+    gap: 1rem; /* gap-4 */
     align-items: center;
-    color: var(--color-gris, #4a4d4e);
-    font-weight: 500;
+    color: #374151; /* text-gray-700 */
+    font-weight: 600; /* font-semibold */
     text-decoration: none;
     width: 100%;
     box-sizing: border-box;
 }
 
 .admin-menu a:hover {
-    background-color: #f5f5f5;
+    background-color: #bdebe2; /* Un turquesa súper clarito en lugar del lila */
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); /* shadow-inner */
 }
 
 .admin-menu a.active-link {
-    background-color: var(--color-turquesa, #1abc9c);
+    background: var(--color-turquesa);
     color: white;
 }
 
